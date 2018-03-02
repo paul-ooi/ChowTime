@@ -123,4 +123,17 @@ function validateDropdownRadio($selected, $arr) {
     }
 }
 
+// JESSICA WONG - ALPHA ONLY VALIDATION
+function validateAlphaOnly($regEx, $text) {
+    if(empty($text)) {
+        throw new Exception("Please enter text");
+        return false;
+    } else if (!preg_match($regEx, $text)) {
+        throw new Exception("Please enter valid text");
+        return false;
+    } else {
+        return 1;
+    }
+}
+
 }//End Validation Class
