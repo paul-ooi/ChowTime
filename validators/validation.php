@@ -9,7 +9,7 @@ class Validation {
 
     // Numbers Only Validation - Sophia Vong
     public function number($numbParam){
-        $numbRegex = '/^\d*$/';
+        $numbRegex = '/^\d+$/';
         $numbMatch = preg_match($numbRegex, $numbParam);
         return $numbMatch; // Returns 1 or 0 for true or false
     }
@@ -87,5 +87,5 @@ class Validation {
       }
     }//end password function
 
-    
+
 }//End Validation Class
