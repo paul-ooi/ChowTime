@@ -87,5 +87,40 @@ class Validation {
       }
     }//end password function
 
+// JESSICA WONG - CHECKBOX VALIDATION
+function validateCheckBox($check, $numCheck, $arr) {
+    // SEE IF SOMETHING HAS BEEN CHECKED
+    if(empty($check)) {
+        throw new Exception("Please select");
+        return false;
+    } if (!(count($check) >= $numCheck)) {
+        throw new Exception("Please select at least two");
+        return false;
+    }
+        else {
+        // CHECK THAT SELECTED VALUES ARE ACTUALLY VALUES FROM THE CHECKBOX ARRAY
+        foreach($check as $keyCheck => $valCheck) {
+            foreach($arr as $key => $value) {
+                if($keyCheck == $key) {
+                    return 1;
+                }
+            }
+        }
+    }
+}
+
+// JESSICA WONG - DROPDOWN/RADIO VALIDATION
+function validateDropdownRadio($selected, $arr) {
+    if(empty($selected)) {
+        throw new Exception("Please select");
+        return false;
+    } else {
+        foreach($arr as $key => $value) {
+            if($selected == $key) {
+                return 1;
+            }
+        }
+    }
+}
 
 }//End Validation Class
