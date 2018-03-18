@@ -1,0 +1,30 @@
+
+/* put imported text above this line, then delete this line */
+/******************************************
+*
+*GENERAL STYLING TABLE OF CONTENTS*
+1) GENERAL
+*
+********************************************/
+
+/* 1) GENERAL */
+html {
+	box-sizing: border-box;
+}
+
+*, *::before, *::after {
+	box-sizing: inherit;
+}
+
+body {
+	padding: 0;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+}
+
+nav ul {
+	list-style: none;
+}
