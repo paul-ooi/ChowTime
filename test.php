@@ -1,7 +1,8 @@
 <?php
 require 'models/db.php';
-require 'models/ingredient.php';
-$result = Ingredient::displayAllIngredients(Database::getDb());
+// require 'models/ingredient.php';
+require 'models/populateRecipes.php';
+$result = Recipes::displayAllRecipes(Database::getDb());
 echo '<pre>';
 print_r($result);
 echo '</pre>';
