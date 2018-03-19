@@ -1,3 +1,12 @@
+<!--
+TO DO
+=====
+-Ensure the time format is proper when adding
+-Get values from different table
+-Populate recipes that is larger with instructions
+-Get id's from sessions / user clicking
+ -->
+
 <?php
 
 class Recipes {
@@ -122,9 +131,56 @@ public function addRecipe($db) {
 
     $statement->setFetchMode(PDO::FETCH_OBJ);
     $count = $statement->execute();
+
+    return $count;
 }
 
+//DELETE A RECIPE
+public function deleteRecipe($db, $id) {
+    $query = "DELETE FROM recipes WHERE id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":id", $id);
+    $statement->setFetchMode(PDO::FETCH_OBJ);
+    $count = $statement->execute();
 
+    return $count;
+}
+
+//UPDATE A RECIPE (also should be done based on user session)
+//Default params are exhisting params from the recipe
+public function updateRecipe($db, $in_id) {
+    $query = "UPDATE Recipes SET
+                title = :title,
+                descr =  :descr,
+                img = :img,
+                prep = :prep,
+                ingred = :ingred,
+                diff = :diff,
+              WHERE id = :id";
+
+    $this->setId($in_id);
+    $id = $this->getId();
+    $title = $this->getTitle();
+    $descr = $this->getDescr();
+    $img = $this->getImgSrc();
+    $prep = $this->getPrepTime();
+    $dish = $this->getDishLvl();
+    $ingred = $this->getIngredLvl();
+    $diff = $this->getDiffLvl();
+
+    $statement = $db->prepare($query);
+    $statement->bindValue(":id", $id);
+    $statement->bindValue(":title", $title);
+    $statement->bindValue(":descr", $descr);
+    $statement->bindValue(":img", $img);
+    $statement->bindValue(":prep", $prep);
+    $statement->bindValue(":ingred", $ingred);
+    $statement->bindValue(":diff", $diff);
+    $statement->setFetchMode(PDO::FETCH_OBJ);
+    $count = $statement->execute();
+
+    return $count; 
+}
 
 }
 
