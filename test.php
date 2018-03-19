@@ -2,7 +2,12 @@
 require 'models/db.php';
 // require 'models/ingredient.php';
 require 'models/populateRecipes.php';
-$result = Recipes::displayAllRecipes(Database::getDb());
+
+$r = new Recipes("Chicken Wings","Crispy deep fried chicken wings with over 10 different sauce recipes to toss in.", "images/photo3", "00:35:00", "2", "2", "2");
+$insert = $r->addRecipe(Database::getDb());
+$result = $r->displayAllRecipes(Database::getDb());
+
+
 echo '<pre>';
 print_r($result);
 echo '</pre>';

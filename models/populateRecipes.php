@@ -11,6 +11,14 @@ class Recipes {
     private $ingredLvl;
     private $diffLvl;
 
+    public function setId($in_id) {
+        $this->id = $in_id;
+    }
+
+    public function getId() {
+        return $this->id;
+    }
+
     public function setTitle($in_title) {
         $this->title = $in_title;
     }
@@ -32,7 +40,7 @@ class Recipes {
     }
 
     public function getImgSrc() {
-        return $this->ImgSrc;
+        return $this->imgSrc;
     }
 
     public function setPrepTime($in_time) {
@@ -60,15 +68,27 @@ class Recipes {
     }
 
     public function setDiffLvl($in_diff) {
-        $this->$diffLvl = $in_diff;
+        $this->diffLvl = $in_diff;
     }
 
     public function getDiffLvl() {
-        return $this->$diffLvl;
+        return $this->diffLvl;
     }
 
+//SET ALL PARAMETERS
+public function __construct($title, $descr, $img, $time, $dish, $ingred, $diff) {
+    $this->setId(null);
+    $this->setTitle($title);
+    $this->setDescr($descr);
+    $this->setImgSrc($img);
+    $this->setPrepTime($time);
+    $this->setDishLvl($dish);
+    $this->setIngredLvl($ingred);
+    $this->setDiffLvl($diff);
+}
+
 // DISPLAY ALL RECIPES
-public static function displayAllRecipes($db) {
+public function displayAllRecipes($db) {
     $query = "SELECT * FROM recipes";
     $statement = $db->prepare($query);
     $statement->setFetchMode(PDO::FETCH_OBJ);
@@ -77,6 +97,32 @@ public static function displayAllRecipes($db) {
     return $statement->fetchAll();
 }
 
+//ADD A RECIPE
+public function addRecipe($db) {
+    $query = "INSERT INTO recipes VALUES (:id, :title, :descr, :img, :prep_time, :dish, :ingred, :diff)";
+
+    $statement = $db->prepare($query);
+    $id = $this->getId();
+    $title = $this->getTitle();
+    $descr = $this->getDescr();
+    $img = $this->getImgSrc();
+    $prep = $this->getPrepTime();
+    $dish = $this->getDishLvl();
+    $ingred = $this->getIngredLvl();
+    $diff = $this->getDiffLvl();
+
+    $statement->bindValue(':id', $id);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':descr', $descr);
+    $statement->bindValue(':img', $img);
+    $statement->bindValue(':prep_time', $prep);
+    $statement->bindValue(':dish', $dish);
+    $statement->bindValue(':ingred', $ingred);
+    $statement->bindValue(':diff', $diff);
+
+    $statement->setFetchMode(PDO::FETCH_OBJ);
+    $count = $statement->execute();
+}
 
 
 
