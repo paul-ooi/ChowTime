@@ -1,17 +1,8 @@
 <?php
-require 'models/db.php';
+// require 'models/db.php';
 // require 'models/ingredient.php';
-require 'models/populateRecipes.php';
+// require 'models/recipes.php';
 
-//ADD RECIPE/SEE RECIPE
-$r = new Recipes("Chicken Wings","Crispy deep fried chicken wings with over 10 different sauce recipes to toss in.", "images/photo3", "00:35:00", "2", "2", "2");
-$insert = $r->addRecipe(Database::getDb());
-$recipe = $r->displayAllRecipes(Database::getDb());
-
-
-echo '<pre>';
-print_r($recipe);
-echo '</pre>';
  ?>
 
 
@@ -23,5 +14,6 @@ include 'pages/_header.php'?>
       <h3>Paul is my hero</h3>
     </main>
 <?php include 'pages/_footer.php'?>
+
 </body>
 </html>
