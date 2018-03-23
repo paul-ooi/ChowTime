@@ -135,9 +135,10 @@ function validateAlphaOnly($regEx, $text) {
         return 1;
     }
 }
-function confirmPass(pass1, pass2) //Brad Campbell
+
+function confirmPass($pass1, $pass2) //Brad Campbell
 {
-    else if(pass1 === pass2)
+    if($pass1 === $pass2)
     {
         return 1;
     }
@@ -147,11 +148,12 @@ function confirmPass(pass1, pass2) //Brad Campbell
         return false;
     }
 }
-function validatePhone(phone) //Brad Campbell
+
+function validatePhone($phone) //Brad Campbell
 {
     $phonePattern = "/^\+?[0-1]?\-?\(?\d{3}\)?\-?\d{3}\-?\d{4}$/";
     $phoneMatch = preg_match($phonePattern, $phone);
-    return $phoneMatch
+    return $phoneMatch;
 }
 
 }//End Validation Class
