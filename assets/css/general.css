@@ -19,7 +19,6 @@ html {
 
 body {
 	padding: 0;
-	/* font-family: Helvetica, Arial, sans-serif; */
 }
 
 header {
@@ -52,9 +51,6 @@ nav li:not(:last-child)::after {
 	content: " | ";
 }
 
-/* nav li:last-child {
-	content: "";
-} */
 
 
 

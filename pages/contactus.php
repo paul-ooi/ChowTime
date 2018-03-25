@@ -47,10 +47,16 @@ require_once '_mainnav.php';
 </main>
 <aside class="col-md-4">
     <div id="description">
-        <p>Lorem ipsum dolor sit amet, eu salutandi constituam conclusionemque vix, has augue senserit petentium in. At pri rebum nulla facilisis. Sit mucius voluptatibus id, sit ne facilisis consequat. Quot deleniti mea in, no has erant possim. In qualisque forensibus est, epicurei patrioque inciderint per cu. Duo in fugit offendit reformidans, te vel prompta menandri.</p>
+        <p>Hellow world Lorem ipsum dolor sit amet, eu salutandi constituam conclusionemque vix, has augue senserit petentium in. At pri rebum nulla facilisis. Sit mucius voluptatibus id, sit ne facilisis consequat. Quot deleniti mea in, no has erant possim. In qualisque forensibus est, epicurei patrioque inciderint per cu. Duo in fugit offendit reformidans, te vel prompta menandri.</p>
 <p>
 Te aperiri vituperatoribus eos, mutat altera est in. Ne usu tollit posidonium assueverit, vix timeam tamquam debitis an. Eum te luptatum reprimique, eos quodsi appetere et, ne aliquam expetendis usu. Omnis tantas mediocritatem ei nec, errem elitr solet sed ne. Cu libris accumsan sed, ex eligendi maluisset mel, cum et amet dicat numquam. Falli impedit dolores te nec, vim at posse everti salutandi.</p>
     </div>
     <div class="office">
     </div>
 </aside>
+<?php include '_footer.php'?>
+<script id="__bs_script__">//<![CDATA[
+    document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.23.6'><\/script>".replace("HOST", location.hostname));
+//]]></script>
+</body>
+</html>
