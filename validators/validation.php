@@ -136,6 +136,15 @@ function validateAlphaOnly($regEx, $text) {
     }
 }
 
+//JESSICA WONG - CHECK FOR EMPTY FIELDS
+function checkAssignProperty($name) {
+    if(!empty($_POST[$name])) {
+        return $_POST[$name];
+    } else {
+        return null;
+    }
+}
+
 function confirmPass($pass1, $pass2) //Brad Campbell
 {
     if($pass1 === $pass2)

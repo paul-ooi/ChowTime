@@ -1,14 +1,18 @@
-<form method="post" action="test.php">
+<?php
+if(isset($_POST['updRecipe'])) {
+    var_dump($_POST);
+}
+
+ ?>
+
+
+<form method="post" action="addRecipe.php">
     <div class="field">
-        id:<input type="number" id="id" name="id" value=""/>
+        <input type="hidden" id="u_id" name="u_id" value="" />
     </div>
 
     <div class="field">
-        user id:<input type="number" id="u_id" name="u_id" value="" />
-    </div>
-
-    <div class="field">
-        img id:<input type="numer" id="i_id" name="i_id" value="" />
+        <input type="file" id="img_url" name="img_url" />
     </div>
 
     <div class="field">
@@ -61,3 +65,8 @@
 
     <input type="submit" id="updRecipe" name="updRecipe" value="Update" />
 </form>
+
+<!--
+http://php.net/manual/en/function.copy.php
+http://php.net/manual/en/function.move-uploaded-file.php
+ -->
