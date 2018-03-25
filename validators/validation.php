@@ -157,6 +157,7 @@ function confirmPass($pass1, $pass2) //Brad Campbell
         return false;
     }
 }
+
 function validatePhone($phone) //Brad Campbell
 {
     $phonePattern = "/^\+?[0-1]?\-?\(?\d{3}\)?\-?\d{3}\-?\d{4}$/";

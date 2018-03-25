@@ -4,6 +4,7 @@
 *
 *GENERAL STYLING TABLE OF CONTENTS*
 1) GENERAL
+2) FORMS
 *
 ********************************************/
 
@@ -20,6 +21,19 @@ body {
 	padding: 0;
 }
 
+header {
+	margin-bottom: 3em;
+}
+
+footer {
+	margin-top: 3em;
+}
+
+a {
+	text-decoration: none;
+	font-weight: bold;
+}
+
 ul {
 	padding: 0;
 	margin: 0;
@@ -27,4 +41,26 @@ ul {
 
 nav ul {
 	list-style: none;
+}
+
+nav li {
+	display: inline-block;
+}
+
+nav li:not(:last-child)::after {
+	content: " | ";
+}
+
+
+
+
+/* 2) FORMS */
+.error {
+	color: red;
+	font-weight: bold;
+}
+
+.form_button {
+	display: inline-block;
+	margin: 0.5em;
 }
