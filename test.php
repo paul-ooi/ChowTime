@@ -1,7 +1,17 @@
 <?php
-// require 'models/db.php';
+require 'models/db.php';
 // require 'models/ingredient.php';
 // require 'models/recipes.php';
+require 'models/recipesMade.php';
+
+$rm = new RecipesMade();
+
+$allRecipesMade = $rm->displayAllRecipesMade(Database::getDb());
+
+
+echo "<pre>";
+print_r($allRecipesMade);
+echo "</pre>";
 
  ?>
 
