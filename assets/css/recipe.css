@@ -1,0 +1,75 @@
+/*
+LEGEND
+======
+
+PAGE LAYOUT
+IMAGES
+ICONS
+COMMENTS
+ */
+
+/* PAGE LAYOUT */
+.aside-left {
+    display: flex;
+    justify-content: space-around;
+}
+
+.aside-right {
+    display: flex;
+    flex-flow: column;
+}
+
+/* IMAGES */
+.main-img-container {
+    width: 30em;
+}
+
+#main {
+    width: 100%;
+}
+
+.thumbnail-images-container {
+    display: flex;
+}
+
+.thumbnail-container {
+    width: 10em;
+}
+
+.thumbnail {
+    width: 100%;
+    padding-right: 1rem;
+}
+
+/* ICONS */
+.icon-img-container {
+    width: 2em;
+}
+
+.icon {
+    width: 100%;
+}
+
+.icon-container {
+    display: flex;
+}
+
+.icon-text-container {
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+/* COMMENTS */
+#commentBox {
+    display: flex;
+    flex-flow: column;
+    width: 50%;
+    justify-content: center;
+}
+
+#addComment {
+    width: 10%;
+    margin-top: 1rem;
+}

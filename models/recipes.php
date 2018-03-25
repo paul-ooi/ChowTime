@@ -127,6 +127,7 @@ public function __construct() {
 
 // DISPLAY ALL RECIPES
 public function displayAllRecipes($db) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "SELECT * FROM recipes";
     $statement = $db->prepare($query);
     $statement->setFetchMode(PDO::FETCH_OBJ);
@@ -137,6 +138,7 @@ public function displayAllRecipes($db) {
 
 //DISPLAY ONLY RECIPE NAME
 public function displayByTitle($db, $title) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "SELECT title FROM recipes WHERE title LIKE '%$title%';";
     $statement = $db->prepare($query);
     $statement->bindValue(":title", $title, PDO::PARAM_STR);
@@ -146,15 +148,18 @@ public function displayByTitle($db, $title) {
 
 //DISPLAY RECIPE BY ID
 public function displayById($db, $in_id) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "SELECT * FROM recipes WHERE id = :id";
     $statement = $db->prepare($query);
     $statement->bindValue(':id', $in_id, PDO::PARAM_INT);
+    $statement->setFetchMode(PDO::FETCH_OBJ);
     $statement->execute();
-    return $statement->fetch(PDO::FETCH_OBJ);
+    return $statement->fetch();
 }
 
 //ADD A RECIPE
 public function addRecipe($db, $in_id, $in_user_id, $in_img_id, $in_title, $in_descr, $in_t_time, $in_p_time, $in_c_time, $in_dish, $in_ingred, $in_diff, $in_spicy, $in_recomm, $in_p_date, $in_steps) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "INSERT INTO recipes VALUES (:id, :user_id, :img_id, :title, :descr, :t_time, :p_time, :c_time, :dish, :ingred, :diff, :spicy, :recomm, :p_date, :steps)";
 
     $statement = $db->prepare($query);
@@ -250,6 +255,7 @@ public function updateRecipe($db, $in_id) {
 }
 //DELETE A RECIPE
 public function deleteRecipe($db, $id) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $query = "DELETE FROM recipes WHERE id = :id";
     $statement = $db->prepare($query);
     $statement->bindValue(":id", $id, PDO::PARAM_INT);
@@ -257,6 +263,58 @@ public function deleteRecipe($db, $id) {
     $count = $statement->execute();
 
     return $count;
+}
+
+//TOTAL RECIPE TIME
+public function totalRecipeTime($db, $id) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "SELECT ADDTIME(prep_time, cook_time) AS 'total_time' FROM recipes WHERE id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":id", $id, PDO::PARAM_INT);
+    $statement->setFetchMode(PDO::FETCH_OBJ);
+    $statement->execute();
+    return $statement->fetch();
+}
+
+//RECOMMENDED DIFFICULTY
+public function recommDiff($db, $id) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "SELECT ROUND(((dishes_lvl + ingred_lvl + spicy_lvl)/3), 2) AS 'recomm_diff' FROM recipes WHERE id= :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":id", $id);
+    $statement->setFetchMode(PDO::FETCH_OBJ);
+    $statement->execute();
+    return $statement->fetch();
+}
+
+//MAIN RECIPE IMAGE
+public function mainRecipeImg($db, $id) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "SELECT img_src FROM recipe_imgs ri
+    JOIN recipes r
+    ON r.main_img_id = ri.id
+    WHERE r.id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":id", $id);
+    $statement->setFetchMode(PDO::FETCH_OBJ);
+    $statement->execute();
+
+    return $statement->fetch();
+}
+
+//ALL RECIPE IMAGES
+public function allRecipeImgs($db, $id) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "SELECT img_src FROM recipe_imgs ri
+    JOIN recipes r
+    ON r.id = ri.recipe_id
+    WHERE r.id = :id";
+    $statement = $db->prepare($query);
+    $statement->bindValue(":id", $id);
+    $statement->setFetchMode(PDO::FETCH_OBJ);
+    $statement->execute();
+
+    return $statement->fetchAll();
 }
 
 

@@ -1,16 +1,16 @@
 <?php
 require 'models/db.php';
 // require 'models/ingredient.php';
-// require 'models/recipes.php';
-require 'models/recipesMade.php';
+require 'models/recipes.php';
+// require 'models/recipesMade.php';
 
-$rm = new RecipesMade();
+$r = new Recipes();
 
-$allRecipesMade = $rm->displayAllRecipesMade(Database::getDb());
+$totalTime = $r->totalRecipeTime(Database::getDb(), 1);
 
 
 echo "<pre>";
-print_r($allRecipesMade);
+print_r($totalTime);
 echo "</pre>";
 
  ?>

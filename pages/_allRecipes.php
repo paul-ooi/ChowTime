@@ -7,11 +7,6 @@ $r = new Recipes();
 $allRecipes = $r->displayAllRecipes(Database::getDb());
 $recipe = $r->displayById(Database::getDb(), 1);
 
-
-// echo '<pre>';
-// print_r($allRecipes);
-// echo '</pre>';
-
 ?>
 
 <!-- =========================PROPER CODE========================== -->
@@ -28,14 +23,12 @@ include '../pages/_header.php';
             img id: <?= $r->img_id ?><br />
             title: <?= $r->title ?><br />
             description: <?= $r->description ?><br />
-            total time: <?= $r->total_time ?><br />
             prep time: <?= $r->prep_time ?><br />
             cook time: <?= $r->cook_time ?><br />
             dish Level: <?= $r->dishes_lvl ?><br />
             ingredients Level: <?= $r->ingred_lvl ?><br />
             difficulty Level: <?= $r->diff_lvl ?><br />
             spicy level: <?= $r->spicy_lvl ?><br />
-            staff diff: <?= $r->recomm_diff ?><br />
             published date: <?= $r->pub_date ?><br />
             steps: <ol>
                 <?php
