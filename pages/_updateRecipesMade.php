@@ -41,7 +41,7 @@ if(isset($_POST['updRecipe'])) {
 ?>
 
 <h1>Update Record of When User Made A Recipe</h1>
-<form method="post" action="updateRecipesMade.php">
+<form method="post" action="_updateRecipesMade.php">
     <div class="field">
         <label>Id:</label>
         <label><?php if(isset($recipe_sel)) {
@@ -75,4 +75,4 @@ if(isset($_POST['updRecipe'])) {
         } ?>
     </div>
 </form>
-<a href="allRecipesMade.php">All Recipes Made</a>
+<a href="_allRecipesMade.php">All Recipes Made</a>

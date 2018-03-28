@@ -4,18 +4,15 @@ include '_header.php';
 require_once '../models/recipes.php';
 require_once '../models/db.php';
 require_once '../models/ingredient.php';
-
-// INSTANCES
-$r = new Recipes();
-$i = new ingredient();
+require_once '../models/recipesDb.php';
 
 //THE ID HERE NEEDS TO BE POPULATED BY SEARCH IN A GET
 //====================================================
-$recipe = $r->displayById(Database::getDb(), 1);
-$totalTime = $r->totalRecipeTime(Database::getDb(), 1);
-$recommDiff = $r->recommDiff(Database::getDb(), 1);
-$mainRecipeImg = $r->mainRecipeImg(Database::getDb(), 1);
-$allRecipeImgs = $r->allRecipeImgs(Database::getDb(), 1);
+$mainRecipeImg = RecipeDb::mainRecipeImg(1);
+$allRecipeImgs = RecipeDb::allRecipeImgs(1);
+$recipe = RecipeDb::displayById(1);
+$recommDiff = RecipeDb::recommDiff(1);
+$totalTime = RecipeDb::totalRecipeTime(1);
 //====================================================
 
 ?>

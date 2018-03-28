@@ -39,7 +39,7 @@ include '../pages/_header.php';
                  ?>
              </ol>
         </div>
-        <form method="post" action="addRecipe.php" />
+        <form method="post" action="_addRecipe.php" />
             <input type="submit" id="add" name="add" value="Add Recipe" />
         </form>
         <br />

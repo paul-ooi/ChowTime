@@ -6,7 +6,7 @@ if(isset($_POST['updRecipe'])) {
  ?>
 
 
-<form method="post" action="addRecipe.php">
+<form method="post" action="_addRecipe.php">
     <div class="field">
         <input type="hidden" id="u_id" name="u_id" value="" />
     </div>

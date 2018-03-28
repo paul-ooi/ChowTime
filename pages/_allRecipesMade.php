@@ -32,11 +32,11 @@ $allRecipesMade = $rm->displayAllRecipesMade(Database::getDb());
         <label>date user made recipe:</label>
         <?= $arm->pub_date ?>
     </div>
-    <form method="post" action="addRecipesMade.php">
+    <form method="post" action="_addRecipesMade.php">
         <input type="submit" id="addRM" name="addRM" value="Add Recipe Made Record" />
     </form>
 
-    <form method="post" action="updateRecipesMade.php">
+    <form method="post" action="_updateRecipesMade.php">
         <input type="hidden" id="upId" name="upId" value="<?= $arm->id ?>"/>
         <input type="submit" id="updateRM" name="updateRM" value="Update Recipe Made Record" />
     </form>
