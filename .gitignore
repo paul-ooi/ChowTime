@@ -1,6 +1,7 @@
 validators/validation.zip
 models/credentials.php
 SQL/
+models/apiKeys.php
 
 # OS generated files #
 ######################

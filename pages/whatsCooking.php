@@ -2,6 +2,7 @@
 $pageTitle = "What's Cooking";
 require_once '_header.php';
 require_once '_mainnav.php';
+require_once '../models/apiKeys.php';
 
 ?>
 <link rel="stylesheet" type="text/css" href="../assets/css/whatsCooking.css"/>
@@ -10,7 +11,7 @@ require_once '_mainnav.php';
     <h1>What's Cooking</h1>
     <div id="map">word</div>
 
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGjH6LjRl6Rioa2rKqDycRrF4gIx_xNJg&callback=initializeMap"
+    <script src="https://maps.googleapis.com/maps/api/js?key=<?= $googleKey ?>&callback=initializeMap"
         async defer></script>
 </main>
 <?php
