@@ -1,6 +1,7 @@
 <header>
     <nav>
         <ul>
+            <li><a href="recipes.php">Recipes</a></li>
             <li><a href="#">Events</a></li>
             <li><a href="#">What's Cooking</a></li>
             <li><a href="contactus.php">Contact Us</a></li>
