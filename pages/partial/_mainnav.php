@@ -6,5 +6,5 @@
         </ul>
     </nav>
     <div class="row mx-auto" id="title">
-        <h2><a href="index.php">Chow <img class="mx-auto" id="logo" src="assets/imgs/ct-logo.png" alt="Chow Time logo - Plate with fork and knife arranged like locator marker"/> Time</a></h2>
+        <h2><a href="index.php">Chow <img class="mx-auto" id="logo" src="../assets/imgs/ct-logo.png" alt="Chow Time logo - Plate with fork and knife arranged like locator marker"/> Time</a></h2>
     </div>

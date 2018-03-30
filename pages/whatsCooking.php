@@ -1,18 +1,21 @@
 <?php
 $pageTitle = "What's Cooking";
-require_once '_header.php';
-require_once '_mainnav.php';
-require_once '../models/apiKeys.php';
-
+require_once 'partial/_header.php';
 ?>
 <link rel="stylesheet" type="text/css" href="../assets/css/whatsCooking.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
 <script src="../assets/js/whatsCooking.js"></script>
+</head>
+
+<?php
+require_once 'partial/_mainnav.php';
+require_once 'Whats-cooking.php';
+?>
 <main>
     <h1 id="title">What's Cooking?</h1>
     <div class="filter-icon-container">
-        <img src="../icons/horizontal-filter.svg" alt="filter-icon" id="filter-btn"/>
+        <img src="../assets/icons/horizontal-filter.svg" alt="filter-icon" id="filter-btn"/>
     </div>
     <div class="row">
         <div class="col-sm-4 filter-bar-container">
@@ -71,7 +74,7 @@ require_once '../models/apiKeys.php';
         async defer></script>
 </main>
 <?php
-require_once '_footer.php';
+require_once 'partial/_footer.php';
 ?>
 </body>
 </html>
