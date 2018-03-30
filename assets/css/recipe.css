@@ -8,68 +8,85 @@ ICONS
 COMMENTS
  */
 
+ /* USE EVERYWHERE */
+
+
 /* PAGE LAYOUT */
-.aside-left {
-    display: flex;
-    justify-content: space-around;
+main {
+    width: 80%;
+    margin: 0 auto;
 }
 
-.aside-right {
-    display: flex;
-    flex-flow: column;
+.row {
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+/* PAGE TITLE */
+#title {
+    padding-left: 15px;
 }
 
 /* IMAGES */
-.main-img-container {
-    width: 30em;
-}
-
 #main {
     width: 100%;
 }
 
 .thumbnail-images-container {
-    display: flex;
+    margin: 0px;
 }
 
 .thumbnail-container {
     width: 10em;
+    display: inline-block;
 }
 
 .thumbnail {
     width: 100%;
-    padding-right: 1rem;
+    padding: 1rem 1rem 0rem 0rem;
+    border: none;
 }
 
 /* ICONS */
 .icon-img-container {
     width: 2em;
+    display: inline-block;
 }
 
 .icon {
     width: 100%;
 }
 
-.icon-container {
-    display: flex;
+.caption {
+    position: absolute;
+    border: 1px solid black;
+    top: 50%;
+    left: 0;
+    background: white;
+    border-radius: 2px;
+    font-size:10px;
+    padding: 0.2rem;
 }
 
 .icon-text-container {
-    display: flex;
-    align-items: center;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    padding: 0;
 }
 
 /* COMMENTS */
-#commentBox {
-    display: flex;
-    flex-flow: column;
-    width: 50%;
-    justify-content: center;
+.comments-display-container {
+    margin-top: 20px;
 }
 
-#addComment {
-    width: 10%;
+.user-comment-container {
+    margin-bottom: 1rem;
+}
+
+.user_comment {
     margin-top: 1rem;
+}
+
+.profile-photo {
+    height: 100px;
+    width: 100px;
+    border: 1px solid black;
 }

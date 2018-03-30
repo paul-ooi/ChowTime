@@ -1,4 +1,51 @@
+main {
+    width: 80%;
+    margin: 0 auto;
+}
+
+#title {
+    text-align: center;
+}
+
 #map {
-    width: 800px;
     height: 500px;
+}
+
+/* FILTER BAR */
+
+.filter-bar-container {
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    height: 500px;
+}
+
+.slider-horizontal {
+    width: 200px;
+}
+
+#in_distance {
+    width: 50%;
+    display: inline-block;
+}
+
+.filter-icon-container {
+    width: 30px;
+}
+
+.btn {
+    margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    h3 {
+        font-size: 16px;
+    }
+    .filter-bar-container {
+        justify-content: flex-start;
+    }
+    form {
+        display: flex;
+    }
+
 }

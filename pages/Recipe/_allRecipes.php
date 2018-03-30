@@ -1,6 +1,6 @@
 <?php
-require '../models/db.php';
-require '../models/recipes.php';
+require '../../models/db.php';
+require '../../models/recipes.php';
 
 // TESTING GROUND
 $r = new Recipes();

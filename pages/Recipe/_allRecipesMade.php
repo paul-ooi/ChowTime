@@ -1,6 +1,6 @@
 <?php
-require '../models/db.php';
-require '../models/recipesMade.php';
+require '../../models/db.php';
+require '../../models/recipesMade.php';
 require '_deleteRecipeMade.php';
 
 $rm = new RecipesMade();

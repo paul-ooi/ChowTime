@@ -1,8 +1,8 @@
 <?php
 
-include '../validators/validation.php';
-include '../models/recipesMade.php';
-include '../models/db.php';
+include '../../validators/validation.php';
+include '../../models/recipesMade.php';
+include '../../models/db.php';
 
 $validate = new Validation();
 $recipesMade = new RecipesMade();
