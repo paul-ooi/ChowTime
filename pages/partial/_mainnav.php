@@ -1,7 +1,7 @@
     <nav>
         <ul class="nav navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="#">Events</a></li>
-            <li class="nav-item"><a class="nav-link" href="#">What's Cooking</a></li>
+            <li class="nav-item"><a class="nav-link" href="../events.php">Events</a></li>
+            <li class="nav-item"><a class="nav-link" href="../Whats-cooking.php">What&apos;s Cooking</a></li>
             <li class="nav-item"><a class="nav-link" href="contactus.php">Contact Us</a></li>
         </ul>
     </nav>

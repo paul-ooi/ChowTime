@@ -14,6 +14,7 @@ require_once 'pages/partial/_header.php';
         <section class="mx-auto text-center" id="search">
             <h1 class="sr-only">Chow Time</h1>
             <form  action="controllers/recipes/_allrecipes.php" method="post" id="searchAll" name="searchAll">
+                <h2>Find the Next recipe</h2>
                 <div class="input-group d-inline-md justify-content-center">
                     <label class="form-control-label sr-only" for="form_search">Search Recipes</label>
                     <input class="form-control" type="text" name="form_search" id="form_search" placeholder="Start cooking..."/>

@@ -1,6 +1,7 @@
 validators/validation.zip
 models/credentials.php
 SQL/
+models/apiKeys.php
 
 # OS generated files #
 ######################
@@ -11,4 +12,8 @@ SQL/
 .Trashes
 ehthumbs.db
 Thumbs.db
+<<<<<<< HEAD
 .htaccess
+=======
+.htaccess
+>>>>>>> 43094d3a3d178bf551c2f3a6421ea8463281d55f
