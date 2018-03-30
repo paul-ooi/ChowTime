@@ -1,6 +1,6 @@
 <?php
 $pageTitle = "Recipes";
-include 'partial/_header.php';
+include '_header.php';
 require_once '../models/recipes.php';
 require_once '../models/db.php';
 require_once '../models/ingredient.php';
@@ -125,6 +125,6 @@ $totalTime = RecipeDb::totalRecipeTime(1);
             <!-- Repeate user-comment-container for each user comment on this recipe -->
         </div>
     </main>
-<?php include 'partial/_footer.php'; ?>
+<?php include '_footer.php'; ?>
 </body>
 </html>
