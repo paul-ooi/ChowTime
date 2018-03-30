@@ -1,0 +1,46 @@
+#search {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	width: 100%;
+	height: 25em;
+	background-color: rgb(156, 153, 153);
+}
+
+#searchAll {
+	max-width: 80%;
+}
+
+/* .bkg {
+	position: relative;
+	width: 100%;
+	height: 25em;
+	overflow: hidden;
+}
+
+.bkg img {
+	position:absolute;
+	width: 100%;
+	height: auto;
+	z-index: -10;
+} */
+
+#searchRecipesBtn {
+	display: inline-block;
+}
+
+.gallery-item {
+	position: relative;
+	text-align: center;
+	/* display: inline-block; */
+	/* justify-content: center; */
+}
+
+.gallery-item h3 {
+	/* top: 40%;
+	z-index: 10; */
+	margin: 1em 0 0.25em;
+	/* align-self:  center; */
+}
