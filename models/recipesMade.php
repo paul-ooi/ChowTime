@@ -33,8 +33,11 @@ class RecipesMade {
         return $this->pub_date;
     }
 
-    public function __construct() {
-
+    public function __construct($id, $recipeId = '', $userId = '', $pubDate = '') {
+        $this->setId($id);
+        $this->setRecipeId($recipeId);
+        $this->setUserId($userId);
+        $this->setPubDate($pubDate);
     }
 
     // READ
@@ -47,14 +50,14 @@ class RecipesMade {
     }
 
     // ADD
-    public function addRecipeMade($db, $in_id, $in_rid, $in_uid, $in_pdate) {
+    public function addRecipeMade($db, $rec_obj) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "INSERT INTO recipes_made VALUES (:in_id, :in_rid, :in_uid, :in_pdate)";
         $pdostm = $db->prepare($sql);
-        $pdostm->bindValue(":in_id", $in_id, PDO::PARAM_INT);
-        $pdostm->bindValue(":in_rid", $in_rid, PDO::PARAM_INT);
-        $pdostm->bindValue(":in_uid", $in_uid, PDO::PARAM_INT);
-        $pdostm->bindValue(":in_pdate", $in_pdate);
+        $pdostm->bindValue(":in_id", $rec_obj->getId(), PDO::PARAM_INT);
+        $pdostm->bindValue(":in_rid", $rec_obj->getRecipeId(), PDO::PARAM_INT);
+        $pdostm->bindValue(":in_uid", $recp_obj->getUserId(), PDO::PARAM_INT);
+        $pdostm->bindValue(":in_pdate", $rec_obj->getPubDate());
         $count = $pdostm->execute();
         return $count;
     }

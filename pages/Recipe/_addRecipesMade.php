@@ -5,7 +5,6 @@ include '../../models/recipesMade.php';
 include '../../models/db.php';
 
 $validate = new Validation();
-$recipesMade = new RecipesMade();
 $message;
 
 if(isset($_POST['add'])) {
@@ -19,7 +18,9 @@ if(isset($_POST['add'])) {
     if($validate->number($rid) && $validate->number($uid)) {
         if(!empty($pDate)) {
             try {
-                $count = $recipesMade->addRecipeMade(Database::getDb(), $id, $rid, $uid, $pDate);
+                // $count = $recipesMade->addRecipeMade(Database::getDb(), $id, $rid, $uid, $pDate);
+                $recipesMade = new RecipesMade($id, $rid, $uid, $pDate);
+                $count = addRecipeMade(Database::getDb(),$recipesMade);
                 $message = "$count entry was added";
             } catch (Exception $e) {
                 $message = "There was an error: " . $e->getMessage();
@@ -34,7 +35,7 @@ if(isset($_POST['add'])) {
 ?>
 
 <h1>Add Record of When User Made A Recipe</h1>
- <form method="post" action="addRecipesMade.php">
+ <form method="post" action="_addRecipesMade.php">
      <input type="hidden" id="id" name="id" value=""/>
      <div class="field">
          <label for="rid">Recipe Id:</label>
@@ -63,5 +64,5 @@ if(isset($_POST['add'])) {
      </div>
  </form>
      <div>
-         <a href="allRecipesMade.php">View All Recipes</a>
+         <a href="_allRecipesMade.php">View All Recipes</a>
     </div>

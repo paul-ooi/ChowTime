@@ -1,0 +1,200 @@
+<?php
+class RecipeDb {
+    // DISPLAY ALL RECIPES
+    public static function displayAllRecipes() {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT * FROM recipes";
+        $statement = $db->prepare($query);
+        $statement->setFetchMode(PDO::FETCH_OBJ);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+
+    //DISPLAY ONLY RECIPE NAME
+    public static function displayByTitle($title) {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT title FROM recipes WHERE title LIKE '%$title%';";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":title", $title, PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    //DISPLAY RECIPE BY ID
+    public static function displayById($in_id) {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT * FROM recipes WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':id', $in_id, PDO::PARAM_INT);
+        $statement->setFetchMode(PDO::FETCH_OBJ);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
+    //ADD A RECIPE
+    public static function addRecipe($recipe) {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "INSERT INTO recipes VALUES (:id, :user_id, :img_id, :title, :descr, :t_time, :p_time, :c_time, :dish, :ingred, :diff, :spicy, :recomm, :p_date, :steps)";
+
+        $statement = $db->prepare($query);
+
+        $id = $this->getId();
+        $user_id = $this->getUserId();
+        $img_id = $this->getImgId();
+        $title = $this->getTitle();
+        $descr = $this->getDescr();
+        $t_time = $this->getTotalTime();
+        $p_time = $this->getPrepTime();
+        $c_time = $this->getCookTime();
+        $dish = $this->getDishLvl();
+        $ingred = $this->getIngredLvl();
+        $diff = $this->getDiffLvl();
+        $spicy = $this->getSpicyLvl();
+        $recommD = $this->getRecommDiff();
+        $p_date = $this->getPubDate();
+        $steps = $this->getSteps();
+
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->bindValue(':img_id', $img_id, PDO::PARAM_INT);
+        $statement->bindValue(':title', $title, PDO::PARAM_STR);
+        $statement->bindValue(':descr', $descr, PDO::PARAM_STR);
+        $statement->bindValue(':t_time', $t_time);
+        $statement->bindValue(':p_time', $p_time);
+        $statement->bindValue(':c_time', $c_time);
+        $statement->bindValue(':dish', $dish, PDO::PARAM_INT);
+        $statement->bindValue(':ingred', $ingred, PDO::PARAM_INT);
+        $statement->bindValue(':diff', $diff, PDO::PARAM_INT);
+        $statement->bindValue(':spicy', $spicy, PDO::PARAM_INT);
+        $statement->bindValue(':recomm', $recommD, PDO::PARAM_INT);
+        $statement->bindValue(':p_date', $p_date);
+        $statement->bindValue(':steps', $steps, PDO::PARAM_STR);
+
+        $statement->setFetchMode(PDO::FETCH_OBJ);
+        $count = $statement->execute();
+
+        return $count;
+    }
+
+    //UPDATE A RECIPE (also should be done based on user session)
+    //Default params are exhisting params from the recipe
+    public static function updateRecipe($in_id) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $query = "UPDATE Recipes SET
+                    user_id = :u_id,
+                    descr =  :descr,
+                    img = :img,
+                    prep = :prep,
+                    ingred = :ingred,
+                    diff = :diff,
+                  WHERE id = :id";
+
+        $this->setId($in_id);
+        $id = $this->getId();
+        $title = $this->getTitle();
+        $descr = $this->getDescr();
+        $img = $this->getImgSrc();
+        $prep = $this->getPrepTime();
+        $dish = $this->getDishLvl();
+        $ingred = $this->getIngredLvl();
+        $diff = $this->getDiffLvl();
+
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $id, PDO::PARAM_INT);
+        $statement->bindValue(":title", $title, PDO::PARAM_STR);
+        $statement->bindValue(":descr", $descr, PDO::PARAM_STR);
+        $statement->bindValue(":img", $img, PDO::PARAM_STR);
+        $statement->bindValue(":prep", $prep, PDO::PARAM_STR);
+        $statement->bindValue(":ingred", $ingred, PDO::PARAM_STR);
+        $statement->bindValue(":diff", $diff, PDO::PARAM_STR);
+        $statement->setFetchMode(PDO::FETCH_OBJ);
+        $count = $statement->execute();
+
+        return $count;
+    }
+    //DELETE A RECIPE
+    public static function deleteRecipe($id) {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "DELETE FROM recipes WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $id, PDO::PARAM_INT);
+        $statement->setFetchMode(PDO::FETCH_OBJ);
+        $count = $statement->execute();
+
+        return $count;
+    }
+
+    //TOTAL RECIPE TIME
+    public static function totalRecipeTime($id) {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT ADDTIME(prep_time, cook_time) AS 'total_time' FROM recipes WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $id, PDO::PARAM_INT);
+        $statement->setFetchMode(PDO::FETCH_OBJ);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
+    //RECOMMENDED DIFFICULTY
+    public static function recommDiff($id) {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT ROUND(((dishes_lvl + ingred_lvl + spicy_lvl)/3), 2) AS 'recomm_diff' FROM recipes WHERE id= :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $id);
+        $statement->setFetchMode(PDO::FETCH_OBJ);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
+    //MAIN RECIPE IMAGE
+    public static function mainRecipeImg($id) {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT img_src FROM recipe_imgs ri
+        JOIN recipes r
+        ON r.main_img_id = ri.id
+        WHERE r.id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $id);
+        $statement->setFetchMode(PDO::FETCH_OBJ);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
+
+    //ALL RECIPE IMAGES
+    public static function allRecipeImgs($id) {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT img_src FROM recipe_imgs ri
+        JOIN recipes r
+        ON r.id = ri.recipe_id
+        WHERE r.id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $id);
+        $statement->setFetchMode(PDO::FETCH_OBJ);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
+}
+?>
