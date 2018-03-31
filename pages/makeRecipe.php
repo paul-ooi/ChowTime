@@ -2,12 +2,12 @@
 $pageTitle = "Make a Recipe";
 require_once 'partial/_header.php';
 ?>
+<script src="../assets/js/makeRecipe.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/css/makeRecipe.css" />
 </head>
 <?php
 require_once 'partial/_mainnav.php';
  ?>
-
 <main>
     <div class="wrapper">
         <form method="post" enctype="multipart/form-data" action="makeRecipe.php">
@@ -29,7 +29,7 @@ require_once 'partial/_mainnav.php';
                     </div>
                 </div>
             </div>
-<!-- PHOTO UPLOAD -->
+<!-- PHOTO UPLOAD - OPTION TO ADD MORE PHOTOS -->
             <div class="form-group">
                 <div class="form-row">
                     <label for="photos" class="col-sm-2 col-form-label">Upload Photos</label>
@@ -73,27 +73,6 @@ require_once 'partial/_mainnav.php';
                     </div>
                 </div>
             </div>
-
-            <!-- <div class="form-group">
-                <div class="form-row">
-                    <div class="col-sm-6">
-                        <div class="form-row">
-                            <label for="cook-time" class="col-sm-2">Cook Time</label>
-                            <div class="col-sm-8">
-                                <input type="time" id="cook-time" class="form-control" name="cook-time" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="form-row">
-                            <label for="prep-time" class="col-sm-2">Prep Time</label>
-                            <div class="col-sm-8">
-                                <input type="time" id="prep-time" class="form-control" name="prep-time" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
     <!-- SPICY LEVEL -->
             <fieldset class="form-group">
                 <div class="form-row">
@@ -135,7 +114,7 @@ require_once 'partial/_mainnav.php';
     <!-- INGREDIENTS -->
             <fieldset class="form-group">
                 <div class="form-row">
-                    <legend class="col-form-label col-sm-2">Ingredients</legend>
+                    <legend class="col-form-label col-sm-3 col-md-2">Ingredients</legend>
                     <div class="col-sm-2">
                         <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
                         <div class="form-group">
@@ -190,28 +169,22 @@ require_once 'partial/_mainnav.php';
                 <div class="form-row">
                     <legend class="col-form-label col-sm-2">Steps</legend>
                     <div class="col-sm-8">
-                        <ol>
+                        <ol class="list-of-instructions">
                             <!-- REPEAT PHP HERE -->
-                            <li><input type="text" class="form-control" name="step" /></li>
-                            <li><input type="text" class="form-control" name="step" /></li>
-                            <li><input type="text" class="form-control" name="step" /></li>
-                            <li><input type="text" class="form-control" name="step" /></li>
+                            <li><input type="text" class="form-control steps" name="step1" value=""/></li>
+                            <li><input type="text" class="form-control steps" name="step2" value=""/></li>
+                            <li><input type="text" class="form-control steps" name="step3" value=""/></li>
+                            <li><input type="text" class="form-control steps" name="step4" value=""/></li>
                             <!-- END PHP REPEAT HERE -->
                         </ol>
+                        <input type="button" id="moreRows" name="moreRows" value="Add More Rows"/>
                     </div>
                 </div>
             </fieldset>
-            <input type="submit" id="addRecipe" class="addRecipe" class="btn"/>
+            <input type="submit" id="addRecipe" name="addRecipe" class="btn"/>
         </form>
     </div>
 </main>
-
-
-
-
-
-
-
 <?php
 require_once 'partial/_footer.php';
 ?>
