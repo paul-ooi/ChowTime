@@ -2,7 +2,7 @@ $(document).ready(function(){
     //DISPLAY THE SLIDER
     $("#distance").slider({});
 
-
+    alert("hello");
 
     //ON LOAD CHECK SCREEN SIZE AND ALTER SLIDER
     addRemoveTwoClasses("1165", ".slide-container", "hidden", ".input-container", "hidden");

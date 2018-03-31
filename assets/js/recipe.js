@@ -6,13 +6,6 @@ $(document).ready(function(){
         $("#main").attr("src", imgSrc);
     })
 
-    //ON MOUSEOVER, REMOVE HIDDEN AND DISPLAY CAPTION
-    // $(".icon").hover(function(e){
-    //     $("div").removeClass("hidden");
-    // }, function(e) {
-    //     $(".caption").addClass("hidden");
-    // })
-
 })//END PAGE LOAD
 
 //IF IMAGE COUNT OF THE THUMBNAILS IS GREATER THAN 3, THEN HIDE THEM?

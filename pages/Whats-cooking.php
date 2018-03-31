@@ -2,6 +2,6 @@
 
 <?php
 
-$googleKey = "AIzaSyDubV0AvOVWezVqLtI4Yfo9iFw1XUFIom0";
+$googleKey = "AIzaSyDGjH6LjRl6Rioa2rKqDycRrF4gIx_xNJg";
 
 ?>
