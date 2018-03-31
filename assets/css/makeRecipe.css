@@ -1,0 +1,12 @@
+.diff {
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.wrapper {
+    width: 80%;
+    display: block;
+    margin: 0 auto;
+}
