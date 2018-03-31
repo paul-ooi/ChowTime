@@ -15,11 +15,9 @@ require_once 'pages/partial/_header.php';
             <h1 class="sr-only">Chow Time</h1>
             <h2>Find your Next recipe</h2>
             <form action="controllers/recipes/_allrecipes.php" method="post" id="searchAll" name="searchAll">
-                <!-- <div class="form-group d-flex justify-content-center w-80"> -->
                     <label class="form-control-label sr-only" for="form_search">Search Recipes</label>
                     <input class="form-control form-control-lg col-sm-12 col-md-8 col-lg-9" type="text" name="form_search" id="form_search" placeholder="Start cooking..."/>
                     <input class="btn btn-lg col-sm-12 col-md-4 col-lg-3" type="submit" for="searchAll" name="searchRecipesBtn" id="searchRecipesBtn" value="Search Recipes"/>
-                <!-- </div> -->
             </form>
             <!-- <span class="bkg">
                 <img src="assets/imgs/image1.jpg" alt="plate of spaghetti"/>
@@ -27,26 +25,26 @@ require_once 'pages/partial/_header.php';
         </section>
         <section class="mx-auto mb-3" id="searchResults">
         </section>
-        <section class="mx-auto" id="top-category">
+        <section class="mx-auto text-center text-md-left" id="top-category">
             <h2>Top searched categories</h2>
             <div class="row">
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class=" img-thumbnail"/></a>
+                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class="img-fluid rounded"/></a>
             </div>
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class=" img-thumbnail"/></a>
+                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class="img-fluid rounded"/></a>
             </div>
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class=" img-thumbnail"/></a>
+                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class="img-fluid rounded"/></a>
             </div>
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class=" img-thumbnail"/></a>
+                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class="img-fluid rounded"/></a>
             </div>
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class=" img-thumbnail"/></a>
+                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class="img-fluid rounded"/></a>
             </div>
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class=" img-thumbnail"/></a>
+                <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class="img-fluid rounded"/></a>
             </div>
         </div>
         </section>
