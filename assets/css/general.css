@@ -106,9 +106,9 @@ ul {
 #sitemap {
 	width: 60%;
 	list-style: none;
-	line-height: 2.5em;
+	line-height: 2em;
 	display: flex;
-	flex-flow: column wrap;
+	flex-flow: row wrap;
 	max-height: 7em;
 }
 
