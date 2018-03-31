@@ -65,9 +65,14 @@ ul {
 	height: auto;
 }
 
+#social-media {
+	margin: 0 auto 1.5em;
+}
+
 .social {
-	max-width: 30px;
+	width: 30px;
 	height: auto;
+	margin: 0.25em;
 }
 
 
@@ -89,12 +94,21 @@ ul {
 	background-color: rgb(247, 213, 151);
 }
 
+#main-nav li:last-child {
+	position: absolute;
+	right: 0;
+}
+
+#main-nav {
+	position: relative;
+}
+
 #sitemap {
 	width: 60%;
 	list-style: none;
-	line-height: 2.5em;
+	line-height: 2em;
 	display: flex;
-	flex-flow: column wrap;
+	flex-flow: row wrap;
 	max-height: 7em;
 }
 
