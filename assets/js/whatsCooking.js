@@ -1,24 +1,27 @@
 $(document).ready(function(){
+//SOMEHOW FIX LAYOUT ISSUE OF FILTER BAR
+
+
     //DISPLAY THE SLIDER
     $("#distance").slider({});
 
-    alert("hello");
-
     //ON LOAD CHECK SCREEN SIZE AND ALTER SLIDER
-    addRemoveTwoClasses("1165", ".slide-container", "hidden", ".input-container", "hidden");
+    addRemoveTwoClasses("1350", ".slide-container", "hidden", ".input-container", "hidden");
+
     //CHECK IF XSMALL SCREEN SIZE ON LOAD AND ALTER FILTER BAR
     filterBar("768", ".filter-bar-container", "hidden", ".filter-icon-container", "hidden");
 
     if(window.matchMedia('(max-width: 768px)').matches) {
         $("#filter-btn").click(function(){
             $(".filter-bar-container").toggleClass("hidden");
+            $(".d-flex").toggleClass("layout");
         })
     }
 
     //ON MODIFICATION OF SCREEN SIZE
     $(window).resize(function() {
         //HIDE/SHOW SLIDER
-        addRemoveTwoClasses("1165", ".slide-container", "hidden", ".input-container", "hidden");
+        addRemoveTwoClasses("1350", ".slide-container", "hidden", ".input-container", "hidden");
         //HIDE/SHOW FILTER
         filterBar("768", ".filter-bar-container", "hidden", ".filter-icon-container", "hidden");
     })//END RESIZE CHECKER

@@ -1,9 +1,14 @@
+/* USE EVERYWHERE */
+.hidden {
+    display: none !important;
+}
+
 main {
     width: 80%;
     margin: 0 auto;
 }
 
-#title {
+#heading {
     text-align: center;
 }
 
@@ -12,6 +17,9 @@ main {
 }
 
 /* FILTER BAR */
+.layout {
+    flex-flow: column;
+}
 
 .filter-bar-container {
     display: flex;
@@ -30,7 +38,12 @@ main {
 }
 
 .filter-icon-container {
-    width: 30px;
+    width: 35px;
+    display: inline-block;
+}
+
+.filter-text {
+    display: none;
 }
 
 .btn {
@@ -41,11 +54,10 @@ main {
     h3 {
         font-size: 16px;
     }
-    .filter-bar-container {
-        justify-content: flex-start;
-    }
-    form {
+    .form-wrapper {
         display: flex;
     }
-
+    .filter-text {
+        display: inline;
+    }
 }
