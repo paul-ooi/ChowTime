@@ -4,8 +4,8 @@
         <ul id="sitemap">
             <li><a href="pages/events.php" title="What events are happening">Events</a></li>
             <li><a href="pages/events.php" title="What events are happening">What&apos;s Cooking</a></li>
-            <li><a class="nav-link" href="contactus.php">Contact Us</a></li>
-            <li><a class="nav-link" href="register.php">Create Account</a></li>
+            <li><a href="contactus.php">Contact Us</a></li>
+            <li><a href="register.php">Create Account</a></li>
         </ul>
     </nav>
     <section class="col-sm-3 col-lg-4 d-flex justify-content-lg-around justify-content-sm-between" id="social-media">

@@ -5,13 +5,26 @@
 	align-items: center;
 	position: relative;
 	width: 100%;
-	height: 25em;
+	height: 15em;
 	background-color: rgb(156, 153, 153);
 }
 
 #searchAll {
-	max-width: 80%;
+	display: flex;
+	flex-flow: row wrap;
+	width: 80%;
 }
+
+#form_search {
+	flex: 4 2 1;
+	/* width: 60%; */
+}
+#searchRecipesBtn {
+	flex: 1 1 2;
+	/* width: 40%; */
+}
+
+
 
 /* CREATE STYLE TO ADD BACKGROUND IMAGE */
 /* .bkg {
@@ -28,9 +41,6 @@
 	z-index: -10;
 } */
 
-#searchRecipesBtn {
-	display: inline-block;
-}
 
 .gallery-item h3 {
 	margin: 1em 0 0.25em;

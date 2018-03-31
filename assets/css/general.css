@@ -94,8 +94,13 @@ ul {
 	background-color: rgb(247, 213, 151);
 }
 
-.nav>li:last-child {
-	align-self: flex-end;
+#main-nav li:last-child {
+	position: absolute;
+	right: 0;
+}
+
+#main-nav {
+	position: relative;
 }
 
 #sitemap {

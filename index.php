@@ -14,14 +14,12 @@ require_once 'pages/partial/_header.php';
         <section class="mx-auto text-center mb-5" id="search">
             <h1 class="sr-only">Chow Time</h1>
             <h2>Find your Next recipe</h2>
-            <form class="form-inline" action="controllers/recipes/_allrecipes.php" method="post" id="searchAll" name="searchAll">
-                <div class="input-group d-inline-md justify-content-center">
+            <form action="controllers/recipes/_allrecipes.php" method="post" id="searchAll" name="searchAll">
+                <!-- <div class="form-group d-flex justify-content-center w-80"> -->
                     <label class="form-control-label sr-only" for="form_search">Search Recipes</label>
-                    <input class="form-control form-control-lg" type="text" name="form_search" id="form_search" placeholder="Start cooking..."/>
-                    <span class="input-group-btn">
-                    <input class="btn btn-lg" type="submit" for="searchAll" name="searchRecipesBtn" id="searchRecipesBtn" value="Search Recipes"/>
-                </span>
-                </div>
+                    <input class="form-control form-control-lg col-sm-12 col-md-8 col-lg-9" type="text" name="form_search" id="form_search" placeholder="Start cooking..."/>
+                    <input class="btn btn-lg col-sm-12 col-md-4 col-lg-3" type="submit" for="searchAll" name="searchRecipesBtn" id="searchRecipesBtn" value="Search Recipes"/>
+                <!-- </div> -->
             </form>
             <!-- <span class="bkg">
                 <img src="assets/imgs/image1.jpg" alt="plate of spaghetti"/>
