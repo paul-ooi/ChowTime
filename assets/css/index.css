@@ -13,6 +13,7 @@
 	max-width: 80%;
 }
 
+/* CREATE STYLE TO ADD BACKGROUND IMAGE */
 /* .bkg {
 	position: relative;
 	width: 100%;
@@ -31,16 +32,6 @@
 	display: inline-block;
 }
 
-.gallery-item {
-	position: relative;
-	text-align: center;
-	/* display: inline-block; */
-	/* justify-content: center; */
-}
-
 .gallery-item h3 {
-	/* top: 40%;
-	z-index: 10; */
 	margin: 1em 0 0.25em;
-	/* align-self:  center; */
 }
