@@ -22,12 +22,13 @@ $totalTime = RecipeDb::totalRecipeTime(1);
 ?>
 </header>
     <main>
-        <div class="aside-left">
-            <div class="main-image-thumbnail-container">
+        <h2><?= $recipe->title ?></h2>
+        <div class="row aside-left">
+            <div class="col-sm-6 main-image-thumbnail-container">
                 <div class="main-img-container">
                     <img src="<?= $mainRecipeImg->img_src ?>" alt="image" id="main"/>
                 </div>
-                <div class="thumbnail-images-container">
+                <div class="d-flex justify-content-between thumbnail-images-container">
                     <?php foreach ($allRecipeImgs as $recipeImg) : ?>
                         <?php foreach($recipeImg as $key => $value) : ?>
                             <div class="thumbnail-container">
@@ -38,53 +39,54 @@ $totalTime = RecipeDb::totalRecipeTime(1);
                 </div>
             </div>
             <!-- End image container -->
-            <div class="title-icon-descr-container">
-                <h2><?= $recipe->title ?></h2>
-                <div class="icon-container">
-                    <div class="icon-text-container">
-                        <div class="icon-img-container">
-                            <img src="../assets/icons/frying-pan.svg" alt="frying pan icon" class="icon" class="icon"/>
+            <div class="col-sm-6 icon-descr-container">
+                <div class="container icon-container">
+                    <div class="row row-container">
+                        <div class="text-center col-xs-6 col-sm-3 icon-text-container">
+                            <div class="icon-img-container">
+                                <img src="../assets/icons/frying-pan.svg" alt="frying pan icon" class="icon" class="icon"/>
+                            </div>
+                            <p>
+                                <!-- <span>Recommended Difficulty:</span> -->
+                                <span><?= $recommDiff->recomm_diff ?></span>
+                            </p>
                         </div>
-                        <p>
-                            <span>Recommended Difficulty:</span>
-                            <span><?= $recommDiff->recomm_diff ?></span>
-                        </p>
-                    </div>
-                    <div class="icon-text-container">
-                        <div class="icon-img-container">
-                            <img src="../assets/icons/hourglass.svg" alt="hourglass icon" class="icon" />
+                        <div class="text-center col-xs-6 col-sm-3 icon-text-container">
+                            <div class="icon-img-container">
+                                <img src="../assets/icons/hourglass.svg" alt="hourglass icon" class="icon" />
+                            </div>
+                            <p>
+                                <!-- <span>Total Time:</span> -->
+                                <span><?= $totalTime->total_time ?></span>
+                            </p>
                         </div>
-                        <p>
-                            <span>Total Time:</span>
-                            <span><?= $totalTime->total_time ?></span>
-                        </p>
-                    </div>
-                    <div class="icon-text-container">
-                        <div class="icon-img-container">
-                            <img src="../assets/icons/fork.svg" alt="fork icon" class="icon" />
+                        <div class="text-center col-xs-6 col-sm-3 icon-text-container">
+                            <div class="icon-img-container">
+                                <img src="../assets/icons/fork.svg" alt="fork icon" class="icon" />
+                            </div>
+                            <p>
+                                <!-- <span>Community Rating:</span> -->
+                                <span><?= $recipe->diff_lvl?></span>
+                            </p>
                         </div>
-                        <p>
-                            <span>Community Rating:</span>
-                            <span><?= $recipe->diff_lvl?></span>
-                        </p>
-                    </div>
-                    <div class="icon-text-container">
-                        <div class="icon-img-container">
-                            <img src="../assets/icons/pepper.svg" alt="Chili pepper icon" class="icon" />
+                        <div class="text-center col-xs-6 col-sm-3 icon-text-container">
+                            <div class="icon-img-container">
+                                <img src="../assets/icons/pepper.svg" alt="Chili pepper icon" class="icon" />
+                            </div>
+                            <p>
+                                <!-- <span>Spicy Level:</span> -->
+                                <span><?= $recipe->spicy_lvl ?></span>
+                            </p>
                         </div>
-                        <p>
-                            <span>Spicy Level:</span>
-                            <span><?= $recipe->spicy_lvl ?></span>
-                        </p>
                     </div>
                 </div>
-                <h3><?= $recipe->description ?></h3>
+                <h3 class="text-center" id="recipe_descr"><?= $recipe->description ?></h3>
             </div>
             <!-- End title-icon-descr-container -->
         </div>
         <!-- End aside left -->
-        <div class="aside-right">
-            <div class="ingredients-container">
+        <div class="row aside-right">
+            <div class="col-md-12 ingredients-container">
                 <h2>Ingredients</h2>
                 <span>Prep Time:</span>
                 <span><?=$recipe->prep_time?></span>
@@ -95,7 +97,7 @@ $totalTime = RecipeDb::totalRecipeTime(1);
                 </div> <!-- Repeat this ingredient-container block for each ingredient in the list -->
             </div>
 
-            <div class="directions-container">
+            <div class="col-md-12 directions-container">
                 <h2>Directions</h2>
                 <span>Cook Time:</span>
                 <span><?= $recipe->cook_time ?></span>
@@ -111,22 +113,29 @@ $totalTime = RecipeDb::totalRecipeTime(1);
                 </div>
             </div>
         </div> <!-- End aside right -->
-        <div class="comment-container">
-            <h2>Comments</h2>
-            <form action="Recipes.php" method="post" name="commentBox" id="commentBox">
-                <label for="comments">Leave a comment:</label>
-                <textarea name="comments" id="comments"></textarea>
-                <input type="submit" id="addComment" name="addComment" />
-            </form>
-        </div>
-        <div class="comments-display-container">
-            <div class="user-comment-container">
-                <p>Username</p>
-                <p>Date</p>
-                <p>Comment</p>
+        <div class="row">
+            <div class="col-md-12 comment-container">
+                <h2>Comments</h2>
+                <form action="Recipes.php" method="post" name="commentBox" id="commentBox">
+                    <div class="form-group">
+                        <label for="comments">Leave a comment:</label>
+                        <textarea name="comments" id="comments" class="form-control" rows="5"></textarea>
+                    </div>
+                <input type="submit" id="addComment" name="addComment" class="btn btn-info"/>
+                </form>
             </div>
-            <!-- Repeate user-comment-container for each user comment on this recipe -->
-        </div>
+         </div>
+         <div class="row">
+             <div class="comments-display-container">
+                 <div class="user-comment-container">
+                     <img src="#" alt="profile-photo"/>
+                     <span class="username"><strong>Username:</strong></span><span>jwong</span>
+                     <span class="date"><strong>Date:</strong></span><span>March 30, 2018</span>
+                     <p class="user_comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse hendrerit accumsan dignissim. Phasellus lacinia tincidunt ex, in accumsan eros luctus nec. Nulla luctus dignissim augue, non auctor metus tempor ut. Duis eros justo, fringilla sed massa et, ullamcorper vulputate diam. Vivamus posuere, erat sollicitudin egestas pellentesque, diam felis tempus dolor, eu rhoncus neque nulla ut orci. Maecenas blandit tortor non orci volutpat condimentum. Phasellus lorem dui, dignissim a ex vitae, placerat eleifend risus. Ut porttitor eros turpis, sed posuere neque faucibus eu. Quisque aliquet sit amet nunc at condimentum. Fusce ornare magna lobortis enim maximus, ac consectetur sem volutpat. Etiam id pharetra metus, sit amet mattis eros. Pellentesque accumsan nulla id blandit euismod.</p>
+                 </div>
+                 <!-- Repeate user-comment-container for each user comment on this recipe -->
+             </div>
+         </div>
     </main>
 <?php include 'partial/_footer.php'; ?>
 </body>
