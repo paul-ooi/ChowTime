@@ -10,3 +10,8 @@
     display: block;
     margin: 0 auto;
 }
+
+#morehover {
+    text-decoration: underline;
+    color: rgb(73, 73, 73);
+}

@@ -7,6 +7,38 @@ require_once 'partial/_header.php';
 </head>
 <?php
 require_once 'partial/_mainnav.php';
+require_once '../models/validation.php';
+require_once '../models/recipes.php';
+require_once '../models/recipesDb.php';
+
+// VALIDATE FIELDS AREN'T EMPTY ON SUBMIT
+$v = new Validation();
+if(isset($_POST["addRecipe"])) {
+    $inTitle = $v->checkAssignProperty("recipe-title");
+    $inDescr = $v->checkAssignProperty("recipe-description");
+    $inFileName = $v->checkAssignProperty("upFile");
+    $inPrepTime = $v->checkAssignProperty("prep-time");
+    $inCookTime = $v->checkAssignProperty("cook-time");
+    $spiceLevel = $v->checkAssignProperty("spicy");
+    $diffLevel = $v->checkAssignProperty("diffLvl");
+
+    if(isset($_POST['item'])) {
+        $stepsArr = array_map("allSteps", $_POST['item']);
+    }
+    if(isset($_SESSION['id'])) {
+        $user_id = $_SESSION['id'];
+    }
+    function allSteps($e){
+        return $e["step"];
+    }
+
+    if ($inTitle == null || $inDescr == null || $inFileName == null || $inPrepTime == null || $inCookTime == null || $spiceLevel == null || $diffLevel == null || $stepsArr == null) {
+        $errMssg = "Please fill out all fields to add a recipe!";
+        return false;
+    } else {
+        // $r = new Recipes(null, $user_id, $inFileName, $inTitle, $inDescr, $inPrepTime, $inCookTime, $);
+    }
+}
  ?>
 <main>
     <div class="wrapper">
@@ -16,7 +48,7 @@ require_once 'partial/_mainnav.php';
                     <label for="recipe-title" class="col-sm-2 col-form-label">Title</label>
                     <div class="col-sm-8">
                         <input type="text" id="recipe-title" class="form-control" placeholder="Spaghetti and Meatballs" name="recipe-title" />
-                        <small class="instructions form-text, text-muted">Give your recipe a title name!</small>
+                        <small class="instructions form-text text-muted">Give your recipe a title name!</small>
                     </div>
                 </div>
             </div>
@@ -25,7 +57,7 @@ require_once 'partial/_mainnav.php';
                     <label for="recipe-description" class="col-sm-2 col-form-label">Description</label>
                     <div class=" col-sm-8">
                         <textarea id="recipe-description" class="form-control" rows="3" placeholder="Made with fresh thyme and basil..." name="recipe-description"></textarea>
-                        <small class="instructions form-text, text-muted">Describe your recipe</small>
+                        <small class="instructions form-text text-muted">Describe your recipe</small>
                     </div>
                 </div>
             </div>
@@ -44,7 +76,7 @@ require_once 'partial/_mainnav.php';
                     <label for="prep-time" class="col-sm-2 col-form-label">Prep Time</label>
                     <div class="col-sm-3">
                         <input type="time" class="form-control" id="prep-time" name="prep-time" />
-                        <small class="instructions, form-text, text-muted">How long will it take to prep?</small>
+                        <small class="instructions form-text text-muted">How long will it take to prep?</small>
                     </div>
                 </div>
             </div>
@@ -54,7 +86,7 @@ require_once 'partial/_mainnav.php';
                     <label for="cook-time" class="col-sm-2 col-form-label">Cook Time</label>
                     <div class="col-sm-3">
                         <input type="time" class="form-control" id="cook-time" name="cook-time" />
-                        <small class="instructions, form-text, text-muted">How long will it take to cook?</small>
+                        <small class="instructions form-text text-muted">How long will it take to cook?</small>
                     </div>
                 </div>
             </div>
@@ -63,6 +95,7 @@ require_once 'partial/_mainnav.php';
                     <label for="diff-level" class="col-sm-2 col-form-label">Difficulty Level</label>
                     <div class="col-sm-3">
                         <div class="form-row d-flex diff-container">
+                            <input type="hidden" value="" name="diffLvl" />
                             <div class="diff col-sm-2">1</div>
                             <div class="diff col-sm-2">2</div>
                             <div class="diff col-sm-2">3</div>
@@ -78,33 +111,33 @@ require_once 'partial/_mainnav.php';
                 <div class="form-row">
                     <legend class="col-form-label col-sm-2">Spicy Level</legend>
                     <div class="col-sm-10">
-                        <div class="form-group">
-                            <input type="radio" class="form-check-input" name="l0" id="l0" value="0" />
-                            <label for="l0" class="form-check-label">None, thank you.</label>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="spicy" id="l0" value="0" />
+                            <label for="l0" class="form-check-label">None, Zero.</label>
                         </div>
 
-                        <div class="form-group">
-                            <input type="radio" class="form-check-input" name="l1" id="l1" value="1" />
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="spicy" id="l1" value="1" />
                             <label for="l1" class="form-check-label">Barely taste it.</label>
                         </div>
 
-                        <div class="form-group">
-                            <input type="radio" class="form-check-input" name="l2" id="l2" value="3" />
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="spicy" id="l2" value="3" />
                             <label for="l2" class="form-check-label">Ok, I feel some heat.</label>
                         </div>
 
-                        <div class="form-group">
-                            <input type="radio" class="form-check-input" name="l3" id="l3" value="4" />
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="spicy" id="l3" value="4" />
                             <label for="l3" class="form-check-label">That's spicy!</label>
                         </div>
 
-                        <div class="form-group">
-                            <input type="radio" class="form-check-input" name="l4" id="l4" value="4" />
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="spicy" id="l4" value="4" />
                             <label for="l4" class="form-check-label">I can't feel my tongue anymore.</label>
                         </div>
 
-                        <div class="form-group">
-                            <input type="radio" class="form-check-input" name="l5" id="l5" value="5" />
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="spicy" id="l5" value="5" />
                             <label for="l5" class="form-check-label">Is my face melting?</label>
                         </div>
                     </div>
@@ -118,23 +151,11 @@ require_once 'partial/_mainnav.php';
                     <div class="col-sm-2">
                         <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
                         <div class="form-group">
-                            <input type="checkbox" class="form-check-input" />
+                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
                             <label for="ingred" class="form-check-label">Ingred</label>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" class="form-check-input" />
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        <!-- END FOREACH FROM PHP -->
-                    </div>
-                    <div class="col-sm-2">
-                        <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
-                        <div class="form-group">
-                            <input type="checkbox" class="form-check-input" />
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" class="form-check-input" />
+                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
                             <label for="ingred" class="form-check-label">Ingred</label>
                         </div>
                         <!-- END FOREACH FROM PHP -->
@@ -142,11 +163,11 @@ require_once 'partial/_mainnav.php';
                     <div class="col-sm-2">
                         <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
                         <div class="form-group">
-                            <input type="checkbox" class="form-check-input" />
+                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
                             <label for="ingred" class="form-check-label">Ingred</label>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" class="form-check-input" />
+                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
                             <label for="ingred" class="form-check-label">Ingred</label>
                         </div>
                         <!-- END FOREACH FROM PHP -->
@@ -154,34 +175,89 @@ require_once 'partial/_mainnav.php';
                     <div class="col-sm-2">
                         <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
                         <div class="form-group">
-                            <input type="checkbox" class="form-check-input" />
+                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
                             <label for="ingred" class="form-check-label">Ingred</label>
                         </div>
                         <div class="form-group">
-                            <input type="checkbox" class="form-check-input" />
+                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
+                            <label for="ingred" class="form-check-label">Ingred</label>
+                        </div>
+                        <!-- END FOREACH FROM PHP -->
+                    </div>
+                    <div class="col-sm-2">
+                        <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
+                        <div class="form-group">
+                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" />
+                            <label for="ingred" class="form-check-label">Ingred</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" />
                             <label for="ingred" class="form-check-label">Ingred</label>
                         </div>
                         <!-- END FOREACH FROM PHP -->
                     </div>
                 </div>
             </fieldset>
+            <!-- INGREDIENT RATING -->
+            <fieldset class="form-group">
+                <div class="form-row">
+                    <div class="col-sm-3">
+                        <legend class="col-form-label">Ingredient Difficulty</legend>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="ingredDiff" id="1"/>
+                            <label for="1" class="form-check-label">1</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="ingredDiff" id="2"/>
+                            <label for="2" class="form-check-label">2</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="ingredDiff" id="3"/>
+                            <label for="3" class="form-check-label">3</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="ingredDiff" id="4"/>
+                            <label for="4" class="form-check-label">4</label>
+                        </div>
+
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="ingredDiff" id="5"/>
+                            <label for="5" class="form-check-label">5</label>
+                        </div>
+                        <small class="form-text text-muted">From household essentials to i've never heard of it.</small>
+
+                    </div>
+                </div>
+            </fieldset>
+            <!-- STEPS TO MAKE THE RECIPE -->
             <fieldset class="form-group">
                 <div class="form-row">
                     <legend class="col-form-label col-sm-2">Steps</legend>
                     <div class="col-sm-8">
                         <ol class="list-of-instructions">
                             <!-- REPEAT PHP HERE -->
-                            <li><input type="text" class="form-control steps" name="step1" value=""/></li>
-                            <li><input type="text" class="form-control steps" name="step2" value=""/></li>
-                            <li><input type="text" class="form-control steps" name="step3" value=""/></li>
-                            <li><input type="text" class="form-control steps" name="step4" value=""/></li>
+                            <li><input type="text" class="form-control steps" name="item[0][step]" value=""/></li>
+                            <li><input type="text" class="form-control steps" name="item[1][step]" value=""/></li>
+                            <li><input type="text" class="form-control steps" name="item[2][step]" value=""/></li>
+                            <li><input type="text" class="form-control steps" name="item[3][step]" value=""/></li>
                             <!-- END PHP REPEAT HERE -->
                         </ol>
-                        <input type="button" id="moreRows" name="moreRows" value="Add More Rows"/>
+                        <p id="moreRows">Add More Rows</p>
+                        <!-- <input type="button" id="moreRows" name="moreRows" value="Add More Rows"/> -->
                     </div>
                 </div>
             </fieldset>
-            <input type="submit" id="addRecipe" name="addRecipe" class="btn"/>
+            <input type="submit" id="addRecipe" name="addRecipe" class="btn" value="Add"/>
+            <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
+            <input type="submit" id="deleteRecipe" name="deleteRecipe" class="btn" value="Delete"/>
+            <input type="text" readonly class="form-control-plaintext" name="errMssg" value="<?php if(isset($errMssg)) {
+                echo $errMssg;
+            }?>">
         </form>
     </div>
 </main>

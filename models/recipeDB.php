@@ -43,7 +43,7 @@ class RecipeDb {
         $db = Database::getDb();
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "INSERT INTO recipes VALUES (:id, :user_id, :img_id, :title, :descr, :t_time, :p_time, :c_time, :dish, :ingred, :diff, :spicy, :recomm, :p_date, :steps)";
+        $query = "INSERT INTO recipes VALUES (:id, :user_id, :img_id, :title, :descr, :p_time, :c_time, :dish, :diff, :spicy, :recomm, :p_date, :steps)";
 
         $statement = $db->prepare($query);
 
@@ -52,7 +52,6 @@ class RecipeDb {
         $img_id = $this->getImgId();
         $title = $this->getTitle();
         $descr = $this->getDescr();
-        $t_time = $this->getTotalTime();
         $p_time = $this->getPrepTime();
         $c_time = $this->getCookTime();
         $dish = $this->getDishLvl();
@@ -68,7 +67,6 @@ class RecipeDb {
         $statement->bindValue(':img_id', $img_id, PDO::PARAM_INT);
         $statement->bindValue(':title', $title, PDO::PARAM_STR);
         $statement->bindValue(':descr', $descr, PDO::PARAM_STR);
-        $statement->bindValue(':t_time', $t_time);
         $statement->bindValue(':p_time', $p_time);
         $statement->bindValue(':c_time', $c_time);
         $statement->bindValue(':dish', $dish, PDO::PARAM_INT);
