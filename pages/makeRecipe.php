@@ -8,8 +8,11 @@ require_once 'partial/_header.php';
 <?php
 require_once 'partial/_mainnav.php';
 require_once '../models/validation.php';
+require_once '../models/db.php';
 require_once '../models/recipes.php';
-require_once '../models/recipesDb.php';
+require_once '../models/recipeDB.php';
+require_once '../models/recipeImgs.php';
+require_once '../models/recipeImgsDB.php';
 
 // VALIDATE FIELDS AREN'T EMPTY ON SUBMIT
 $v = new Validation();
@@ -19,12 +22,14 @@ if(isset($_POST["addRecipe"])) {
     $inFileName = $v->checkAssignProperty("upFile");
     $inPrepTime = $v->checkAssignProperty("prep-time");
     $inCookTime = $v->checkAssignProperty("cook-time");
+    //ADD INGREDIENTS
+    $ingredDiff = $v->checkAssignProperty("ingredDiff");
     $spiceLevel = $v->checkAssignProperty("spicy");
     $diffLevel = $v->checkAssignProperty("diffLvl");
 
-    if(isset($_POST['item'])) {
-        $stepsArr = array_map("allSteps", $_POST['item']);
-    }
+    // if(isset($_POST['item'])) {
+    //     $stepsArr = array_map("allSteps", $_POST['item']);
+    // }
     if(isset($_SESSION['id'])) {
         $user_id = $_SESSION['id'];
     }
@@ -32,11 +37,19 @@ if(isset($_POST["addRecipe"])) {
         return $e["step"];
     }
 
+    $nextRecipeId = Recipes::getLastRecipe();
+
+    var_dump($nextRecipeId);
+
     if ($inTitle == null || $inDescr == null || $inFileName == null || $inPrepTime == null || $inCookTime == null || $spiceLevel == null || $diffLevel == null || $stepsArr == null) {
         $errMssg = "Please fill out all fields to add a recipe!";
         return false;
     } else {
-        // $r = new Recipes(null, $user_id, $inFileName, $inTitle, $inDescr, $inPrepTime, $inCookTime, $);
+
+        //INSERT INTO IMG TABLE FIRST
+        $ri = new RecipeImages();
+
+        // $r = new Recipes(null, $user_id, $inFileName, $inTitle, $inDescr, $inPrepTime, $inCookTime, $ingredDiff, $diffLevel, $spicyLevel, );
     }
 }
  ?>

@@ -1,15 +1,16 @@
 <?php
 $pageTitle = "Recipes";
-include 'partial/_header.php';
+require_once 'partial/_header.php';
 ?>
 <link rel="stylesheet" href="../assets/css/recipe.css" />
 <script src="../assets/js/recipe.js"></script>
 </head>
 <?php
+require_once 'partial/_mainnav.php';
 require_once '../models/recipes.php';
 require_once '../models/db.php';
 require_once '../models/ingredient.php';
-require_once '../models/recipesDb.php';
+require_once '../models/recipeDB.php';
 
 //THE ID HERE NEEDS TO BE POPULATED BY SEARCH IN A GET
 //====================================================
