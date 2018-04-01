@@ -1,9 +1,11 @@
+<?php
+?>
     <nav id="main-nav">
         <ul class="nav nav-pills">
             <li><a class="nav-link px-2" href="../events.php">Events</a></li>
             <li><a class="nav-link px-2" href="pages/whatsCooking.php">What&apos;s Cooking</a></li>
-            <li><a class="nav-link px-2" href="controllers/contactus.php">Contact Us</a></li>
-            <li><a class="nav-link px-2 " href="controllers/login.php">Login</a></li>
+            <li><a class="nav-link px-2" href="pages/contactus.php">Contact Us</a></li>
+            <li><a class="nav-link px-2 " href="pages/login.php">Login</a></li>
         </ul>
     </nav>
     <div class="text-center mx-auto" id="title">

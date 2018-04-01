@@ -1,3 +1,10 @@
+<?php
+// $root = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+// $appRoot = filter_input(INPUT_SERVER, 'REQUEST_URI');
+// set_include_path($root. $appRoot);
+// echo 'in header';
+// echo get_include_path();
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
