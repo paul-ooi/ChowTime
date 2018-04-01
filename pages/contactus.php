@@ -1,4 +1,14 @@
 <?php
+$siteRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
+$appRoot = filter_input(INPUT_SERVER, 'REQUEST_URI');
+$rootSec = explode('/', $appRoot);
+$homeRoot = $rootSec[1];
+
+echo $homeRoot.'<br/>';
+echo $siteRoot.'<br/>';
+set_include_path($siteRoot . '/' . $homeRoot);
+echo get_include_path().'<br/>';
+
 
 // //Need solution for relative navigation
 // $siteRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
