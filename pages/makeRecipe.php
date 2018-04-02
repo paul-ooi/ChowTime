@@ -158,6 +158,9 @@ if(isset($_POST["addRecipe"])) {
             </fieldset>
 
     <!-- INGREDIENTS -->
+    <?php
+    //include the Add Ingredient section  (Paul's Lab 6) -needs some formatting still
+    //include '../controllers/ingredients/_addingredient.php' ?>
             <fieldset class="form-group">
                 <div class="form-row">
                     <legend class="col-form-label col-sm-3 col-md-2">Ingredients</legend>
