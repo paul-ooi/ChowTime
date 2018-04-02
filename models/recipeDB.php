@@ -43,7 +43,7 @@ class RecipeDb {
         $db = Database::getDb();
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "INSERT INTO recipes VALUES (:id, :user_id, :img_id, :title, :descr, :p_time, :c_time, :dish, :diff, :spicy, :recomm, :p_date, :steps)";
+        $query = "INSERT INTO recipes VALUES (:id, :user_id, :img_id, :title, :descr, :p_time, :c_time, :dish, :ingred, :diff, :spicy, :p_date, :steps)";
 
         $statement = $db->prepare($query);
 
@@ -58,7 +58,6 @@ class RecipeDb {
         $ingred = $this->getIngredLvl();
         $diff = $this->getDiffLvl();
         $spicy = $this->getSpicyLvl();
-        $recommD = $this->getRecommDiff();
         $p_date = $this->getPubDate();
         $steps = $this->getSteps();
 
@@ -73,7 +72,6 @@ class RecipeDb {
         $statement->bindValue(':ingred', $ingred, PDO::PARAM_INT);
         $statement->bindValue(':diff', $diff, PDO::PARAM_INT);
         $statement->bindValue(':spicy', $spicy, PDO::PARAM_INT);
-        $statement->bindValue(':recomm', $recommD, PDO::PARAM_INT);
         $statement->bindValue(':p_date', $p_date);
         $statement->bindValue(':steps', $steps, PDO::PARAM_STR);
 
