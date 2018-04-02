@@ -1,4 +1,4 @@
-<footer class="container ddwrapper">
+<footer class="ddwrapper">
     <!-- SITE MAP LINKS -->
     <nav class="col-sm-12 col-lg-6 mb-4">
         <ul class="nav d-flex-sm" id=" sitemap ">

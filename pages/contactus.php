@@ -29,7 +29,7 @@ require_once '../pages/partial/_header.php';
 <link href="../assets/css/contactus.css" type="text/css" rel="stylesheet"/>
 </head>
 <body class="container ddwrapper">
-<header class="container ddwrapper col-12">
+<header class="ddwrapper col-12">
 <?php require_once '../pages/partial/_mainnav.php' ?>
 </header>
 <?php
