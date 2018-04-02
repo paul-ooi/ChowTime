@@ -1,3 +1,5 @@
+<?php
+?>
     <nav id="main-nav">
         <ul class="nav nav-pills">
             <li><a class="nav-link px-2" href="/chowtime/pages/events.php">Events</a></li>

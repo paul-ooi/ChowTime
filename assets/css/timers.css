@@ -1,0 +1,33 @@
+#timers-tg {
+	font-weight: bold;
+	color: black;
+	cursor: pointer;
+}
+
+.timer {
+	margin: 1em auto;
+}
+
+.timer-btn:hover, .timer-btn {
+	background-color: lightgray;
+	color: black;
+}
+
+.start-time {
+	background-color: green;
+	color: white;
+}
+
+.stop-time {
+	background-color: red;
+	color: white;
+}
+
+.del-time {
+	background-color: lightgray;
+	color: unset;
+}
+
+.timer sub {
+	font-size: 0.5em;
+}
