@@ -2,6 +2,7 @@
         <ul class="nav nav-pills">
             <li><a class="nav-link px-2" href="/chowtime/pages/events.php">Events</a></li>
             <li><a class="nav-link px-2" href="/chowtime/pages/whatsCooking.php">What&apos;s Cooking</a></li>
+            <li><a class="nav-link" href="/chowtime/pages/recipes.php" title="Show me all the recipes">Recipes</a></li>
             <li><a class="nav-link px-2" href="/chowtime/pages/contactus.php">Contact Us</a></li>
             <li><a class="nav-link px-2 " href="/chowtime/pages/controllers/login.php">Login</a></li>
         </ul>

@@ -3,6 +3,7 @@
     <nav class="col-sm-12 col-lg-6 mb-4">
         <ul class="nav d-flex-sm" id=" sitemap ">
             <li><a class="nav-link" href="/chowtime/pages/events.php" title="What events are happening">Events</a></li>
+            <li><a class="nav-link" href="/chowtime/pages/recipes.php" title="Show me all the recipes">Recipes</a></li>
             <li><a class="nav-link" href="/chowtime/pages/whatsCooking.php" title="What's cooking in the neighbourhood?">What&apos;s Cooking</a></li>
             <li><a class="nav-link" href="chowtime/pages/contactus.php">Contact Us</a></li>
             <li><a class="nav-link" href="chowtime/pages/register.php">Create Account</a></li>

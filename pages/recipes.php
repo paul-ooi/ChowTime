@@ -6,7 +6,6 @@ require_once 'partial/_header.php';
 <script src="../assets/js/recipe.js"></script>
 </head>
 <?php
-require_once 'partial/_mainnav.php';
 require_once '../models/recipes.php';
 require_once '../models/db.php';
 require_once '../models/ingredient.php';
@@ -21,6 +20,8 @@ $recommDiff = RecipeDb::recommDiff(1);
 $totalTime = RecipeDb::totalRecipeTime(1);
 //====================================================
 ?>
+<header class="container ddwrapper">
+    <?php require_once 'partial/_mainnav.php' ?>
 </header>
     <main>
         <h2><?= $recipe->title ?></h2>

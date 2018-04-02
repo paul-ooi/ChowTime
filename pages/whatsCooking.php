@@ -9,23 +9,25 @@ require_once 'partial/_header.php';
 </head>
 
 <?php
-require_once 'partial/_mainnav.php';
 require_once 'Whats-cooking.php';
 ?>
+<header class="container ddwrapper">
+    <?php require_once 'partial/_mainnav.php' ?>
+</header>
 <main>
     <h1 id="heading">What's Cooking?</h1>
     <div class="filter-icon-container">
         <img src="../assets/icons/horizontal-filter.svg" alt="filter-icon" id="filter-btn"/>
     </div>
     <span class="filter-text">Filter Results</span>
-    <div class="d-flex">
+    <div class="d-flex map-filter-container">
         <div class="col-lg-4 filter-bar-container">
             <form method="post" action="whatsCooking.php">
                 <div class="form-wrapper">
                     <div class="col-lg-12 filter-group">
                         <h3>Dietary Rescrictions</h3>
-                        <div class="checkbox">
-                            <label for="a">
+                        <div class="form-check">
+                            <label for="a" class="form-check-label">
                                 <input type="checkbox" id="a" name="a" value="vegetarian">Veggie
                             </label>
                         </div>

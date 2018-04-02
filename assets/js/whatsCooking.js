@@ -11,12 +11,23 @@ $(document).ready(function(){
     //CHECK IF XSMALL SCREEN SIZE ON LOAD AND ALTER FILTER BAR
     filterBar("768", ".filter-bar-container", "hidden", ".filter-icon-container", "hidden");
 
-    if(window.matchMedia('(max-width: 768px)').matches) {
-        $("#filter-btn").click(function(){
-            $(".filter-bar-container").toggleClass("hidden");
-            $(".d-flex").toggleClass("layout");
-        })
+
+    if(window.onload) {
+        if (window.matchMedia('(max-width: 768px)').matches) {
+            if(!($("#filter-btn").click())) {
+                $(".filter-bar-container").addClass("hidden");
+                $(".d-flex").addClass("layout");
+            } else if ($("#filter-btn").click()) {
+                $(".filter-bar-container").removeClass("hidden");
+                $(".d-flex").removeClass("layout");
+            }
+        }
     }
+
+    $("#filter-btn").click(function(){
+        $(".filter-bar-container").toggleClass("hidden");
+        $(".d-flex").toggleClass("layout");
+    })
 
     //ON MODIFICATION OF SCREEN SIZE
     $(window).resize(function() {
@@ -24,6 +35,7 @@ $(document).ready(function(){
         addRemoveTwoClasses("1350", ".slide-container", "hidden", ".input-container", "hidden");
         //HIDE/SHOW FILTER
         filterBar("768", ".filter-bar-container", "hidden", ".filter-icon-container", "hidden");
+        filterBar("768", ".d-flex", "layout", ".d-flex", "layout");
     })//END RESIZE CHECKER
 
 

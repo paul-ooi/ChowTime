@@ -8,10 +8,16 @@ main {
     margin: 0 auto;
 }
 
+.map-filter-container {
+    margin-bottom: 2rem;
+}
+
+/* HEADING */
 #heading {
     text-align: center;
 }
 
+/* MAP */
 #map {
     height: 500px;
 }
@@ -49,6 +55,8 @@ main {
 .btn {
     margin-top: 1rem;
 }
+
+/* MEDIA QUERIES */
 
 @media (max-width: 768px) {
     h3 {
