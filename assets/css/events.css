@@ -1,0 +1,40 @@
+section {
+    padding: 10px 0;
+    margin: 0;
+}
+
+#suggested {
+    height: 250px;
+    background-color: lightgrey;
+}
+
+.__event_date {
+    padding: 5px;
+    background-color: darkgrey;
+}
+
+.__event_date p {
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.__event_image {
+    min-width: 65px;
+    min-height: 65px;
+    background-color: grey;
+}
+
+.__event_description {
+    margin-left: 5px;
+    padding: 15px;
+}
+
+.__banner {
+    height: 300px;
+    background-color: darkgrey;
+}
+
+.__suggested_thumb {
+    height: 110px;
+    background-color: grey;
+}
