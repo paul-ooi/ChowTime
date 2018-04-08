@@ -4,7 +4,7 @@ require_once 'pages/partial/_header.php';
 
  ?>
     <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
-    <link href="assets/css/general.css" type="text/css" rel="stylesheet" />
+    <!-- <link href="assets/css/general.css" type="text/css" rel="stylesheet" /> -->
 </head>
 <body class="container ddwrapper">
     <header class="container ddwrapper">

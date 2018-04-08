@@ -5,6 +5,21 @@ require_once '../models/db.php';//Connects to DB
 require_once '../models/timer.php';//Timer Class
 
 
+
+if(isset($_POST["startTimer"])) {
+    $hours = $_POST["hours"];
+    $minutes = $_POST["minutes"];
+    $seconds = $_POST["seconds"];
+
+    echo "<pre>";
+    var_dump($hours);
+    echo "</pre>";
+
+
+}
+
+
+
  ?>
 <link href="../assets/css/timers.css" type="text/css" rel="stylesheet"/>
 <script src="../assets/js/timers.js" type="text/javascript"></script>
