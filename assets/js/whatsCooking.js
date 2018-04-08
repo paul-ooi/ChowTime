@@ -1,13 +1,6 @@
 $(document).ready(function(){
 //SOMEHOW FIX LAYOUT ISSUE OF FILTER BAR
 
-
-    //DISPLAY THE SLIDER
-    $("#distance").slider({});
-
-    //ON LOAD CHECK SCREEN SIZE AND ALTER SLIDER
-    addRemoveTwoClasses("1350", ".slide-container", "hidden", ".input-container", "hidden");
-
     //CHECK IF XSMALL SCREEN SIZE ON LOAD AND ALTER FILTER BAR
     filterBar("768", ".filter-bar-container", "hidden", ".filter-icon-container", "hidden");
 
@@ -31,8 +24,6 @@ $(document).ready(function(){
 
     //ON MODIFICATION OF SCREEN SIZE
     $(window).resize(function() {
-        //HIDE/SHOW SLIDER
-        addRemoveTwoClasses("1350", ".slide-container", "hidden", ".input-container", "hidden");
         //HIDE/SHOW FILTER
         filterBar("768", ".filter-bar-container", "hidden", ".filter-icon-container", "hidden");
         filterBar("768", ".d-flex", "layout", ".d-flex", "layout");
@@ -61,19 +52,23 @@ $(document).ready(function(){
 
 })//END PAGE LOAD
 
-
+//SHOW WHATS COOKING
 function initializeMap() {
     var userMap = new google.maps.Map(document.getElementById('map'), {
         zoom: 15
     });
 
+
     //Create new instance of geocode class
     var geoCode = new google.maps.Geocoder();
+
+
+
     $.post("../models/whatsCooking.php", function(data) {
         console.log(data);
         // var addr = JSON.parse(data);
         geoCode.geocode(
-            {address: data.a }, function(results, status) {
+            {address: data.key1 }, function(results, status) {
                 if(status == "OK") {
                     userMap.setCenter(results[0].geometry.location);
                     var marker = new google.maps.Marker({
@@ -83,7 +78,7 @@ function initializeMap() {
                 }
             });
             geoCode.geocode(
-                {address: data.b }, function(results, status) {
+                {address: data.key2 }, function(results, status) {
                     if(status == "OK") {
                         userMap.setCenter(results[0].geometry.location);
                         var image = {
@@ -101,7 +96,11 @@ function initializeMap() {
                     }
                 });
     }, "json");
-}
+}//END INITIALIZE MAP
+
+//PINTEREST TO SHARE RECIPE
+
+
 
 
 // Because I've specified the parsing type in my $post, I do not need to include JSON.parse. If it wasn't included, I would, beacuse it doesn't know that it is JSON.

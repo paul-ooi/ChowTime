@@ -7,7 +7,6 @@ require_once 'partial/_header.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
 <script src="../assets/js/whatsCooking.js"></script>
 </head>
-
 <?php
 require_once 'Whats-cooking.php';
 ?>
@@ -49,11 +48,6 @@ require_once 'Whats-cooking.php';
                     </div>
                     <div class="col-sm-12 distances-container">
                         <h3>Select Distance</h3>
-                        <div class="slide-container">
-                            <strong>0km</strong>
-                            <input type="text" data-slider-min="0" data-slider-max="100" value="" data-slider-step="10" data-slider-value="[40, 60]" class="span2" id="distance" />
-                            <strong>100km</strong>
-                        </div>
                         <div class="input-container">
                             <input type="text" id="in_distance" name="in_distance" class="form-control"/>
                             <strong>km</strong>
