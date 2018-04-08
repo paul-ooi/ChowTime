@@ -1,15 +1,4 @@
 <?php
-$siteRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-$appRoot = filter_input(INPUT_SERVER, 'REQUEST_URI');
-$rootSec = explode('/', $appRoot);
-$homeRoot = $rootSec[1];
-
-echo $homeRoot.'<br/>';
-echo $siteRoot.'<br/>';
-set_include_path($siteRoot . '/' . $homeRoot);
-echo get_include_path().'<br/>';
-
-
 // //Need solution for relative navigation
 // $siteRoot = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 // $appRoot = filter_input(INPUT_SERVER, 'REQUEST_URI');
@@ -29,7 +18,7 @@ require_once '../pages/partial/_header.php';
 <link href="../assets/css/contactus.css" type="text/css" rel="stylesheet"/>
 </head>
 <body class="container ddwrapper">
-<header class="container ddwrapper col-12">
+<header>
 <?php require_once '../pages/partial/_mainnav.php' ?>
 </header>
 <?php

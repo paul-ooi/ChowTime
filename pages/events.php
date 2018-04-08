@@ -1,5 +1,5 @@
-<?php include 'header.php'; ?>
-<link rel="stylesheet" href="assets/css/events.css">
+<?php include 'partial/_header.php'; ?>
+<link rel="stylesheet" href="../assets/css/events.css">
 </head>
 <body>
     <div class="row __banner">
@@ -108,5 +108,5 @@
             </div>
         </div>
     </main>
-    <?php include 'footer.php'; ?>
+    <?php include 'partial/_footer.php'; ?>
 </body>

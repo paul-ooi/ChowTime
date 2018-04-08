@@ -1,5 +1,6 @@
 <?php
 ?>
+<div  class="container ddwrapper">
     <nav id="main-nav">
         <ul class="nav nav-pills">
             <li><a class="nav-link px-2" href="/chowtime/pages/events.php">Events</a></li>
@@ -12,3 +13,4 @@
     <div class="text-center mx-auto" id="title">
         <h2><a href="/chowtime/index.php">Chow <img class="mx-auto" id="logo" src="/chowtime/assets/imgs/ct-logo.png" alt="Chow Time logo - Plate with fork and knife arranged like locator marker"/> Time</a></h2>
     </div>
+</div>

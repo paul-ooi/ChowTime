@@ -1,4 +1,5 @@
-<footer class="container ddwrapper">
+<footer class="col-12">
+    <div class="container ddwrapper">
     <!-- SITE MAP LINKS -->
     <nav class="col-sm-12 col-lg-6 mb-4">
         <ul class="nav d-flex-sm" id=" sitemap ">
@@ -22,4 +23,5 @@
         </div>
     </section>
     <small class="col-12"><?php echo date('Y') ?> Chow Time Project - by DeeDub Team</small>
+</div>
 </footer>
