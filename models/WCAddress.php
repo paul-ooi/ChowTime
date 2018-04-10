@@ -1,12 +1,12 @@
 <?php
-// $addr = array (
-//     'a' => "61 Talara Dr, North York, ON M2K 1A3",
-//     'b' => "62 Talara Dr, North York, ON M2K"
-// );
-// echo json_encode($addr);
-
 session_start();
-$_SESSION['user_id'] = 1;
+$_SESSION['user_id'] = 3;
+
+if(isset($_SESSION['user_id'])) {
+    $id = $_SESSION['user_id'];
+} else {
+    $id = 1;
+}
 
 include 'db.php';
 include 'whatsCookingDb-2.php';
@@ -35,9 +35,29 @@ foreach($users as $user) {
     $u[$imgKey] = $user->getImg();
     $array[$userKey] = $u;
 
+    $finalArray = array('whats_cooking' => $array);
 }
 
-echo json_encode(array('whats_cooking' => $array));
+$currUserAdd = WhatsCooking::userAddress($id);
+foreach($currUserAdd as $user) {
+    $u = array();
+    $id = $user->getId();
+    $add1 = $user->getAdd();
+    $city = $user->getCity();
+    $prov = $user->getProv();
+    $post = $user->getPost();
+
+    $fullAdd = "$add1 $city $prov $post";
+
+    $u['id'] = $id;
+    $u['address'] = $fullAdd;
+
+    $finalArray['currUserDetails'] = $u;
+}
+
+
+echo json_encode($finalArray);
+
 //https://stackoverflow.com/questions/18377469/php-give-a-name-to-an-array-of-json-objects?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
 

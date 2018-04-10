@@ -25,7 +25,7 @@ class WhatsCooking {
             ON ri.recipe_id = r.id
             JOIN profiles p
             ON p.id = rm.user_id
-            WHERE p.id = 1
+            WHERE p.id = :id
             GROUP BY rm.user_id";
 
         $statement = $db->prepare($sql);
@@ -33,7 +33,10 @@ class WhatsCooking {
         $statement->execute();
         $mapInfo = $statement->fetch();
 
-        $wc = new WhatsCookingDB($mapInfo['address1'], $mapInfo['title'], $mapInfo['img_src']);
+        $wc = new WhatsCookingDB($mapInfo['id']);
+        $wc->setTitle($mapInfo['title']);
+        $wc->setAdd($mapInfo['address1']);
+        $wc->setImg($mapInfo['img_src']);
 
         return $mapInfo;
     }
@@ -55,14 +58,46 @@ class WhatsCooking {
         $rows = $statement->fetchAll();
 
         foreach($rows as $row) {
-            $wc = new WhatsCookingDB($row['address1'], $row['city'], $row['country'], $row['province'], $row['postal'], $row['title'], $row['img_src']);
-            $wc->setId($row['id']);
-
-            $user[] = $wc;
+            $wc = new WhatsCookingDB(
+                $row['id']);
+                $wc->setAdd($row['address1']);
+                $wc->setCity($row['city']);
+                $wc->setCountry($row['country']);
+                $wc->setProv($row['province']);
+                $wc->setPost($row['postal']);
+                $wc->setTitle($row['title']);
+                $wc->setImg($row['img_src']);
+                $user[] = $wc;
         }
-
         return $user;
+    }
 
+    public static function userAddress($user_id) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT DISTINCT p.address1, p.city, p.country, p.province, p.postal, r.title, ri.img_src, p.id
+                FROM recipes r JOIN recipes_made rm
+                ON r.id = rm.recipe_id
+                JOIN recipe_imgs ri
+                ON ri.recipe_id = r.id
+                JOIN profiles p
+                ON p.id = rm.user_id
+                WHERE p.id = :id
+                GROUP BY rm.user_id, p.id, r.id";
+        $statement = $db->prepare($sql);
+        $statement->bindValue(":id", $user_id, PDO::PARAM_INT);
+        $statement->execute();
+        $address = $statement->fetch();
+
+        $wc = new WhatsCookingDB($address['id']);
+        $wc->setAdd($address['address1']);
+        $wc->setCity($address['city']);
+        $wc->setCountry($address['country']);
+        $wc->setProv($address['province']);
+        $wc->setPost($address['postal']);
+        $user['address'] = $wc;
+        return $user;
     }
 }
  ?>

@@ -53,17 +53,27 @@ $(document).ready(function(){
 })//END PAGE LOAD
 
 //SHOW WHATS COOKING
-var userMap
+var userMap;
+var geoCode;
 function initializeMap() {
     userMap = new google.maps.Map(document.getElementById('map'), {
-        //THIS WILL BE REPLACED WITH THE USER LOGGED IN
-        center: {lat: 43.639832, lng: -79.395954},
         zoom: 15
     });
 }
+
     //GET JSON OF ADDRESSES FROM PHP DATABASE
     $.post("../models/WCAddress.php", function(data) {
         var obj = JSON.parse(data);
+
+        //SET THE USER ADDRESS TO THE SESSION USER
+        var currAdd = obj.currUserDetails.address;
+        geoCode = new google.maps.Geocoder();
+        geoCode.geocode({
+            address: currAdd
+        }, function(results, status) {
+            userMap.setCenter(results[0].geometry.location);
+        });//END CURR USER GEOCODE
+
 
         //FOR EACH ADDRESS PULLED FROM THE DATABASE THAT HAS A WHAT'S COOKING
         for(var i=1; i <= (Object.keys(obj.whats_cooking).length); i++) {
@@ -75,7 +85,7 @@ function initializeMap() {
 
 
 function coords(user, add, obj, userMap) {
-    var geoCode = new google.maps.Geocoder();
+    geoCode = new google.maps.Geocoder();
     geoCode.geocode({
         address: obj.whats_cooking[user][add]
     }, function (results, status) {

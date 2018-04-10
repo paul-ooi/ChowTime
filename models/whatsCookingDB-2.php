@@ -15,7 +15,7 @@ class WhatsCookingDB {
     }
 
     public function setCity($city) {
-        $this->$city = $city;
+        $this->city = $city;
     }
 
     public function setCountry($coun) {
@@ -75,14 +75,8 @@ class WhatsCookingDB {
         return $this->user_id;
     }
 
-    public function __construct($add, $city, $count, $prov, $post, $title, $img_src){
-        $this->setCity($city);
-        $this->setCountry($count);
-        $this->setProv($prov);
-        $this->setPost($post);
-        $this->setAdd($add);
-        $this->setTitle($title);
-        $this->setImg($img_src);
+    public function __construct($user_id){
+        $this->setId($user_id);
     }
 }
 
