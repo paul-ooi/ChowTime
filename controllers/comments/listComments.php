@@ -44,7 +44,7 @@ if (isset($_POST['upd'])){
         //$recipeId = $_POST['recipes'];
         $recipe_event = 'recipe';
         $recipe_event_id = 1;
-        
+
         $comments = $c->getRecipeEventComments($db, $recipe_event, $recipe_event_id);
         foreach ($comments as $cm) {
             echo '<div class="media">
@@ -65,6 +65,6 @@ if (isset($_POST['upd'])){
                 echo ;
             }
             echo '<p class="comment_date"><i>' . $cm->date . '</i></p></div></div>';
-    //}
+    }
     ?>
 </form>
