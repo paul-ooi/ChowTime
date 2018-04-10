@@ -1,13 +1,6 @@
 $(document).ready(function(){
 //SOMEHOW FIX LAYOUT ISSUE OF FILTER BAR
 
-
-    //DISPLAY THE SLIDER
-    $("#distance").slider({});
-
-    //ON LOAD CHECK SCREEN SIZE AND ALTER SLIDER
-    addRemoveTwoClasses("1350", ".slide-container", "hidden", ".input-container", "hidden");
-
     //CHECK IF XSMALL SCREEN SIZE ON LOAD AND ALTER FILTER BAR
     filterBar("768", ".filter-bar-container", "hidden", ".filter-icon-container", "hidden");
 
@@ -31,8 +24,6 @@ $(document).ready(function(){
 
     //ON MODIFICATION OF SCREEN SIZE
     $(window).resize(function() {
-        //HIDE/SHOW SLIDER
-        addRemoveTwoClasses("1350", ".slide-container", "hidden", ".input-container", "hidden");
         //HIDE/SHOW FILTER
         filterBar("768", ".filter-bar-container", "hidden", ".filter-icon-container", "hidden");
         filterBar("768", ".d-flex", "layout", ".d-flex", "layout");
@@ -61,47 +52,62 @@ $(document).ready(function(){
 
 })//END PAGE LOAD
 
-
+//SHOW WHATS COOKING
+var userMap;
+var geoCode;
 function initializeMap() {
-    var userMap = new google.maps.Map(document.getElementById('map'), {
+    userMap = new google.maps.Map(document.getElementById('map'), {
         zoom: 15
     });
-
-    //Create new instance of geocode class
-    var geoCode = new google.maps.Geocoder();
-    $.post("../models/whatsCooking.php", function(data) {
-        console.log(data);
-        // var addr = JSON.parse(data);
-        geoCode.geocode(
-            {address: data.a }, function(results, status) {
-                if(status == "OK") {
-                    userMap.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: userMap,
-                        position: results[0].geometry.location
-                    });
-                }
-            });
-            geoCode.geocode(
-                {address: data.b }, function(results, status) {
-                    if(status == "OK") {
-                        userMap.setCenter(results[0].geometry.location);
-                        var image = {
-                          url: "../images/JessicaAvatar.png",
-                          size: new google.maps.Size(71, 71),
-                          origin: new google.maps.Point(0, 0),
-                          anchor: new google.maps.Point(17, 34),
-                          scaledSize: new google.maps.Size(25, 25)
-                        };
-                        var marker = new google.maps.Marker({
-                            map: userMap,
-                            position: results[0].geometry.location,
-                            icon: image
-                        });
-                    }
-                });
-    }, "json");
 }
+
+    //GET JSON OF ADDRESSES FROM PHP DATABASE
+    $.post("../models/WCAddress.php", function(data) {
+        var obj = JSON.parse(data);
+
+        //SET THE USER ADDRESS TO THE SESSION USER
+        var currAdd = obj.currUserDetails.address;
+        geoCode = new google.maps.Geocoder();
+        geoCode.geocode({
+            address: currAdd
+        }, function(results, status) {
+            userMap.setCenter(results[0].geometry.location);
+        });//END CURR USER GEOCODE
+
+
+        //FOR EACH ADDRESS PULLED FROM THE DATABASE THAT HAS A WHAT'S COOKING
+        for(var i=1; i <= (Object.keys(obj.whats_cooking).length); i++) {
+            var add = "add" + i;
+            var user = "u" + i;
+            coords(user, add, obj, userMap);
+    };
+});//END POST
+
+
+function coords(user, add, obj, userMap) {
+    geoCode = new google.maps.Geocoder();
+    geoCode.geocode({
+        address: obj.whats_cooking[user][add]
+    }, function (results, status) {
+        if(status == "OK") {
+            var marker = new google.maps.Marker({
+                map: userMap,
+                position: results[0].geometry.location
+            });
+        }
+    });
+}//END PLACE MARKER FUNCTION
+
+//PINTEREST TO SHARE RECIPE
+
+
 
 
 // Because I've specified the parsing type in my $post, I do not need to include JSON.parse. If it wasn't included, I would, beacuse it doesn't know that it is JSON.
+
+
+//FINDING THE LENGTH OF A JS OBJECT
+//https://stackoverflow.com/questions/5223/length-of-a-javascript-object?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+//USING FOR LOOP TO POPULATE GEOCODE
+//https://stackoverflow.com/questions/9052393/google-geocoding-multiple-addresses-in-a-loop-with-javascript-how-do-i-know-whe?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
