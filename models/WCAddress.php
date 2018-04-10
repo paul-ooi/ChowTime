@@ -12,25 +12,33 @@ include 'db.php';
 include 'whatsCookingDb-2.php';
 include 'whatsCookingDB.php';
 
+
+//OBJECT OF USERS ADDRESS, IMG-SRC, RECIPE TITLE, ETC...
 $users = WhatsCooking::whatsCookingAll();
 
 $count = 0;
 
 foreach($users as $user) {
     $count += 1;
-    $key = "key" . $count;
+    //CLEAN THE ARRAY
+    $u = array();
+    $addKey = "add" . $count;
+    $imgKey = "img" . $count;
+    $userKey = "u" . $count;
     $add = $user->getAdd();
     $city = $user->getCity();
     $province = $user->getProv();
     $post = $user->getPost();
 
     $address = "$add $city $province $post";
-    $fullAdd[$key] = $address;
+    $u[$addKey] = $address;
+    $u[$imgKey] = $user->getImg();
+    $array[$userKey] = $u;
+
 }
 
-// echo count($fullAdd);
-echo json_encode($fullAdd);
-
+echo json_encode(array('whats_cooking' => $array));
+//https://stackoverflow.com/questions/18377469/php-give-a-name-to-an-array-of-json-objects?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
 
 

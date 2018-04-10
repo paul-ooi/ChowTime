@@ -19,14 +19,14 @@ class WhatsCooking {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $sql = "SELECT DISTINCT p.address1, r.title, ri.img_src
-                FROM recipes r JOIN recipes_made rm
-                ON r.made_id = rm.id
-                JOIN recipe_imgs ri
-                ON ri.recipe_id = r.id
-                JOIN profiles p
-                ON p.made_id = rm.id
-                WHERE p.id = :id
-                GROUP BY rm.user_id";
+            FROM recipes r JOIN recipes_made rm
+            ON r.id = rm.recipe_id
+            JOIN recipe_imgs ri
+            ON ri.recipe_id = r.id
+            JOIN profiles p
+            ON p.id = rm.user_id
+            WHERE p.id = 1
+            GROUP BY rm.user_id";
 
         $statement = $db->prepare($sql);
         $statement->bindValue(":id", $user_id, PDO::PARAM_INT);
@@ -42,14 +42,14 @@ class WhatsCooking {
         $db = Database::getDb();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "SELECT p.address1, p.city, p.country, p.province, p.postal, r.title, ri.img_src, p.id
+        $sql = "SELECT DISTINCT p.address1, p.city, p.country, p.province, p.postal, r.title, ri.img_src, p.id
                 FROM recipes r JOIN recipes_made rm
-                ON r.made_id = rm.id
+                ON r.id = rm.recipe_id
                 JOIN recipe_imgs ri
                 ON ri.recipe_id = r.id
                 JOIN profiles p
-                ON p.made_id = rm.id
-                GROUP BY rm.user_id, p.id, r.made_id";
+                ON p.id = rm.user_id
+                GROUP BY rm.user_id, p.id, r.id;";
         $statement = $db->prepare($sql);
         $statement->execute();
         $rows = $statement->fetchAll();
