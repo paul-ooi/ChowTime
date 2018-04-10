@@ -1,8 +1,9 @@
-// $(window).onload(pageReady);
-var timersArray;
 "use strict";
+$(document).ready(pageReady);
+// window.addEventListener('load', pageReady, false);
+var timersArray;//Create the Array to hold objects of timers present on the page
 
-window.addEventListener('load', pageReady, false);
+
 function pageReady() {
 //Run script when window is loaded
 
@@ -52,6 +53,11 @@ function removeTimer() {
 	// Must remove from DB as well
 	// INSERT CODE FOR DB REMOVAL OF TIMER
 
+
+	//clear the Interval before removing the Timer.
+	let timerPosition = timers.index(this.parentElement.parentElement);
+	timersArray[timerPosition].pause();
+
 	// Remove the list item belonging to this timer
 	this.parentElement.parentElement.remove(); //currently only removes from the DOM
 
@@ -73,7 +79,7 @@ function displayTimer(remainingTime, position) {
 	timers[position].querySelector(".minutes").textContent = minutes;
 	timers[position].querySelector(".seconds").textContent = seconds;
 
-}//end of removeTimer
+}//end of displayTimer
 
 function setTimerValue(hh, mm, ss) {
 	// Get individual values from form
@@ -119,12 +125,38 @@ function Timer (originalTime, timerName = "untitled timer", position) {
 }
 
 var timers;
+var timersArrayJSON;
 function setupTimerArray() {
+
+	// var xmlhttp = new XMLHttpRequest();
+	// xmlhttp.onreadystatechange = function() {
+	// 	if (this.readyState == 4 && this.status == 200) {
+	// 		console.log("success");
+	// 		timersArrayJSON = JSON.parse(this.responseText);
+	// 		console.log(timersArray);
+	// 		console.log(timersArrayJSON);
+	// 	}
+	// };
+	// xmlhttp.open("GET", "../controllers/timers/timer_file.php?action=getTimers", true);
+	// xmlhttp.send();
+
+	// $.ajax( "../controllers/timers/timer_file.php", {
+	// 	converters: {"array json": jQuery.parseJSON},
+	// 	data:{'action': 'getTimers'},
+	//  	datatype:"json",
+	// 	success: function (response) {
+	// 		timersArrayJSON = response;
+	// 		console.log(timersArrayJSON);
+	// 	}
+	// });
+
+
+
 	//Get Timers
 	timers = $('.timer');
 	timersArray = [];
 	var position = 0;
-	for (timer of timers) {
+	for (let timer of timers) {
 		let name = timer.querySelector('.timer-name').textContent;
 		let hours = timer.querySelector('.hours').textContent;
 		let minutes = timer.querySelector('.minutes').textContent;
@@ -132,8 +164,8 @@ function setupTimerArray() {
 		//Store timers in Array - maybe send this to DB
 		timersArray.push(new Timer (setTimerValue(hours, minutes, seconds), name, position));
 		position++;
-	}
-	console.log(timersArray);
+	};
+	//console.log(timersArray);
 }
 
 // var a = new Timer(5, "my A Timer");

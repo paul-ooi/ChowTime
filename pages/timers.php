@@ -4,21 +4,35 @@ include 'partial/_header.php';//Head with CSS and CDNs, Title o page
 require_once '../models/db.php';//Connects to DB
 require_once '../models/timer.php';//Timer Class
 require_once '../models/timerDB.php';//Timer DB functions
+require_once '../models/validation.php';//Timer DB functions
 
 $db = Database::getDb();
 
 $userTimers = TimerDB::getAllTimersByUser($db, 1);
-// print_r($_POST);
+// echo "<pre>";
+// echo json_encode($userTimers);
+// echo "</pre>";
 
+if(isset($_POST["saveTimer"])) {
+    $v = new Validation();
 
-if(isset($_POST["startTimer"])) {
     $hours = $_POST["hours"];
     $minutes = $_POST["minutes"];
     $seconds = $_POST["seconds"];
+    $name = $_POST["name"];
 
-    echo "<pre>";
-    var_dump($hours);
-    echo "</pre>";
+    $t = new Timer($hours, $minutes, $seconds, $name);
+    var_dump($t->getName());
+
+    $timer = (object)[
+        'user' => 1,
+        'timer' => $t
+    ];
+
+    echo "inserted " . TimerDB::addTimer($db, $timer);
+    // echo "<pre>";
+    // var_dump($hours);
+    // echo "</pre>";
 
 
 }
@@ -36,7 +50,7 @@ if(isset($_POST["startTimer"])) {
     <main class="col-12">
         <!-- TIMER FORM -->
         <h1>Timer</h1>
-        <form action="../controllers/timers/index.php" method="post" name="timerForm">
+        <form action="" method="post" name="timerForm">
             <div>
                 <label for="hours">Hours: </label>
                 <input type="number" id="hours" name="hours" value="<?php //echo $hours?>"/>
@@ -73,25 +87,28 @@ if(isset($_POST["startTimer"])) {
             </div>
             <!-- GET TIMERS FROM DATABASE AND LIST -->
             <ul>
+                <?php foreach ($userTimers as $key => $t) {?>
                 <li class="timer row col-12">
-                    <div class="timer-name col-3">Timer Name</div>
-                    <div class="timer-value col-3"><h4><span class="hours">00</span><sub>H</sub>:<span class="minutes">08</span><sub>M</sub>:<span class="seconds">15</span><sub>S</sub></h4></div>
+                    <div class="timer-name col-3"><?php echo $t->t_name ?></div>
+                    <?php if (empty($t->remainder)) {
+                        $tValue = TimerDB::getTimerValues($t->set_time);
+                    } else if ($t->set_time >= $t->remainder) {
+                        $tValue = TimerDB::getTimerValues($t->remainder);
+                    } ?>
+                    <div class="timer-value col-3">
+                        <h4>
+                            <span class="hours"><?php echo $tValue['hh'] ?></span><sub>H</sub>:
+                            <span class="minutes"><?php echo $tValue['mm'] ?></span><sub>M</sub>:
+                            <span class="seconds"><?php echo $tValue['ss'] ?></span><sub>S</sub>
+                        </h4>
+                    </div>
                     <div class="col-6">
                         <button name="startTimer" class="start-time btn timer-btn col-3">Start</button>
                         <button name="stopTimer" class="hidden stop-time timer-btn btn col-3">Stop</button>
                         <button name="deleteTimer" class="del-time btn timer-btn col-3">Remove</button>
                     </div>
                 </li>
-                <li class="timer row col-12">
-                    <div class="timer-name col-3">Timer Name</div>
-                    <div class="timer-value col-3"><h4><span class="hours">00</span><sub>H</sub>:<span class="minutes">05</span><sub>M</sub>:<span class="seconds">05</span><sub>S</sub></h4></div>
-                    <div class="col-6">
-                        <!-- When timer is active, hide start button and reveal stop -->
-                        <button name="startTimer" class="start-time timer-btn btn col-3">Start</button>
-                        <button name="stopTimer" class=" hidden stop-time timer-btn btn col-3">Stop</button>
-                        <button name="deleteTimer" class="del-time timer-btn btn col-3">Remove</button>
-                    </div>
-                </li>
+            <?php }//End of FOREACH to list Timers?>
             </ul>
         </div>
     </main>
