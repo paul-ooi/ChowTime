@@ -3,7 +3,12 @@ $pageTitle = "Timers";//Rename this to be the title in the Tab
 include 'partial/_header.php';//Head with CSS and CDNs, Title o page
 require_once '../models/db.php';//Connects to DB
 require_once '../models/timer.php';//Timer Class
+require_once '../models/timerDB.php';//Timer DB functions
 
+$db = Database::getDb();
+
+$userTimers = TimerDB::getAllTimersByUser($db, 1);
+// print_r($_POST);
 
  ?>
 <link href="../assets/css/timers.css" type="text/css" rel="stylesheet"/>
@@ -16,7 +21,7 @@ require_once '../models/timer.php';//Timer Class
     <main class="col-12">
         <!-- TIMER FORM -->
         <h1>Timer</h1>
-        <form action="timers.php" method="post">
+        <form action="../controllers/timers/index.php" method="post" name="timerForm">
             <div>
                 <label for="hours">Hours: </label>
                 <input type="number" id="hours" name="hours" value="<?php //echo $hours?>"/>
@@ -34,16 +39,16 @@ require_once '../models/timer.php';//Timer Class
                 <input type="text" id="name" name="name" value="<?php //echo $name?>" placeholder="Optional"/>
             </div>
             <div>
-                <button type="submit" name="startTimer" class="btn timer-btn">Start Timer</button>
-                <button type="submit" name="saveTimer" class="btn timer-btn">Save Timer for later</button>
+                <button type="submit" name="startTimer" class="btn timer-btn" for="timerForm">Start Timer</button>
+                <button type="submit" name="saveTimer" class="btn timer-btn" for="timerForm">Save Timer for later</button>
             </div>
             <div>
+                <!-- TOGGLE VISIBILITY OF SAVED TIMERS -->
                 <span id="timers-tg">View saved Timers</span>
-                <!-- <button class="btn timer-btn" id="timers-tg">View saved Timers</button> -->
-                <!-- <a href="" ></a> -->
             </div>
         </form>
         <div id="storedTimers" class="hidden container col-12">
+            <!-- LIST OF SAVED TIMERS -->
             <h2>Your Timers</h2>
             <!-- HEADINGS -->
             <div class="row col-12">
@@ -52,25 +57,27 @@ require_once '../models/timer.php';//Timer Class
                 <div class="col-6"><h3>Actions</h3></div>
             </div>
             <!-- GET TIMERS FROM DATABASE AND LIST -->
-            <div class="timer row col-12">
-                <div class="col-3">Timer Name</div>
-                <div class="col-3"><h4>00<sub>H</sub>:00<sub>M</sub>:00<sub>S</sub></h4></div>
-                <div class="col-6">
-                    <button name="startTimer" class="start-time btn timer-btn col-3">Start</button>
-                    <!-- <button name="stopTimer" class="stop-time timer-btn btn col-3">Stop</button> -->
-                    <button name="deleteTimer" class="del-time btn timer-btn col-3">Remove</button>
-                </div>
-            </div>
-            <div class="timer row col-12">
-                <div class="col-3">Timer Name</div>
-                <div class="col-3"><h4>00<sub>H</sub>:00<sub>M</sub>:00<sub>S</sub></h4></div>
-                <div class="col-6">
-                    <!-- When timer is active, hide start button and reveal stop -->
-                    <!-- <button name="startTimer" class="start-time timer-btn btn col-3">Start</button> -->
-                    <button name="stopTimer" class="stop-time timer-btn btn col-3">Stop</button>
-                    <button name="deleteTimer" class="del-time timer-btn btn col-3">Remove</button>
-                </div>
-            </div>
+            <ul>
+                <li class="timer row col-12">
+                    <div class="timer-name col-3">Timer Name</div>
+                    <div class="timer-value col-3"><h4><span class="hours">00</span><sub>H</sub>:<span class="minutes">08</span><sub>M</sub>:<span class="seconds">15</span><sub>S</sub></h4></div>
+                    <div class="col-6">
+                        <button name="startTimer" class="start-time btn timer-btn col-3">Start</button>
+                        <button name="stopTimer" class="hidden stop-time timer-btn btn col-3">Stop</button>
+                        <button name="deleteTimer" class="del-time btn timer-btn col-3">Remove</button>
+                    </div>
+                </li>
+                <li class="timer row col-12">
+                    <div class="timer-name col-3">Timer Name</div>
+                    <div class="timer-value col-3"><h4><span class="hours">00</span><sub>H</sub>:<span class="minutes">05</span><sub>M</sub>:<span class="seconds">05</span><sub>S</sub></h4></div>
+                    <div class="col-6">
+                        <!-- When timer is active, hide start button and reveal stop -->
+                        <button name="startTimer" class="start-time timer-btn btn col-3">Start</button>
+                        <button name="stopTimer" class=" hidden stop-time timer-btn btn col-3">Stop</button>
+                        <button name="deleteTimer" class="del-time timer-btn btn col-3">Remove</button>
+                    </div>
+                </li>
+            </ul>
         </div>
     </main>
     <aside class="col-12">

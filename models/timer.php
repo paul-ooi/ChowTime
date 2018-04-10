@@ -45,6 +45,13 @@ class Timer {
         return $flag;
     }
 
+    public function setTime($hh = 0, $mm = 0, $ss = 0, $name = 'untitled') {
+        $this->setHours(intval($hh));
+        $this->setMinutes(intval($mm));
+        $this->setSeconds(intval($ss));
+        $this->setName($name);
+    }
+
 }
 
  ?>

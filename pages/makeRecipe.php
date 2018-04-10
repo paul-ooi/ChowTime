@@ -1,4 +1,5 @@
 <?php
+
 $pageTitle = "Make a Recipe";
 require_once 'partial/_header.php';
 ?>
@@ -159,8 +160,12 @@ if(isset($_POST["addRecipe"])) {
 
     <!-- INGREDIENTS -->
     <?php
+
     //include the Add Ingredient section  (Paul's Lab 6) -needs some formatting still
-    //include '../controllers/ingredients/_addingredient.php' ?>
+    //include '../controllers/ingredients/_addingredient.php'
+
+    include 'controllers/ingredients/_addingredient.php';
+     ?>
             <fieldset class="form-group">
                 <div class="form-row">
                     <legend class="col-form-label col-sm-3 col-md-2">Ingredients</legend>
