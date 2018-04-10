@@ -113,19 +113,5 @@ class Recipes {
         $this->setSteps($steps);
     }
 
-    //SELECT LAST RECIPE ID FROM THE LIST - https://stackoverflow.com/questions/3133711/select-last-id-without-insert?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
-    public static function getLastRecipe() {
-        $db = Database::getDb();
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $sql = "SELECT @var := MAX(id) FROM recipes";
-        $db->prepare($sql);
-        // $db->setFetchMode(PDO::FETCH_OBJ);
-        $id = $db->execute();
-
-        return $id;
-    }
-
-
 }
 ?>
