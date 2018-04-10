@@ -10,6 +10,21 @@ $db = Database::getDb();
 $userTimers = TimerDB::getAllTimersByUser($db, 1);
 // print_r($_POST);
 
+
+if(isset($_POST["startTimer"])) {
+    $hours = $_POST["hours"];
+    $minutes = $_POST["minutes"];
+    $seconds = $_POST["seconds"];
+
+    echo "<pre>";
+    var_dump($hours);
+    echo "</pre>";
+
+
+}
+
+
+
  ?>
 <link href="../assets/css/timers.css" type="text/css" rel="stylesheet"/>
 <script src="../assets/js/timers.js" type="text/javascript"></script>

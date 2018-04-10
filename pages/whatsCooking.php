@@ -3,7 +3,7 @@ $pageTitle = "What's Cooking";
 require_once 'partial/_header.php';
 ?>
 <link rel="stylesheet" type="text/css" href="../assets/css/whatsCooking.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" />
+<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" /> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
 <script src="../assets/js/whatsCooking.js"></script>
 </head>
@@ -27,29 +27,24 @@ require_once 'Whats-cooking.php';
                     <div class="col-lg-12 filter-group">
                         <h3>Dietary Rescrictions</h3>
                         <div class="form-check">
-                            <label for="a" class="form-check-label">
-                                <input type="checkbox" id="a" name="a" value="vegetarian">Veggie
-                            </label>
+                            <input class="form-check-input" type="checkbox" id="a" name="a" value="vegetarian" />
+                            <label for="a" class="form-check-label">Veggie</label>
                         </div>
-                        <div class="checkbox">
-                            <label for="b">
-                                <input type="checkbox" id="b" name="b" value="gluten free" />Gluten Free
-                            </label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="b" name="b" value="gluten free" />
+                            <label for="b" class="form-check-label">Gluten Free</label>
                         </div>
-                        <div class="checkbox">
-                            <label for="c">
-                                <input type="checkbox" id="c" name="c" value="dairy free" />Dairy Free
-                            </label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="c" name="c" value="dairy free" />
+                            <label class="form-check-label" for="c">Dairy Free</label>
                         </div>
-                        <div class="checkbox">
-                            <label for="d">
-                                <input type="checkbox" id="d" name="d" value="vegan" />Vegan
-                            </label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="d" name="d" value="vegan" />
+                            <label class="form-check-label" for="d">Vegan</label>
                         </div>
-                        <div class="checkbox">
-                            <label for="e">
-                                <input type="checkbox" id="e" name="e" value="nut free" />Nut Free
-                            </label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="e" name="e" value="nut free" />
+                            <label class="form-check-label" for="e">Nut Free</label>
                         </div>
                     </div>
                     <div class="col-sm-12 distances-container">
