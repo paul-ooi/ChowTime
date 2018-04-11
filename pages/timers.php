@@ -3,22 +3,31 @@ $pageTitle = "Timers";//Rename this to be the title in the Tab
 include 'partial/_header.php';//Head with CSS and CDNs, Title o page
 require_once '../models/db.php';//Connects to DB
 require_once '../models/timer.php';//Timer Class
+require_once '../models/timerDB.php';//Timer DB functions
+require_once '../models/validation.php';//Timer DB functions
 
+$db = Database::getDb();
 
+if(isset($_POST["saveTimer"]) || isset($_POST["startTimer"]) ) {
+    $v = new Validation();
 
-if(isset($_POST["startTimer"])) {
     $hours = $_POST["hours"];
     $minutes = $_POST["minutes"];
     $seconds = $_POST["seconds"];
+    $name = $_POST["name"];
 
-    echo "<pre>";
-    var_dump($hours);
-    echo "</pre>";
+    $t = new Timer($hours, $minutes, $seconds, $name);
 
+    $timer = (object)[
+        'user' => 1, //Need to get the User id from the Session variable.
+        'timer' => $t
+    ];
 
+    $feedbackMsg = TimerDB::addTimer($db, $timer);
 }
 
 
+$userTimers = TimerDB::getAllTimersByUser($db, 1);
 
  ?>
 <link href="../assets/css/timers.css" type="text/css" rel="stylesheet"/>
@@ -31,7 +40,7 @@ if(isset($_POST["startTimer"])) {
     <main class="col-12">
         <!-- TIMER FORM -->
         <h1>Timer</h1>
-        <form action="timers.php" method="post">
+        <form action="" method="post" name="timerForm">
             <div>
                 <label for="hours">Hours: </label>
                 <input type="number" id="hours" name="hours" value="<?php //echo $hours?>"/>
@@ -49,17 +58,21 @@ if(isset($_POST["startTimer"])) {
                 <input type="text" id="name" name="name" value="<?php //echo $name?>" placeholder="Optional"/>
             </div>
             <div>
-                <button type="submit" name="startTimer" class="btn timer-btn">Start Timer</button>
-                <button type="submit" name="saveTimer" class="btn timer-btn">Save Timer for later</button>
+                <button type="submit" name="startTimer" class="btn timer-btn" for="timerForm">Start Timer</button>
+                <button type="submit" name="saveTimer" class="btn timer-btn" for="timerForm">Save Timer for later</button>
             </div>
             <div>
-                <span id="timers-tg">View saved Timers</span>
-                <!-- <button class="btn timer-btn" id="timers-tg">View saved Timers</button> -->
-                <!-- <a href="" ></a> -->
+                <label for="timerForm" id="feedbackMsg"><?php echo (empty($feedbackMsg) ? "" : $feedbackMsg) ?></label>
             </div>
         </form>
+        <div>
+            <!-- TOGGLE VISIBILITY OF SAVED TIMERS -->
+            <span id="timers-tg">View saved Timers</span>
+        </div>
         <div id="storedTimers" class="hidden container col-12">
+            <!-- LIST OF SAVED TIMERS -->
             <h2>Your Timers</h2>
+            <div id=storedTimerFeedback></div>
             <!-- HEADINGS -->
             <div class="row col-12">
                 <div class="col-3"><h3>Name</h3></div>
@@ -67,25 +80,31 @@ if(isset($_POST["startTimer"])) {
                 <div class="col-6"><h3>Actions</h3></div>
             </div>
             <!-- GET TIMERS FROM DATABASE AND LIST -->
-            <div class="timer row col-12">
-                <div class="col-3">Timer Name</div>
-                <div class="col-3"><h4>00<sub>H</sub>:00<sub>M</sub>:00<sub>S</sub></h4></div>
-                <div class="col-6">
-                    <button name="startTimer" class="start-time btn timer-btn col-3">Start</button>
-                    <!-- <button name="stopTimer" class="stop-time timer-btn btn col-3">Stop</button> -->
-                    <button name="deleteTimer" class="del-time btn timer-btn col-3">Remove</button>
-                </div>
-            </div>
-            <div class="timer row col-12">
-                <div class="col-3">Timer Name</div>
-                <div class="col-3"><h4>00<sub>H</sub>:00<sub>M</sub>:00<sub>S</sub></h4></div>
-                <div class="col-6">
-                    <!-- When timer is active, hide start button and reveal stop -->
-                    <!-- <button name="startTimer" class="start-time timer-btn btn col-3">Start</button> -->
-                    <button name="stopTimer" class="stop-time timer-btn btn col-3">Stop</button>
-                    <button name="deleteTimer" class="del-time timer-btn btn col-3">Remove</button>
-                </div>
-            </div>
+            <ul>
+
+                <?php foreach ($userTimers as $key => $t) {?>
+                <li class="timer row col-12">
+                    <div class="timer-name col-3"><?php echo $t->t_name ?></div>
+                    <?php if (empty($t->remainder)) {
+                        $tValue = TimerDB::getTimerValues($t->set_time);
+                    } else if ($t->set_time >= $t->remainder) {
+                        $tValue = TimerDB::getTimerValues($t->remainder);
+                    } ?>
+                    <div class="timer-value col-3">
+                        <h4>
+                            <span class="hours"><?php echo $tValue['hh'] ?></span><sub>H</sub>:
+                            <span class="minutes"><?php echo $tValue['mm'] ?></span><sub>M</sub>:
+                            <span class="seconds"><?php echo $tValue['ss'] ?></span><sub>S</sub>
+                        </h4>
+                    </div>
+                    <div class="col-6">
+                        <button name="startTimer" class="start-time btn timer-btn col-3">Start</button>
+                        <button name="stopTimer" class="hidden stop-time timer-btn btn col-3">Stop</button>
+                        <button name="deleteTimer" class="del-time btn timer-btn col-3">Remove</button>
+                    </div>
+                </li>
+            <?php }//End of FOREACH to list Timers?>
+            </ul>
         </div>
     </main>
     <aside class="col-12">

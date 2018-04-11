@@ -1,9 +1,20 @@
 <?php
+// $serverRoot = $_SERVER['HTTP_HOST'];
+// $appRoot = '/' . 'chowtime' . '/';
+// set_include_path($serverRoot . $appRoot);
 
-require_once '../models/db.php';
-require_once '../models/ingredient.php';
-require_once '../models/ingredientDB.php';
-require_once '../models/validation.php';
+echo "<pre>";
+// var_dump($_SERVER);
+// echo get_include_path();
+// set_include_path($root. $appRoot);
+// echo 'in header';
+// echo get_include_path();
+echo "</pre>";
+
+require_once '../../models/db.php';
+require_once '../../models/ingredient.php';
+require_once '../../models/ingredientDB.php';
+require_once '../../models/validation.php';
 
 $formMsg = "";
 
@@ -118,7 +129,7 @@ if ($ing->getOptional() == true) {
     <p>Fill in the form to add an ingredient.<small><span class="required"> * </span>fields are required.</small></p>
 
     <fieldset class="form-group form-inline row">
-    <form action="_addingredient.php" method="post" id="ingred_form" name="ingredForm" class="col-12 d-flex">
+    <!-- <form action="_addingredient.php" method="post" id="ingred_form" name="ingredForm" class="col-12 d-flex"> -->
         <div class="form-group col-lg-3 ingred_form_item">
             <label class="ingred_form_label ingred_form_label_small" for="food_id">Food Item<span class="required"> * </span></label>
             <select class="form-control" type="text" name="food_id" id="food_id">
@@ -158,6 +169,6 @@ if ($ing->getOptional() == true) {
         <div>
             <button id="ingredForm_add" type="submit" name="addIngredBtn" for="ingredForm">Add Ingredient</button>
         </div>
-    </form>
-</fieldset>
+    <!-- </form> -->
     <?php $formMsg?>
+</fieldset>

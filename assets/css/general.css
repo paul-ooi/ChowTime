@@ -17,6 +17,11 @@ html {
 	box-sizing: inherit;
 }
 
+.hidden {
+	position: absolute;
+	left: -10000px;
+}
+
 body {
 	font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 	padding: 0;

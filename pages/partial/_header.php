@@ -1,9 +1,13 @@
 <?php
 // $root = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
 // $appRoot = filter_input(INPUT_SERVER, 'REQUEST_URI');
+// echo "<pre>";
+// var_dump($_SERVER);
+// echo get_include_path();
 // set_include_path($root. $appRoot);
 // echo 'in header';
 // echo get_include_path();
+// echo "</pre>";
 ?>
 <!DOCTYPE html>
 <html lang="en">

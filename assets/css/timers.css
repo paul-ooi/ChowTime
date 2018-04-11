@@ -4,8 +4,17 @@
 	cursor: pointer;
 }
 
+#storedTimers ul {
+	list-style: none;
+}
+
 .timer {
 	margin: 1em auto;
+}
+
+.timer div {
+	padding: 0;
+	margin: 0;
 }
 
 .timer-btn:hover, .timer-btn {

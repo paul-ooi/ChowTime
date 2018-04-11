@@ -54,7 +54,9 @@
             <div class="row">
                 <!-- Comment Section (first 10) -->
             </div>
-                <?php include '../comments/commentbox.php'; ?>
+                <?php
+                include '../comments/listComment.php';
+                include '../comments/commentbox.php'; ?>
         </div>
     </main>
 
