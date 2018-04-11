@@ -31,6 +31,19 @@ Next TO DOs:
 * Ingredients (incorporate to pages/makeRecipe.php)
 * Implement new style guide to CSS files
 
+### Jessica
+* Recipes page, what's cooking, and create recipe's now interact with the Database and can read
+* What's cooking now pulls from the google maps API
+* Create a recipe page now contains server side validation
+
+Next TO DOs:
+* Complete Create functionality for make recipe page
+* Add functionality to filters for the what's cooking page
+* Complete share recipe function
+* Add a new recipes summary page
+
+---
+
 ## Checkpoint 1
 
 ### Paul
@@ -38,3 +51,8 @@ Next TO DOs:
 * Added shared header and footer
 * Added Ingredients functions
 * Setup database and database credentials for team members
+
+### Jessica
+* styled view recipe page
+* styled what's cooking page
+* set up database tables and CRUD for pages
