@@ -14,34 +14,32 @@ switch($_GET['action']) {
         $searchParam = $_GET['phrase'];
         echo "inside searchKey";
         $results = RecipeDb::getRecipeDetailsByTitle($searchParam);
-        print_r($results);
         break;
 }
-
+// echo "<pre>";
+// // print_r($results);
+// var_dump($_SERVER);
+// var_dump($_ENV);
+// echo "</pre>";
 
  ?>
-
 <ul>
     <?php foreach ($results as $key => $r) {?>
     <li class="recipe-item row col-12">
-        <div class="timer-name col-3"><?php echo $t->t_name ?></div>
-        <?php if (empty($t->remainder)) {
-            $tValue = TimerDB::getTimerValues($t->set_time);
-        } else if ($t->set_time >= $t->remainder) {
-            $tValue = TimerDB::getTimerValues($t->remainder);
-        } ?>
-        <div class="timer-value col-3">
-            <h4>
-                <span class="hours"><?php echo $tValue['hh'] ?></span><sub>H</sub>:
-                <span class="minutes"><?php echo $tValue['mm'] ?></span><sub>M</sub>:
-                <span class="seconds"><?php echo $tValue['ss'] ?></span><sub>S</sub>
-            </h4>
+        <figure class="col-3">
+            <img class="recipe-img" src="chowtime/<?php echo $r->img_src?>" alt=""/>
+        </figure>
+        <div class="recipe-header col-9">
+            <h3 class="recipe-name col-9"><?php echo $r->title ?></h3>
+            <span class="prep-time col-3">Prep Time: <?php echo $r->prep_time ?></span>
+            <span class="cook-time col-3">Cook Time: <?php echo $r->cook_time ?></span>
+            <span class="diff-lvl col-3">Difficulty Level: <?php echo $r->diff_lvl ?></span>
         </div>
-        <div class="col-6">
-            <button name="startTimer" class="start-time btn timer-btn col-3">Start</button>
-            <button name="stopTimer" class="hidden stop-time timer-btn btn col-3">Stop</button>
-            <button name="deleteTimer" class="del-time btn timer-btn col-3">Remove</button>
+        <div class="recipe-header col-9">
+            <?php echo $r->description?>
         </div>
+        <input type="button" name="viewRecipe" class="btn btn-default" value="View Recipe" />
+        <input type="button" name="madeIt" class="btn btn-default" value="I Made it" />
     </li>
 <?php }//End of FOREACH to list Timers?>
 </ul>

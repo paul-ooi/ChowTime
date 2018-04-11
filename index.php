@@ -4,6 +4,7 @@ require_once 'pages/partial/_header.php';
 
  ?>
     <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
+    <link href="assets\css\search.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/general.css" type="text/css" rel="stylesheet" />
     <script src="assets/js/advanced-search.js" type="text/javascript"></script>
 </head>
