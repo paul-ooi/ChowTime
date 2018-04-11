@@ -3,6 +3,29 @@
 
  /* =======================TESTING ZONE================== */
 
+ /* =======================ARRAYS TO DISPLAY ================== */
+
+ // DIFF LEVEL ARRAY
+ $diff['diff_level'] = array (
+     "01" => '1',
+     "02" => '2',
+     "03" => '3',
+     "04" => '4',
+     "05" => '5'
+ );
+
+ //INGRED DIFF
+ $ingred['ingred_diff'] = array (
+     "1" => '1',
+     "2" => '2',
+     "3" => '3',
+     "4" => '4',
+     "5" => '5'
+ );
+
+ /* =======================END ARRAYS TO DISPLAY ================== */
+
+
 // VALIDATE FIELDS AREN'T EMPTY ON SUBMIT
 $v = new Validation();
 if(isset($_POST["addRecipe"])) {
@@ -17,27 +40,22 @@ if(isset($_POST["addRecipe"])) {
     //ADD INGREDIENTS
     $ingredDiff = $v->checkAssignProperty("ingredDiff");
     $spiceLevel = $v->checkAssignProperty("spicy");
-    $diffLevel = $v->checkAssignProperty("diffLvl");
 
-
-        if(!checkInputFields($inTitle, $inDescr, $inPrepTime, $inCookTime, $overallDiff, $spiceLevel, $diffLevel, $errors)) {
-
-            echo "<pre>";
-            var_dump($_SESSION);
-            echo "</pre>";
-
+        //CHECK ALL INPUT FIELDS ARE VALID
+        if(checkInputFields($inTitle, $inDescr, $inPrepTime, $inCookTime, $overallDiff, $spiceLevel, $errors)) {
+            //CHECK FILES ARE VALID
+            if(checkFiles($errors)) {
+                echo "ok";
+                // if(allRecipeSteps() != false) {
+                //     //DO INSERT INTO DATABASE
+                //     echo "this is working";
+                //
+                // }
+            }
         }
 
 
-        // if(isset($_FILES)) {
-        //     if(checkFiles() && checkInputFields()) {
-        //         if(allRecipeSteps() != false) {
-        //             //DO INSERT INTO DATABASE
-        //             echo "this is working";
-        //
-        //         }
-        //     }
-        // }
+
 
 
     }//END ADD RECIPE BUTTON
@@ -47,8 +65,8 @@ if(isset($_POST["addRecipe"])) {
     }
 
     /* =======================INPUT VALIDATION================== */
-    function checkInputFields($inTitle, $inDescr, $inPrepTime, $inCookTime, $spiceLevel, $diffLevel, $errors) {
-        if ($inTitle == null || $inDescr == null || $inPrepTime == null || $inCookTime == null || $spiceLevel == null || $diffLevel == null || $overallDiff == null) {
+    function checkInputFields($inTitle, $inDescr, $inPrepTime, $inCookTime, $spiceLevel, $overallDiff, $errors) {
+        if ($inTitle == null || $inDescr == null || $inPrepTime == null || $inCookTime == null || $spiceLevel == null || $overallDiff == null) {
             $errors['input_field_error'] = "Please fill out all fields to add a recipe!";
             createSession($errors);
             return false;
@@ -59,52 +77,59 @@ if(isset($_POST["addRecipe"])) {
     /* =======================END INPUT VALIDATION================== */
 
     /* =======================FILE VALIDATION================== */
+    //FIX FILE SIZE, AND IMAGE COUNT
         function checkFiles($errors) {
+            if(!isset($_FILES)) {
+                $errors['file_error'] = "Please upload a photo of your recipe";
+                createSession($errors);
+                return false;
+            }
             $file_size = $_FILES['upfile']['size']; //in bytes
             $file_type = $_FILES['upfile']['type'];
             $file_error = $_FILES['upfile']['error'];
-            $file_name = $_FILES['upfile']['tmp_name'];
+            $file_name = $_FILES['upfile']['name'];
+            $file_temp = $_FILES['upfile']['tmp_name'];
             //HANDLING FILE ERRORS = ERRORS['FILE_ERROR']
 
             if ($file_error > 0) {
-                $errors['file_error'] = "There was an unknown error with your file upload";
-                createSession($errors);
-                return false;
-
+                // $errors['file_error'] = "There was an unknown error with your file upload";
+                // createSession($errors);
+                // return false;
                 switch($file_error) {
                     case 1:
                     $errors['file_error'] = "File exceeded upload_max_filesize";
                     createSession($errors);
-                    break;
+                    return false;
                     case 2:
                     $errors['file_error'] = "File exceeded max_file_size";
                     createSession($errors);
-                    break;
+                    return false;
                     case 3:
                     $errors['file_error'] = "File only partially uploaded";
                     createSession($errors);
-                    break;
+                    return false;
                     case 4:
                     $errors['file_error'] = "No file uploaded";
                     createSession($errors);
-                    break;
+                    return false;
                 }
             exit;
             }
 
-            $max_file_size = 20000;
+            $max_file_size = 200000;
             if($file_size > $max_file_size) {
                 $errors['file_error'] = "File size too big";
                 createSession($errors);
                 return false;
             }
 
-            $target_path = "/ChowTime/assets/imgs/";
             $num = recipeDB::getImageCount();
-            $file_name = "image" . $num[0] . "jpg";
 
-            $target_path = $target_path . $file_name;
-            if(move_uploaded_file($file_temp, $target_path)) {
+            $tmp = explode(".", $file_name);
+            $new_file_name = "image" . $num[0] . "." . end($tmp);
+            $target_path = "../assets/imgs/";
+
+            if(move_uploaded_file($file_temp, $target_path . $new_file_name)) {
                 return true;
             } else {
                 $errors['file_error'] = "There was an error";
@@ -123,11 +148,18 @@ if(isset($_POST["addRecipe"])) {
     function allRecipeSteps() {
         if(isset($_POST['item'])) {
             $stepsArr = array_map("allSteps", $_POST['item']);
-            foreach($stepsArr as $step) {
-                if ($step != "") {
-                    $all_recipe_steps = $step . ';';
-                }
+            foreach($stepsArr as $key => $value) {
+                echo $value . ';';
             }
+        } else {
+            return false;
+        }
+    }
+
+    function recipeStepsReturn() {
+        if(isset($_POST['item'])) {
+            $stepsArr = array_map("allSteps", $_POST['item']);
+            return $stepsArr;
         } else {
             return false;
         }
