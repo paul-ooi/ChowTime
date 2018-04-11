@@ -1,6 +1,6 @@
 <?php
-require_once 'database.php';
-require_once 'comment.php';
+require_once '../../models/db.php';
+require_once '../../models/comment.php';
 
 var_dump($_POST);
 if (isset($_POST['delete'])){
