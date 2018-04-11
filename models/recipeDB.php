@@ -47,19 +47,19 @@ class RecipeDb {
 
         $statement = $db->prepare($query);
 
-        $id = $this->getId();
-        $user_id = $this->getUserId();
-        $img_id = $this->getImgId();
-        $title = $this->getTitle();
-        $descr = $this->getDescr();
-        $p_time = $this->getPrepTime();
-        $c_time = $this->getCookTime();
-        $dish = $this->getDishLvl();
-        $ingred = $this->getIngredLvl();
-        $diff = $this->getDiffLvl();
-        $spicy = $this->getSpicyLvl();
-        $p_date = $this->getPubDate();
-        $steps = $this->getSteps();
+        $id = $recipe->getId();
+        $user_id = $recipe->getUserId();
+        $img_id = $recipe->getImgId();
+        $title = $recipe->getTitle();
+        $descr = $recipe->getDescr();
+        $p_time = $recipe->getPrepTime();
+        $c_time = $recipe->getCookTime();
+        $dish = $recipe->getDishLvl();
+        $ingred = $recipe->getIngredLvl();
+        $diff = $recipe->getDiffLvl();
+        $spicy = $recipe->getSpicyLvl();
+        $p_date = $recipe->getPubDate();
+        $steps = $recipe->getSteps();
 
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
         $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
@@ -79,6 +79,8 @@ class RecipeDb {
         $count = $statement->execute();
 
         return $count;
+
+
     }
 
     //UPDATE A RECIPE (also should be done based on user session)
@@ -191,6 +193,29 @@ class RecipeDb {
         $statement->execute();
 
         return $statement->fetchAll();
+    }
+
+    //SELECT LAST RECIPE ID FROM THE LIST - https://stackoverflow.com/questions/3133711/select-last-id-without-insert?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+    public static function getLastRecipe() {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT @var := MAX(id) FROM recipes";
+        $db->prepare($sql);
+        // $db->setFetchMode(PDO::FETCH_OBJ);
+        $id = $db->execute();
+
+        return $id;
+    }
+
+    public static function getImageCount() {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $sql = "SELECT COUNT(img_src) FROM recipe_imgs";
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
     }
 }
 ?>
