@@ -62,15 +62,13 @@ function removeTimer() {
 				'origTime' :  timersArray[timerPosition].setTime
 		},
 		method: "GET",
-		success: function() {
+		success: function(response) {
 			//clear the Interval before removing the Timer.
 			timersArray[timerPosition].pause();
-
+			console.log(response);
 			// Remove the list item belonging to this timer
 			_button.parentElement.parentElement.remove(); //currently only removes from the DOM
-		},
-		complete: function() {
-			$("#storedTimerFeedback").html("Removed Timer");
+			$("#storedTimerFeedback").html(response);
 		}
 	});
 
