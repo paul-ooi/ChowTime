@@ -1,4 +1,4 @@
-"use strict";
+// "use strict";
 $(document).ready(pageReady);
 // window.addEventListener('load', pageReady, false);
 var timersArray;//Create the Array to hold objects of timers present on the page
@@ -19,6 +19,8 @@ function pageReady() {
 
 	//Setup Timer Objects
 	setupTimerArray();
+
+	console.log();
 }
 
 function addListeners(targets, action, callback) {
@@ -50,16 +52,28 @@ function stopTimer() {
 
 function removeTimer() {
 	console.log("removeTimer");
+	var _button = this;
+	let timerPosition = timers.index(_button.parentElement.parentElement);
 	// Must remove from DB as well
 	// INSERT CODE FOR DB REMOVAL OF TIMER
+	$.ajax("../controllers/timers/timer_file.php", {
+		data: {'action' : 'delTimer',
+		 		'timerName' : timersArray[timerPosition].name,
+				'origTime' :  timersArray[timerPosition].setTime
+		},
+		method: "GET",
+		success: function() {
+			//clear the Interval before removing the Timer.
+			timersArray[timerPosition].pause();
 
+			// Remove the list item belonging to this timer
+			_button.parentElement.parentElement.remove(); //currently only removes from the DOM
+		},
+		complete: function() {
+			$("#storedTimerFeedback").html("Removed Timer");
+		}
+	});
 
-	//clear the Interval before removing the Timer.
-	let timerPosition = timers.index(this.parentElement.parentElement);
-	timersArray[timerPosition].pause();
-
-	// Remove the list item belonging to this timer
-	this.parentElement.parentElement.remove(); //currently only removes from the DOM
 
 }//end of removeTimer
 
@@ -95,7 +109,7 @@ function setTimerValue(hh, mm, ss) {
 
 
 
-function Timer (originalTime, timerName = "untitled timer", position) {
+function Timer (originalTime, position, timerName = "untitled timer") {
 	var _timer = this;
 	var interval;
 	this.name = timerName;
@@ -162,7 +176,7 @@ function setupTimerArray() {
 		let minutes = timer.querySelector('.minutes').textContent;
 		let seconds = timer.querySelector('.seconds').textContent;
 		//Store timers in Array - maybe send this to DB
-		timersArray.push(new Timer (setTimerValue(hours, minutes, seconds), name, position));
+		timersArray.push(new Timer (setTimerValue(hours, minutes, seconds), position, name));
 		position++;
 	};
 	//console.log(timersArray);

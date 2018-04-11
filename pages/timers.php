@@ -8,12 +8,7 @@ require_once '../models/validation.php';//Timer DB functions
 
 $db = Database::getDb();
 
-$userTimers = TimerDB::getAllTimersByUser($db, 1);
-// echo "<pre>";
-// echo json_encode($userTimers);
-// echo "</pre>";
-
-if(isset($_POST["saveTimer"])) {
+if(isset($_POST["saveTimer"]) || isset($_POST["startTimer"]) ) {
     $v = new Validation();
 
     $hours = $_POST["hours"];
@@ -22,22 +17,17 @@ if(isset($_POST["saveTimer"])) {
     $name = $_POST["name"];
 
     $t = new Timer($hours, $minutes, $seconds, $name);
-    var_dump($t->getName());
 
     $timer = (object)[
-        'user' => 1,
+        'user' => 1, //Need to get the User id from the Session variable.
         'timer' => $t
     ];
 
-    echo "inserted " . TimerDB::addTimer($db, $timer);
-    // echo "<pre>";
-    // var_dump($hours);
-    // echo "</pre>";
-
-
+    $feedbackMsg = TimerDB::addTimer($db, $timer);
 }
 
 
+$userTimers = TimerDB::getAllTimersByUser($db, 1);
 
  ?>
 <link href="../assets/css/timers.css" type="text/css" rel="stylesheet"/>
@@ -72,13 +62,17 @@ if(isset($_POST["saveTimer"])) {
                 <button type="submit" name="saveTimer" class="btn timer-btn" for="timerForm">Save Timer for later</button>
             </div>
             <div>
-                <!-- TOGGLE VISIBILITY OF SAVED TIMERS -->
-                <span id="timers-tg">View saved Timers</span>
+                <label for="timerForm" id="feedbackMsg"><?php echo (empty($feedbackMsg) ? "" : $feedbackMsg) ?></label>
             </div>
         </form>
+        <div>
+            <!-- TOGGLE VISIBILITY OF SAVED TIMERS -->
+            <span id="timers-tg">View saved Timers</span>
+        </div>
         <div id="storedTimers" class="hidden container col-12">
             <!-- LIST OF SAVED TIMERS -->
             <h2>Your Timers</h2>
+            <div id=storedTimerFeedback></div>
             <!-- HEADINGS -->
             <div class="row col-12">
                 <div class="col-3"><h3>Name</h3></div>
@@ -87,6 +81,7 @@ if(isset($_POST["saveTimer"])) {
             </div>
             <!-- GET TIMERS FROM DATABASE AND LIST -->
             <ul>
+
                 <?php foreach ($userTimers as $key => $t) {?>
                 <li class="timer row col-12">
                     <div class="timer-name col-3"><?php echo $t->t_name ?></div>

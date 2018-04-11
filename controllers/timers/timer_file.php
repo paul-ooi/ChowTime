@@ -8,8 +8,12 @@ switch ($_GET['action']) {
         $timerList = TimerDB::getAllTimersByUser($db, 1);
         print_r(json_encode($timerList));
         break;
-    case ("getSomething"):
-        echo "Got something";
+    case ("delTimer"):
+        $timerName = $_GET['timerName'];
+        $origTime = $_GET['origTime'];
+        $result = TimerDB::delTimer($db, $timerName, $origTime);
+        echo $result;
+        break;
 }
 
 
