@@ -43,7 +43,7 @@ class RecipeDb {
         $db = Database::getDb();
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "INSERT INTO recipes VALUES (:id, :user_id, :img_id, :title, :descr, :p_time, :c_time, :dish, :ingred, :diff, :spicy, :p_date, :steps)";
+        $query = "INSERT INTO recipes VALUES (:id, :user_id, :img_id, :title, :descr, SEC_TO_TIME(:p_time*60), SEC_TO_TIME(:c_time*60), :dish, :ingred, :diff, :spicy, null, :steps)";
 
         $statement = $db->prepare($query);
 
@@ -58,7 +58,6 @@ class RecipeDb {
         $ingred = $recipe->getIngredLvl();
         $diff = $recipe->getDiffLvl();
         $spicy = $recipe->getSpicyLvl();
-        $p_date = $recipe->getPubDate();
         $steps = $recipe->getSteps();
 
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
@@ -72,15 +71,12 @@ class RecipeDb {
         $statement->bindValue(':ingred', $ingred, PDO::PARAM_INT);
         $statement->bindValue(':diff', $diff, PDO::PARAM_INT);
         $statement->bindValue(':spicy', $spicy, PDO::PARAM_INT);
-        $statement->bindValue(':p_date', $p_date);
         $statement->bindValue(':steps', $steps, PDO::PARAM_STR);
 
         $statement->setFetchMode(PDO::FETCH_OBJ);
         $count = $statement->execute();
 
         return $count;
-
-
     }
 
     //UPDATE A RECIPE (also should be done based on user session)
@@ -201,11 +197,9 @@ class RecipeDb {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $sql = "SELECT @var := MAX(id) FROM recipes";
-        $db->prepare($sql);
-        // $db->setFetchMode(PDO::FETCH_OBJ);
-        $id = $db->execute();
-
-        return $id;
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
     }
 
     public static function getImageCount() {
@@ -217,5 +211,31 @@ class RecipeDb {
         $statement->execute();
         return $statement->fetch();
     }
+
+    public static function getLastImgId() {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "SELECT @var := MAX(id) FROM recipe_imgs";
+        $statement = $db->prepare($sql);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
+    public static function insertImage($recipes) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql ="INSERT INTO recipe_imgs VALUES (null, :recipe_id, :img_src, null)";
+
+        $recipe_id = $recipes->getRecipeId();
+        $img_src = $recipes->getImgSrc();
+
+        $statement = $db->prepare($sql);
+        $statement->bindValue(":recipe_id", $recipe_id);
+        $statement->bindValue(":img_src", $img_src);
+
+        $insert = $statement->execute();
+        return $insert;
+    }
+
 }
 ?>

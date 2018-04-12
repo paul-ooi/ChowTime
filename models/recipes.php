@@ -8,12 +8,16 @@ class Recipes {
     private $description;
     private $prep_time;
     private $cook_time;
-    private $dishes_lvl;
+    private $dish_lvl;
     private $ingred_lvl;
     private $diff_lvl;
     private $spicy_lvl;
     private $pub_date;
     private $steps;
+
+    //FOR IMAGES
+    private $recipe_id;
+    private $img_src;
 
     public function setId($in_id) {
         $this->id = $in_id;
@@ -21,7 +25,7 @@ class Recipes {
     public function setUserId($in_user_id) {
         $this->user_id = $in_user_id;
     }
-    public function setImgSrc($in_img_id) {
+    public function setImgId($in_img_id) {
         $this->img_id = $in_img_id;
     }
     public function setTitle($in_title) {
@@ -96,11 +100,31 @@ class Recipes {
         return $this->steps;
     }
 
-    //SET NEW CONSTRUCTOR
-    public function __construct($id, $user_id, $img_id, $title, $description, $prep_time, $cook_time, $dishes_lvl, $ingred_lvl, $diff_lvl, $spicy_lvl, $pub_date, $steps) {
+    // public function setImgTableProp($recipe_id, $img_src) {
+    //     $this->recipe_id = $recipe_id;
+    //     $this->img_src = $img_src;
+    // }
+
+    public function setRecipeId($recipe_id) {
+        $this->recipe_id = $recipe_id;
+    }
+
+    public function setImgSrc($in_img_src) {
+        $this->img_src = $in_img_src;
+    }
+
+    public function getRecipeId() {
+        return $this->recipe_id;
+    }
+
+    public function getImgSrc() {
+        return $this->img_src;
+    }
+
+    public function setRecipeProps($id, $user_id, $img_id, $title, $description, $prep_time, $cook_time, $dishes_lvl, $ingred_lvl, $diff_lvl, $spicy_lvl, $steps) {
         $this->setId($id);
         $this->setUserId($user_id);
-        $this->setImgSrc($img_id);
+        $this->setImgId($img_id);
         $this->setTitle($title);
         $this->setDescr($description);
         $this->setPrepTime($prep_time);
@@ -109,8 +133,12 @@ class Recipes {
         $this->setIngredLvl($ingred_lvl);
         $this->setDiffLvl($diff_lvl);
         $this->setSpicyLvl($spicy_lvl);
-        $this->setPubDate($pub_date);
         $this->setSteps($steps);
+    }
+
+    //SET NEW CONSTRUCTOR
+    public function __construct() {
+
     }
 
 }

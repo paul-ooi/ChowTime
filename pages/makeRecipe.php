@@ -28,7 +28,6 @@ require_once '../models/recipeImgsDB.php';
 require_once '../controllers/makeRecipe/addRecipe.php';
 
 /* =====================TESTING ZONE==================== */
-
  /* =======================TESTING ZONE================== */
  ?>
 <main>
@@ -58,7 +57,7 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                 <div class="form-row">
                     <label for="photos" class="col-sm-2 col-form-label"><span class="text-danger">*</span>Upload Photos</label>
                     <div class="col-sm-8">
-                        <input type="hidden" value="100000" name="MAX_FILE_SIZE" />
+                        <input type="hidden" value="1000000" name="MAX_FILE_SIZE" />
                         <input type="file" name="upfile" id="photos" />
                         <small class="instructions form-text text-danger"><?php if(isset($_SESSION['recipe_err_mssg']['file_error'])) {echo $_SESSION['recipe_err_mssg']['file_error'];} ?></small>
                     </div>
@@ -83,6 +82,24 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                     </div>
                 </div>
             </div>
+            <!-- NUM DISHES LEVEL -->
+            <fieldset class="form-group">
+                <div class="form-row">
+                    <div class="col-sm-2">
+                        <legend class="col-form-label"><span class="text-danger">*</span>Dishes Level</legend>
+                    </div>
+                    <div class="col-sm-8">
+                        <?php foreach($dish['dish_lvl'] as $key => $value) : ?>
+                        <div class="form-check form-check-inline">
+                            <input type="radio" class="form-check-input" name="dishLevel" id="<?= $key ?>" value="<?= $value ?>" <?php if(isset($in_dishLvl)) {echo 'checked';} ?>/>
+                            <label for="<?= $key ?>" class="form-check-label"><?= $value ?></label>
+                        </div>
+                        <?php endforeach ?>
+                        <small class="form-text text-muted">From zero to a full washing machine.</small>
+
+                    </div>
+                </div>
+            </fieldset>
             <!-- DIFF LEVEL -->
             <fieldset class="form-group">
                 <div class="form-row">
