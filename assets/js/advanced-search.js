@@ -2,6 +2,7 @@ window.addEventListener('load', pageReady, false);
 function pageReady() {
 
 	$('#searchRecipesBtn').click(searchAll);
+	// $('#searchAll').submit(searchAll);
 	$('#form_search').keyup(searchAll);
 
 	//Click to reveal more options for search bar
@@ -11,7 +12,8 @@ function pageReady() {
 }
 
 function searchAll() {
-	console.log(this.value);
+	// e.preventDefault();
+
 	$.ajax('controllers/search/index.php',
 	{
 		data: {'action' : 'searchKey',
@@ -24,5 +26,5 @@ function searchAll() {
 			// console.log(response);
 		}
 	});
-
+return false;
 }
