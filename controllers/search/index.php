@@ -25,15 +25,16 @@ switch($_GET['action']) {
 // echo "</pre>";
 
  ?>
+ <h2>Search Results &lpar;<?php echo count($results) ?> Recipes&rpar;</h2>
 <ul>
     <?php foreach ($results as $key => $r) {?>
-    <li class="recipe-item row col-12">
-        <figure class="col-4">
+    <li class="recipe-item row col-12 mb-5">
+        <figure class="col-4 mb-2">
             <img class="recipe-img img-fluid" src="chowtime/<?php echo $r->img_src?>" alt=""/>
         </figure>
         <div class="recipe-header col-8">
             <h3 class="recipe-name col-12"><?php echo $r->title ?></h3>
-            <span class="prep-time col-4">Prep Time: <?php echo $r->prep_time ?></span>
+            <span class="prep-time col-4">Prep Time: <?php echo $r->prep_time . intval($r->prep_time)?></span>
             <span class="cook-time col-4">Cook Time: <?php echo $r->cook_time ?></span>
             <span class="diff-lvl col-4">Difficulty Level: <?php echo $r->diff_lvl ?></span>
             <div class="recipe-desc col-12">
