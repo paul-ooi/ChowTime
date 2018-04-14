@@ -83,11 +83,6 @@ if(isset($_POST["addRecipe"])) {
                 }
             }
         }
-
-
-
-
-
     }//END ADD RECIPE BUTTON
 
     function createSession($err) {

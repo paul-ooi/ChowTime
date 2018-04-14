@@ -1,4 +1,8 @@
 <?php
+session_start();
+$_SESSION['user_id'] = 1;
+/*======================*/
+
 $pageTitle = "Recipes";
 require_once 'partial/_header.php';
 ?>
@@ -16,29 +20,36 @@ require_once '../models/ingredient.php';
 require_once '../models/recipeDB.php';
 require_once '../models/credentials.php';
 
+
 //THE ID HERE NEEDS TO BE POPULATED BY SEARCH IN A GET
+$recipe_id = 1;
 //====================================================
-$mainRecipeImg = RecipeDb::mainRecipeImg(1);
-$allRecipeImgs = RecipeDb::allRecipeImgs(1);
-$recipe = RecipeDb::displayById(1);
-$recommDiff = RecipeDb::recommDiff(1);
-$totalTime = RecipeDb::totalRecipeTime(1);
+$mainRecipeImg = RecipeDb::mainRecipeImg($recipe_id);
+$allRecipeImgs = RecipeDb::allRecipeImgs($recipe_id);
+$recipe = RecipeDb::displayById($recipe_id);
+$recommDiff = RecipeDb::recommDiff($recipe_id);
+$totalTime = RecipeDb::totalRecipeTime($recipe_id);
 //====================================================
-
-
 
 //SHARE RECIPES
 function getAuthCode() {
-    
+
 }
-
-
-
 ?>
 <header class="container ddwrapper">
     <?php require_once 'partial/_mainnav.php' ?>
 </header>
     <main>
+        <!-- IF USER IS THE SAME AS THE ONE WHO CREATED THE RECIPE, THEY CAN ALSO EDIT. -->
+        <?php if(isset($_SESSION['user_id'])) :
+            $user_id = $_SESSION['user_id'];
+            if($user_id == $recipe_id) : ?>
+            <form method="POST" action="/chowtime/controllers/makeRecipe/updateRecipe.php" class="text-right">
+                <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
+                <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
+            </form>
+            <?php endif ?>
+        <?php endif?>
         <meta property="og:https://www.jesscwong.ca" content="letthebakingbeginblog.com" />
         <div itemscope itemtype="http://schema.org/Recipe">
         <h2 itemprop="name"><?= $recipe->title ?></h2>

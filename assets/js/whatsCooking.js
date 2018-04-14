@@ -111,3 +111,13 @@ function coords(user, add, obj, userMap) {
 
 //USING FOR LOOP TO POPULATE GEOCODE
 //https://stackoverflow.com/questions/9052393/google-geocoding-multiple-addresses-in-a-loop-with-javascript-how-do-i-know-whe?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
+
+
+//NOTES
+/*
+A USER HAS TO HAVE CREATED A RECIPE BEFORE THEY SHOW UP ON THE MAP. OTHERWISE THEY WILL NOT BE SEEN
+TABLES AFFECTED INCLUDE - PROFILES, RECIPES, AND RECIPE MADE 
+
+
+
+*/

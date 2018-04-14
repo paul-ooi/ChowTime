@@ -63,6 +63,7 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                     </div>
                 </div>
             </div>
+    <!-- PREP TIME -->
             <div class="form-group">
                 <div class="form-row">
                     <label for="prep-time" class="col-sm-2 col-form-label"><span class="text-danger">*</span>Prep Time</label>
@@ -264,7 +265,6 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                 </div>
             </fieldset>
             <input type="submit" id="addRecipe" name="addRecipe" class="btn" value="Add"/>
-            <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
             <input type="submit" id="deleteRecipe" name="deleteRecipe" class="btn" value="Delete"/>
             <!-- <input type="text" readonly class="form-control-plaintext" name="errMssg" value=""> -->
             <small class="instructions form-text text-danger">

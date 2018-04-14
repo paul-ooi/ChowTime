@@ -81,12 +81,11 @@ class RecipeDb {
 
     //UPDATE A RECIPE (also should be done based on user session)
     //Default params are exhisting params from the recipe
-    public static function updateRecipe($in_id) {
+    public static function updateRecipe($in_id, $recipe) {
         $db = Database::getDb();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $query = "UPDATE Recipes SET
-                    user_id = :u_id,
+        $query = "UPDATE recipes SET
                     descr =  :descr,
                     img = :img,
                     prep = :prep,
@@ -101,15 +100,6 @@ class RecipeDb {
         $img = $this->getImgSrc();
         $prep = $this->getPrepTime();
         $dish = $this->getDishLvl();
-        $ingred = $this->getIngredLvl();
-        $diff = $this->getDiffLvl();
-
-        $statement = $db->prepare($query);
-        $statement->bindValue(":id", $id, PDO::PARAM_INT);
-        $statement->bindValue(":title", $title, PDO::PARAM_STR);
-        $statement->bindValue(":descr", $descr, PDO::PARAM_STR);
-        $statement->bindValue(":img", $img, PDO::PARAM_STR);
-        $statement->bindValue(":prep", $prep, PDO::PARAM_STR);
         $statement->bindValue(":ingred", $ingred, PDO::PARAM_STR);
         $statement->bindValue(":diff", $diff, PDO::PARAM_STR);
         $statement->setFetchMode(PDO::FETCH_OBJ);
