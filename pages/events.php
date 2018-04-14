@@ -108,5 +108,11 @@
             </div>
         </div>
     </main>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../assets/js/jqueryui/external/jquery/jquery.js"></script>
+    <script src="../assets/js/jqueryui/jquery-ui.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery-timepicker/jquery.timepicker.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../assets/js/events.js"></script>
     <?php include 'partial/_footer.php'; ?>
 </body>
