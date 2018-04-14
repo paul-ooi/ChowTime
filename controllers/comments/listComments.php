@@ -5,6 +5,10 @@ require_once '../../models/comment.php';
 $c = new Comment;
 $db = Database::getDb();
 
+
+// FOR TESTING PURPOSES
+$recipe_id = 1;
+
 // Default Form Tag stuff
 $class = '';
 $input_type = 'hidden';
@@ -36,13 +40,20 @@ if (isset($_POST['upd'])){
         echo "Problem Updating.";
     }
 }
+
+// Delete Comment
+if (isset($_POST['delete'])){
+    $id = $_POST['id'];
+    $count = $c->deleteComment($db, $id);
+
+    if (!$count){
+        echo "Problem Deleting";
+    }
+}
 ?>
 
 <h3>Comments</h3>
     <?php
-    // TO BE PUT IN
-    $recipe_id = 1;
-
     $comments = $c->getRecipeComments($db, $recipe_id);
 
     foreach ($comments as $cm) {
@@ -62,7 +73,7 @@ if (isset($_POST['upd'])){
                 <input type="' . $input_type . '" name="comment" value="' . $cm->comment . '" rows="3"/>
                 <input type="submit" name="' . $upd . '" value="Update"/>
                 </form>
-                <form action="deleteComment.php" method="post">
+                <form action="" method="post">
                 <input type="hidden" name="id" value="' . $cm->id . '"/>
                 <input type="submit" name="delete" value="Delete"/>
                 </form>';

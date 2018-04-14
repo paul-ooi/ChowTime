@@ -21,14 +21,33 @@ require_once 'pages/partial/_header.php';
                     <label class="form-control-label sr-only" for="form_search">Search Recipes</label>
                     <input class="form-control form-control-lg col-sm-12 col-md-8 col-lg-9" type="text" name="form_search" id="form_search" placeholder="Start cooking..."/>
                     <input class="btn btn-lg col-sm-12 col-md-4 col-lg-3" type="submit" for="searchAll" name="searchRecipesBtn" id="searchRecipesBtn" value="Search Recipes"/>
-                    <fieldset class="hidden" id="moreOptions">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="veggie" name="filters" value="vegetarian"/>
-                            <label for="veggie" class="form-check-label">Only vegetarian Recipes</label>
+                    <div id="searchOptions" class="col-12 text-left">Advanced Search</div>
+                    <fieldset class="hidden col-12" id="moreOptions">
+                        <div class="row d-flex justify-content-between">
+                            <div class="form-check col-3">
+                                <input class="form-check-input" type="checkbox" id="veggie" name="filters" value="vegetarian"/>
+                                <label for="veggie" class="form-check-label">Only vegetarian Recipes</label>
+                            </div>
+                            <div class="form-check col-3">
+                                <input class="form-check-input" type="checkbox" id="vegan" name="filters" value="vegan"/>
+                                <label for="vegan" class="form-check-label">Only vegan Recipes</label>
+                            </div>
+                            <div class="form-check col-3">
+                                <input class="form-check-input" type="checkbox" id="gluten" name="filters" value="gluten"/>
+                                <label for="gluten" class="form-check-label">Only gluten free Recipes</label>
+                            </div>
+                            <div class="form-check col-3">
+                                <input class="form-check-input" type="checkbox" id="dairy" name="filters" value="dairy"/>
+                                <label for="dairy" class="form-check-label">Only dairy free Recipes</label>
+                            </div>
+                            <div class="form-check col-3">
+                                <input class="form-check-input" type="checkbox" id="nut" name="filters" value="nut"/>
+                                <label for="nut" class="form-check-label">Only nut free Recipes</label>
+                            </div>
                         </div>
+
                         <!-- Additional search parameters based on Database categories and values. -->
                     </fieldset>
-                    <div id="searchOptions">Advanced Search</div>
             </form>
             <!-- <span class="bkg">
                 <img src="assets/imgs/image1.jpg" alt="plate of spaghetti"/>

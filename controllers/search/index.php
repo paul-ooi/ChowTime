@@ -8,12 +8,14 @@ require_once '../../models/recipeDB.php';//use Jessica's RecipeDB model
 require_once '../../models/db.php';
 $db = Database::getDb();
 
-var_dump($_GET);
+// var_dump($_GET);
 switch($_GET['action']) {
     case ('searchKey'):
         $searchParam = $_GET['phrase'];
-        echo "inside searchKey";
+        // echo "inside searchKey";
         $results = RecipeDb::getRecipeDetailsByTitle($searchParam);
+
+        // var_dump($results);
         break;
 }
 // echo "<pre>";
@@ -23,23 +25,26 @@ switch($_GET['action']) {
 // echo "</pre>";
 
  ?>
+ <h2>Search Results &lpar;<?php echo count($results) ?> Recipes&rpar;</h2>
 <ul>
     <?php foreach ($results as $key => $r) {?>
-    <li class="recipe-item row col-12">
-        <figure class="col-3">
-            <img class="recipe-img" src="chowtime/<?php echo $r->img_src?>" alt=""/>
+    <li class="recipe-item row col-12 mb-5">
+        <figure class="col-4 mb-2">
+            <img class="recipe-img img-fluid" src="chowtime/<?php echo $r->img_src?>" alt=""/>
         </figure>
-        <div class="recipe-header col-9">
-            <h3 class="recipe-name col-9"><?php echo $r->title ?></h3>
-            <span class="prep-time col-3">Prep Time: <?php echo $r->prep_time ?></span>
-            <span class="cook-time col-3">Cook Time: <?php echo $r->cook_time ?></span>
-            <span class="diff-lvl col-3">Difficulty Level: <?php echo $r->diff_lvl ?></span>
+        <div class="recipe-header col-8">
+            <h3 class="recipe-name col-12"><?php echo $r->title ?></h3>
+            <span class="prep-time col-4">Prep Time: <?php echo $r->prep_time . intval($r->prep_time)?></span>
+            <span class="cook-time col-4">Cook Time: <?php echo $r->cook_time ?></span>
+            <span class="diff-lvl col-4">Difficulty Level: <?php echo $r->diff_lvl ?></span>
+            <div class="recipe-desc col-12">
+                <?php echo $r->description?>
+            </div>
         </div>
-        <div class="recipe-header col-9">
-            <?php echo $r->description?>
+        <div class="col-4 d-flex justify-content-between">
+            <input type="button" name="viewRecipe" class="btn btn-default col-5" value="View Recipe" />
+            <input type="button" name="madeIt" class="btn btn-default col-5" value="I Made it" />
         </div>
-        <input type="button" name="viewRecipe" class="btn btn-default" value="View Recipe" />
-        <input type="button" name="madeIt" class="btn btn-default" value="I Made it" />
     </li>
 <?php }//End of FOREACH to list Timers?>
 </ul>
