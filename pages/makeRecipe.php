@@ -160,9 +160,9 @@ require_once '../controllers/makeRecipe/addRecipe.php';
     <?php
 
     //include the Add Ingredient section  (Paul's Lab 6) -needs some formatting still
-    //include '../controllers/ingredients/_addingredient.php'
+    include '../controllers/ingredients/ingredient_add.php'
 
-    include 'controllers/ingredients/_addingredient.php';
+    // include 'controllers/ingredients/_addingredient.php';
      ?>
             <fieldset class="form-group">
                 <div class="form-row">
