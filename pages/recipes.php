@@ -29,6 +29,8 @@ $allRecipeImgs = RecipeDb::allRecipeImgs($recipe_id);
 $recipe = RecipeDb::displayById($recipe_id);
 $recommDiff = RecipeDb::recommDiff($recipe_id);
 $totalTime = RecipeDb::totalRecipeTime($recipe_id);
+$recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
+$_SESSION["recipe_owner"] = $recipe_owner_id['user_id'];
 //====================================================
 
 //SHARE RECIPES
@@ -43,8 +45,8 @@ function getAuthCode() {
         <!-- IF USER IS THE SAME AS THE ONE WHO CREATED THE RECIPE, THEY CAN ALSO EDIT. -->
         <?php if(isset($_SESSION['user_id'])) :
             $user_id = $_SESSION['user_id'];
-            if($user_id == $recipe_id) : ?>
-            <form method="POST" action="/chowtime/controllers/makeRecipe/updateRecipe.php" class="text-right">
+            if($user_id == $recipe_owner_id['user_id']) : ?>
+            <form method="POST" action="/chowtime/pages/updateRecipe.php" class="text-right">
                 <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
                 <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
             </form>

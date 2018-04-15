@@ -38,6 +38,18 @@ class RecipeDb {
         return $statement->fetch();
     }
 
+    //SELECT BY DATETIME BY DATE AND TIME
+    public static function displayDateTime($in_id) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT date(pub_date) as d, time(pub_date) as t FROM recipes WHERE id = :id";
+
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $in_id, PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+    }
+
     //ADD A RECIPE
     public static function addRecipe($recipe) {
         $db = Database::getDb();
@@ -93,13 +105,13 @@ class RecipeDb {
                     diff = :diff,
                   WHERE id = :id";
 
-        $this->setId($in_id);
-        $id = $this->getId();
-        $title = $this->getTitle();
-        $descr = $this->getDescr();
-        $img = $this->getImgSrc();
-        $prep = $this->getPrepTime();
-        $dish = $this->getDishLvl();
+        $recipe->setId($in_id);
+        $id = $recipe->getId();
+        $title = $recipe->getTitle();
+        $descr = $recipe->getDescr();
+        $img = $recipe->getImgSrc();
+        $prep = $recipe->getPrepTime();
+        $dish = $recipe->getDishLvl();
         $statement->bindValue(":ingred", $ingred, PDO::PARAM_STR);
         $statement->bindValue(":diff", $diff, PDO::PARAM_STR);
         $statement->setFetchMode(PDO::FETCH_OBJ);
@@ -239,6 +251,19 @@ class RecipeDb {
         $statement->bindValue(":title", $title, PDO::PARAM_STR);
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    //IN RECIPE ID
+    public static function getRecipeOwner($id) {
+        $db = Database::getDb();
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT user_id FROM recipes WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $id, PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
     }
 }
 ?>
