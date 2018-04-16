@@ -96,6 +96,7 @@ if(isset($_POST["addRecipe"])) {
             createSession($errors);
             return false;
         } else {
+            unset($_SESSION['recipe_err_mssg']);
             return true;
         }
     }
@@ -156,6 +157,7 @@ if(isset($_POST["addRecipe"])) {
             $recipe->setImgSrc($img_src);
 
             if(move_uploaded_file($file_temp, $target_path . $new_file_name)) {
+                unset($_SESSION['recipe_err_mssg']);
                 return true;
             } else {
                 $errors['file_error'] = "There was an error";

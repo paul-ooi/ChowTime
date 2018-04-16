@@ -19,6 +19,20 @@ $(document).ready(function(){
         $(this).css("cursor", "inherit");
     })
 
+
+    var imgSrc = $(".imgSrc");
+    $(".imgSrc").click(function () {
+        var img_tag = $(this)[0];
+        var img_src = img_tag.getAttribute("src");
+        var data = {'img_src': img_src};
+        var ajaxUrl = '/chowtime/controllers/makeRecipe/updateRecipe.php';
+        $.post(ajaxUrl, data, function(data) {
+            console.log(data);
+        })
+    })
+
+    
+
 })
 
 /*

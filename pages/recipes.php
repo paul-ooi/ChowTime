@@ -30,7 +30,6 @@ $recipe = RecipeDb::displayById($recipe_id);
 $recommDiff = RecipeDb::recommDiff($recipe_id);
 $totalTime = RecipeDb::totalRecipeTime($recipe_id);
 $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
-$_SESSION["recipe_owner"] = $recipe_owner_id['user_id'];
 //====================================================
 
 //SHARE RECIPES
@@ -64,7 +63,7 @@ function getAuthCode() {
                         <?php foreach ($allRecipeImgs as $recipeImg) : ?>
                             <?php foreach($recipeImg as $key => $value) : ?>
                                 <div class="thumbnail-container">
-                                    <img src="<?= $value ?>" alt="<?= $key ?>" class="thumbnail" />
+                                    <img src="<?= $value ?>" alt="<?= $key ?>" class="thumbnail" name="inImgFiles"/>
                                 </div>
                             <?php endforeach ?>
                         <?php endforeach ?>

@@ -239,7 +239,6 @@ class RecipeDb {
         return $insert;
     }
 
-
     //SEARCH FUNCTIONS - ADVANCED SEARCHES
     //DISPLAY ONLY RECIPE NAME
     public static function getRecipeDetailsByTitle($title) {
@@ -264,6 +263,29 @@ class RecipeDb {
         $statement->execute();
 
         return $statement->fetch();
+    }
+
+    //GET RECIPE FROM TIME TO MINUTES
+    public function getRecipeTimeInMin($id) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT ROUND((TIME_TO_SEC(cook_time))/60,0) as CT, ROUND((TIME_TO_SEC(cook_time))/60,0) as PT FROM recipes WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_OBJ);
+    } 
+
+    public function deleteImg($img_src) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "DELETE FROM recipe_imgs WHERE img_src = :img_src";
+
+        $statement = $db->prepare($query);
+        $statement->bindValue(":img_src", $img_src);
+        $count = $statement->execute();
+        return $count;    
     }
 }
 ?>

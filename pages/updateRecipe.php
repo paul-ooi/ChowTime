@@ -18,16 +18,17 @@ require_once '../models/recipeDB.php';
 require_once '../models/db.php';
 require_once '../models/recipes.php';
 require_once '../controllers/makeRecipe/updateRecipe.php';
-require_once '../models/validation.php';
 /*********************TESTING***********************/
 
 /************************TESTING********************/ 
 
-if(isset($_SESSION['user_id']) && (isset($_SESSION["recipe_owner"])) && (isset($recipe_id))){
+if(isset($_SESSION['user_id']) && (isset($recipe_id))){
     $user_id = $_SESSION['user_id'];
 } else {
-    header("Location: http://localhost/chowtime/pages/controllers/login.php");
+    header("Location: http://localhost/chowtime/pages/login.php");
 }
+
+var_dump($_SESSION);
 ?>
 
 <header class="container ddwrapper">
@@ -35,7 +36,8 @@ if(isset($_SESSION['user_id']) && (isset($_SESSION["recipe_owner"])) && (isset($
 </header>
 <main>
     <div class="wrapper">
-        <form method="post" enctype="multipart/form-data" action="../controllers/makeRecipe/updateRecipe.php">
+        <form method="post" enctype="multipart/form-data" action="">
+        <input type="hidden" name="recipe_id" value="<?php if(isset($recipe_id)) {echo $recipe_id ;} ?>" />
         <!-- RECIPE TITLE -->
             <div class="form-group">
                 <div class="form-row">
@@ -57,7 +59,26 @@ if(isset($_SESSION['user_id']) && (isset($_SESSION["recipe_owner"])) && (isset($
                     </div>
                 </div>
             </div>
-        <!-- DISPLAY ALL PHOTOS -->
+        <!-- DELETE A PHOTO OPTION -->
+        <div class="form-group">
+            <div class="form-row">
+                <label class="col-sm-2 col-form-label">Images</label>
+                <div class="col-sm-8">
+                    <?php if(isset($recipeImgs)) : ?>
+                    <?php foreach($recipeImgs as $imgs) : ?>
+                            <?php foreach($imgs as $key => $value) : ?>
+                                <div class="col-sm-2">
+                                    <img src="<?= $value ?>" alt="<?= $title ?>" class="imgSrc thumbnail" /> 
+                                </div>
+                            <?php endforeach ?>
+                        <?php endforeach ?>
+                            <input type="submit" class="photoFile" name="deletePhoto" value="deletePhoto"/>
+                    <?php endif ?>
+                </div>
+            </div>
+        </div>
+
+
         <!-- UPLOAD PHOTOS OPTION -->
         <!-- PREP TIME -->
             <div class="form-group">
@@ -207,6 +228,11 @@ if(isset($_SESSION['user_id']) && (isset($_SESSION["recipe_owner"])) && (isset($
                 </div>
             </fieldset>
             <input type="submit" id="update" name="update" value="Save" class="btn btn-info"/>
+            <small class="instructions form-text text-danger">
+            <?php if(isset($_SESSION['recipe_err_mssg']['update_input_error'])) {
+                echo $_SESSION['recipe_err_mssg']['update_input_error'];
+            } ?>
+            </small>
         </form>
     </div>
 </main>
