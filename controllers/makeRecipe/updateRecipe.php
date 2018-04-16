@@ -146,41 +146,21 @@ if(isset($_POST['update'])) {
     $v = new Validation();
     $r = new Recipes();
     $rDb = new RecipeDb();
-
+    
     $errors = array();
 
-    /**********************REPOPULATE THE FORM**********************/
+    $user_id = $_SESSION['user_id'];
     $recipe_id = $_POST['recipe_id'];
-    $allRecipes = $rDb->displayById($recipe_id);
-    $recipeImgs = $rDb->allRecipeImgs($recipe_id);
-    $datetime = $rDb->displayDateTime($recipe_id);
-    $prepCookTimes = $rDb->getRecipeTimeInMin($recipe_id);
-    
-    $title = $allRecipes->title;
-    $description = $allRecipes->description;
-    $dishlvl = $allRecipes->dishes_lvl;
-    $ingredlvl = $allRecipes->ingred_lvl;
-    $difflvl = $allRecipes->diff_lvl;
-    $spicelvl = $allRecipes->spicy_lvl;
-    $steps = $allRecipes->steps;
-
-    $date = $datetime->d;
-    $time = $datetime->t;
-
-    $preptime = $prepCookTimes->CT;
-    $cooktime = $prepCookTimes->PT;
     /**********************VALIDATE INPUTS**********************/
-
-
-    $title = $v->checkAssignProperty('inTitle');
-    $desc = $v->checkAssignProperty('inDesc');
-    $prepTime = $v->checkAssignProperty('inPrep');
-    $cookTime = $v->checkAssignProperty('inCook');
-    $dishDiff = $v->checkAssignProperty('inDish');
-    $ingredDiff = $v->checkAssignProperty('inIngred');
-    $overallDiff = $v->checkAssignProperty('inOverallDiff');
-    $date = $v->checkAssignProperty('inDate');
-    $time = $v->checkAssignProperty('inTime');
+    $intitle = $v->checkAssignProperty('inTitle');
+    $indesc = $v->checkAssignProperty('inDesc');
+    $inprepTime = $v->checkAssignProperty('inPrep');
+    $incookTime = $v->checkAssignProperty('inCook');
+    $indishDiff = $v->checkAssignProperty('inDish');
+    $iningredDiff = $v->checkAssignProperty('inIngred');
+    $inoverallDiff = $v->checkAssignProperty('inOverallDiff');
+    $indate = $v->checkAssignProperty('inDate');
+    $intime = $v->checkAssignProperty('inTime');
 
     if(isset($_POST['inSpice'])){
         $spiceLvl = $_POST['inSpice'];
@@ -210,30 +190,166 @@ if(isset($_POST['update'])) {
         }
         foreach($_POST['item'] as $key => $value) {
             if(($count-1) == $key) {
-                $steps .= $value['step'];
+                $val = trim($value['step']);
+                $steps .= $val;
+            } else {
+                $val = trim($value['step']);
+                $steps .= ($val . ';');
             }
-            $steps .= ($value['step'] . ';');
         }
+        return $steps;
     }
 
-    /************************VALIDATION****************************/
+    //FILE VALIDATION
+    function checkFiles($errors, $recipe) {
+        if(!isset($_FILES)) {
+            unset($_SESSION['recipe_err_mssg']);
+            return true;
+        }
+        $file_size = $_FILES['upfile']['size']; //in bytes
+        $file_type = $_FILES['upfile']['type'];
+        $file_error = $_FILES['upfile']['error'];
+        $file_name = $_FILES['upfile']['name'];
+        $file_temp = $_FILES['upfile']['tmp_name'];
+        //HANDLING FILE ERRORS = ERRORS['FILE_ERROR']
 
-    if(checkForEmptySteps() == null || $title == null || $desc == null || $prepTime == null || $cookTime == null || $dishDiff == null || $ingredDiff == null || $overallDiff == null || $spiceLvl == null || $date == null || $time == null){
-        $errors['update_input_error'] = "Please fill out all fields to update your recipe";
+        if ($file_error > 0) {
+            switch($file_error) {
+                case 1:
+                $errors['file_error'] = "File exceeded upload_max_filesize";
+                createSession($errors);
+                return false;
+                case 2:
+                $errors['file_error'] = "File exceeded max_file_size";
+                createSession($errors);
+                return false;
+                case 3:
+                $errors['file_error'] = "File only partially uploaded";
+                createSession($errors);
+                return false;
+                case 4:
+                $errors['file_error'] = "No file uploaded";
+                unset($_SESSION['recipe_err_mssg']);
+                return true;
+            }
+        exit;
+        }
+
+        $max_file_size = 200000;
+        if($file_size > $max_file_size) {
+            $errors['file_error'] = "File size too big";
+            createSession($errors);
+            return false;
+        }
+
+        $num = RecipeDB::getImageCount();
+        $next_num = $num[0] + 1;
+
+        $tmp = explode(".", $file_name);
+        $new_file_name = "image" . $next_num . "." . end($tmp);
+        $target_path = "../assets/imgs/";
+
+        $img_src = $target_path . $new_file_name;
+        $recipe->setImgSrc($img_src);
+
+        if(move_uploaded_file($file_temp, $target_path . $new_file_name)) {
+            unset($_SESSION['recipe_err_mssg']);
+            return true;
+        } else {
+            $errors['file_error'] = "There was an error";
+            createSession($errors);
+            return false;
+        }
+    }//END CHECKFILES
+
+    //BEGIN CHECK INPUT FIELDS
+    function checkInputFields($inTitle, $inDescr, $inPrepTime, $inCookTime, $spiceLevel, $ingredDiff, $overallDiff, $in_dishLvl, $steps, $date, $time, $errors) {
+        if ($inTitle == null || $inDescr == null || $inPrepTime == null || $inCookTime == null || $spiceLevel == null || $ingredDiff == null || $overallDiff == null || $in_dishLvl == null || $steps == null || $date == null || $time == null) {
+        $errors['input_field_error'] = "Please fill out all fields to add a recipe!";
         createSession($errors);
         return false;
-    } else {
-        unset($_SESSION['recipe_err_mssg']);
-
-        //UPDATE SET VALUES THEN UPDATE
-
+        } else {
+            unset($_SESSION['recipe_err_mssg']);
+            return true;
+        }
     }
-    
-    var_dump($_SESSION);    
+    /************************UPDATE****************************/
+    //IF ALL INFORMATION IS VALID
+    if(checkInputFields($intitle, $indesc, $inprepTime, $incookTime, $spiceLvl, $iningredDiff, $inoverallDiff, $indishDiff, checkForEmptySteps(), $indate, $intime, $errors)) {
+        //INSERT INTO DATABASE RECIPES
 
-} //END POST
+        $datetime = $indate . " " . $intime;
+        $steps = getAllSteps();
+
+        $r->setRecipeUpdate($user_id, $intitle, $indesc, $inprepTime, $incookTime, $indishDiff, $iningredDiff, $inoverallDiff, $spiceLvl, $datetime, $steps);
+        $updates = RecipeDB::updateRecipe($r);
+
+        //REPOPULATE THE FORM
+        $allRecipes = $rDb->displayById($recipe_id);
+        $recipeImgs = $rDb->allRecipeImgs($recipe_id);
+        $datetime = $rDb->displayDateTime($recipe_id);
+        $prepCookTimes = $rDb->getRecipeTimeInMin($recipe_id);
+        
+        $title = $allRecipes->title;
+        $description = $allRecipes->description;
+        $dishlvl = $allRecipes->dishes_lvl;
+        $ingredlvl = $allRecipes->ingred_lvl;
+        $difflvl = $allRecipes->diff_lvl;
+        $spicelvl = $allRecipes->spicy_lvl;
+        $steps = $allRecipes->steps;
+
+        $date = $datetime->d;
+        $time = $datetime->t;
+
+        $preptime = $prepCookTimes->CT;
+        $cooktime = $prepCookTimes->PT;
+
+    } else {
+        //REPOPULATE THE FORM
+        $allRecipes = $rDb->displayById($recipe_id);
+        $recipeImgs = $rDb->allRecipeImgs($recipe_id);
+        $datetime = $rDb->displayDateTime($recipe_id);
+        $prepCookTimes = $rDb->getRecipeTimeInMin($recipe_id);
+        
+        $title = $allRecipes->title;
+        $description = $allRecipes->description;
+        $dishlvl = $allRecipes->dishes_lvl;
+        $ingredlvl = $allRecipes->ingred_lvl;
+        $difflvl = $allRecipes->diff_lvl;
+        $spicelvl = $allRecipes->spicy_lvl;
+        $steps = $allRecipes->steps;
+
+        $date = $datetime->d;
+        $time = $datetime->t;
+
+        $preptime = $prepCookTimes->CT;
+        $cooktime = $prepCookTimes->PT;
+    }
+
+    //CHECK FILE INFORMATION                    
+    if(checkFiles($errors, $r)) {
+    //INSERT INTO DATABASE (RECIPE IMGS) - NOTE RECIPE_IMG_SRC ALREADY SET IN CHECK FILES
+        $r->setRecipeId($recipe_id);
+
+        $img_in = RecipeDb::insertImage($r);
+        $img_in . "image was added";
+    }
+
+    $_SESSION[$recipe_id] = $recipe_id;
+    header("Location: http://localhost/chowtime/pages/recipes.php");
+} //END UPDATE
 
 
 
 
  ?>
+
+ <!--     if(checkForEmptySteps() == null || $title == null || $desc == null || $prepTime == null || $cookTime == null || $dishDiff == null || $ingredDiff == null || $overallDiff == null || $spiceLvl == null || $date == null || $time == null){
+        $errors['update_input_error'] = "Please fill out all fields to update your recipe";
+        createSession($errors);
+        return false;
+    } else {
+        unset($_SESSION['recipe_err_mssg']);
+        //UPDATE SET VALUES THEN UPDATE
+
+    } -->

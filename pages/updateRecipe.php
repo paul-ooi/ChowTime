@@ -58,25 +58,37 @@ if(isset($_SESSION['user_id'])) {
                 </div>
             </div>
         <!-- DELETE A PHOTO OPTION -->
-        <div class="form-group">
-            <div class="form-row">
-                <label class="col-sm-2 col-form-label">Images</label>
-                <div class="col-sm-8">
-                    <?php if(isset($recipeImgs)) : ?>
-                    <?php foreach($recipeImgs as $imgs) : ?>
-                            <?php foreach($imgs as $key => $value) : ?>
-                                <div class="col-sm-4">
-                                    <img src="<?= $value ?>" alt="<?= $title ?>" class="thumbnail currImgDel" />
-                                    <div class="imgSrc deleteButton">x</div>
-                                </div>
+            <div class="form-group">
+                <div class="form-row">
+                    <label class="col-sm-2 col-form-label">Delete Images
+                        <small class="instructions form-text text-muted">Select an image to delete (please note that you must have at least one photo)</small>
+                    </label>
+                    <div class="col-sm-8">
+                        <?php if(isset($recipeImgs)) : ?>
+                        <?php foreach($recipeImgs as $imgs) : ?>
+                                <?php foreach($imgs as $key => $value) : ?>
+                                    <div class="col-sm-4">
+                                        <img src="<?= $value ?>" alt="<?= $title ?>" class="thumbnail currImgDel" />
+                                        <div class="imgSrc deleteButton">x</div>
+                                    </div>
+                                <?php endforeach ?>
                             <?php endforeach ?>
-                        <?php endforeach ?>
-                    <?php endif ?>
-                    <small class="instructions form-text text-muted" id="delImgErr"></small>
+                        <?php endif ?>
+                        <small class="instructions form-text text-muted" id="delImgErr"></small>
+                    </div>
                 </div>
             </div>
-        </div>
         <!-- UPLOAD PHOTOS OPTION -->
+            <div class="form-group">
+                <div class="form-row">
+                    <label for="photos" class="col-sm-2 col-form-label">Upload Photos</label>
+                    <div class="col-sm-8">
+                        <input type="hidden" value="1000000" name="MAX_FILE_SIZE" />
+                        <input type="file" name="upfile" id="photos" />
+                        <small class="instructions form-text text-danger"><?php if(isset($_SESSION['recipe_err_mssg']['file_error'])) {echo $_SESSION['recipe_err_mssg']['file_error'];} ?></small>
+                    </div>
+                </div>
+            </div>
         <!-- PREP TIME -->
             <div class="form-group">
                 <div class="form-row">

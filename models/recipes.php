@@ -136,6 +136,20 @@ class Recipes {
         $this->setSteps($steps);
     }
 
+    public function setRecipeUpdate($id, $title, $description, $prep_time, $cook_time, $dishes_lvl, $ingred_lvl, $diff_lvl, $spicy_lvl, $pub_date, $steps) {
+        $this->setId($id);
+        $this->setTitle($title);
+        $this->setDescr($description);
+        $this->setPrepTime($prep_time);
+        $this->setCookTime($cook_time);
+        $this->setDishLvl($dishes_lvl);
+        $this->setIngredLvl($ingred_lvl);
+        $this->setDiffLvl($diff_lvl);
+        $this->setSpicyLvl($spicy_lvl);
+        $this->setPubDate($pub_date);
+        $this->setSteps($steps);
+    }
+
     //SET NEW CONSTRUCTOR
     public function __construct() {
 

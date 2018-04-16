@@ -93,30 +93,51 @@ class RecipeDb {
 
     //UPDATE A RECIPE (also should be done based on user session)
     //Default params are exhisting params from the recipe
-    public static function updateRecipe($in_id, $recipe) {
+    public static function updateRecipe($recipe) {
         $db = Database::getDb();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $query = "UPDATE recipes SET
-                    descr =  :descr,
-                    img = :img,
-                    prep = :prep,
-                    ingred = :ingred,
-                    diff = :diff,
-                  WHERE id = :id";
+        $query = "UPDATE recipes SET 
+                    title = :title,
+                    description = :descr,
+                    prep_time = SEC_TO_TIME(:prep*60),
+                    cook_time = SEC_TO_TIME(:cook*60),
+                    dishes_lvl = :dish,
+                    ingred_lvl = :ingred,
+                    diff_lvl = :diff,
+                    spicy_lvl = :spice,
+                    pub_date = :pub_date,
+                    steps = :steps
+                    WHERE id = :recipe_id";
 
-        $recipe->setId($in_id);
         $id = $recipe->getId();
         $title = $recipe->getTitle();
         $descr = $recipe->getDescr();
-        $img = $recipe->getImgSrc();
         $prep = $recipe->getPrepTime();
+        $cook = $recipe->getCookTime();
         $dish = $recipe->getDishLvl();
-        $statement->bindValue(":ingred", $ingred, PDO::PARAM_STR);
-        $statement->bindValue(":diff", $diff, PDO::PARAM_STR);
+        $ingred = $recipe->getIngredLvl();
+        $diff = $recipe->getDiffLvl();
+        $spicy = $recipe->getSpicyLvl();
+        $pub = $recipe->getPubDate();
+        $steps = $recipe->getSteps();
+
+        $statement = $db->prepare($query);
+
+        $statement->bindValue(":title", $title, PDO::PARAM_STR);
+        $statement->bindValue(":descr", $descr, PDO::PARAM_STR);
+        $statement->bindValue(":prep", $prep, PDO::PARAM_INT);
+        $statement->bindValue(":cook", $cook, PDO::PARAM_INT);
+        $statement->bindValue(":dish", $dish, PDO::PARAM_INT);
+        $statement->bindValue(":ingred", $ingred, PDO::PARAM_INT);
+        $statement->bindValue(":diff", $diff, PDO::PARAM_INT);
+        $statement->bindValue(":spice", $spicy, PDO::PARAM_INT);
+        $statement->bindValue(":pub_date", $pub);
+        $statement->bindValue(":steps", $steps);
+        $statement->bindValue(":recipe_id", $id);
+
         $statement->setFetchMode(PDO::FETCH_OBJ);
         $count = $statement->execute();
-
         return $count;
     }
     //DELETE A RECIPE
@@ -269,7 +290,7 @@ class RecipeDb {
     public function getRecipeTimeInMin($id) {
         $db = Database::getDb();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "SELECT ROUND((TIME_TO_SEC(cook_time))/60,0) as CT, ROUND((TIME_TO_SEC(cook_time))/60,0) as PT FROM recipes WHERE id = :id";
+        $query = "SELECT ROUND((TIME_TO_SEC(prep_time))/60,0) as CT, ROUND((TIME_TO_SEC(cook_time))/60,0) as PT FROM recipes WHERE id = :id";
         $statement = $db->prepare($query);
         $statement->bindValue(":id", $id);
         $statement->execute();
