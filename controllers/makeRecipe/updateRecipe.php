@@ -116,13 +116,17 @@ if(isset($_POST['updateRecipe'])) {
         //DETERMINE IF THE IMAGE TO DELETE IS THE MAIN IMAGE
         //COUNT THE TOTAL IMAGES. IF THERE IS MORE THAN 1, CHECK IF THIS IMAGE IS THE MAIN IMAGE
         if($moreThanOne) {
-            //IF THERE IS MORE THAN ONE, AND IT IS THE MAIN IMAGE, MAKE THE SECOND IMAGE THE MAIN IMAGE, DELETE THE SELECTED
+            //IF THERE IS MORE THAN ONE, AND IT IS THE MAIN IMAGE, MAKE THE SECOND IMAGE THE MAIN IMAGE, DELETE THE SELECTED, UPDATE THE RECIPE_MAIN_IMG
             if($isMain) {
-                $nextRecipeSrc = $recipeImgs[1]->img_src;                
-                $nextRecipeIdObj = $r->getRecipeIdFromSrc($nextRecipeSrc); 
-                $nextRecipeId = $nextRecipeIdObj->recipe_id;
-
+                //GET THE NEXT RECIPE SRC
+                $nextRecipeSrc = $recipeImgs[1]->img_src; 
+                
+                //GET THE ID OF THIS RECIPE_IMG BY RECIPE_SRC
+                $nextRecipeIdObj = $r->getImgIdFromSrc($nextRecipeSrc);
+                $nextRecipeId = $nextRecipeIdObj->id;
+                //UPDATE THE RECIPE MAIN IMAGE ID
                 $updated = $r->updateRecipeMainImgId($nextRecipeId, $recipe_id);
+                //DELETE THE SELECTED IMG (AKA OLD MAIN IMG)
                 $count = $r->deleteImg($img_src);
                 return $count . " image has been deleted";
             }//END IS MAIN

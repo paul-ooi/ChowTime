@@ -92,7 +92,11 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                     <div class="col-sm-8">
                         <?php foreach($dish['dish_lvl'] as $key => $value) : ?>
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" name="dishLevel" id="<?= $key ?>" value="<?= $value ?>" <?php if(isset($in_dishLvl)) {echo 'checked';} ?>/>
+                            <input type="radio" class="form-check-input" name="dishLevel" id="<?= $key ?>" value="<?= $value ?>" <?php if(isset($in_dishLvl)) {
+                                    if($in_dishLvl == $value) {
+                                        echo 'checked';
+                                    }
+                                } ?>/>
                             <label for="<?= $key ?>" class="form-check-label"><?= $value ?></label>
                         </div>
                         <?php endforeach ?>
@@ -110,7 +114,11 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                     <div class="col-sm-8">
                         <?php foreach($diff['diff_level'] as $key => $value) : ?>
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" name="overallDiff" id="<?= $key ?>" value="<?= $value ?>" <?php if(isset($overallDiff)) {echo 'checked';} ?>/>
+                            <input type="radio" class="form-check-input" name="overallDiff" id="<?= $key ?>" value="<?= $value ?>" <?php if(isset($overallDiff)) {
+                                    if($overallDiff == $value) {
+                                        echo 'checked';
+                                    }
+                                } ?>/>
                             <label for="<?= $key ?>" class="form-check-label"><?= $value ?></label>
                         </div>
                         <?php endforeach ?>
@@ -121,6 +129,25 @@ require_once '../controllers/makeRecipe/addRecipe.php';
             </fieldset>
     <!-- SPICY LEVEL -->
             <fieldset class="form-group">
+                <div class="form-row">
+                    <legend class="col-form-label col-sm-2"><span class="text-danger">*</span>Spicy Level</legend>
+                    <div class="col-sm-10">
+                    <?php foreach($spicy['spicy_lvl'] as $key => $value) : ?>
+                        <div class="form-check">
+                            <input type="radio" class="form-check-input" name="inSpice" id="<?= $key ?>" value="<?= $key ?>" 
+                            <?php if(isset($spiceLevel)) {
+                                    if($spiceLevel == $key) {
+                                        echo 'checked';                                    
+                                    }
+                                }
+                             ?>/>
+                            <label for="<?= $key ?>" class="form-check-label"><?= $value ?></label>
+                        </div>
+                    <?php endforeach ?>
+                    </div>
+                </div>
+            </fieldset>
+            <!-- <fieldset class="form-group">
                 <div class="form-row">
                     <legend class="col-form-label col-sm-2"><span class="text-danger">*</span>Spicy Level</legend>
                     <div class="col-sm-10">
@@ -155,7 +182,7 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                         </div>
                     </div>
                 </div>
-            </fieldset>
+            </fieldset> -->
 
     <!-- INGREDIENTS -->
     <?php
@@ -227,7 +254,11 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                     <div class="col-sm-8">
                         <?php foreach($ingred['ingred_diff'] as $key => $value) : ?>
                         <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" name="ingredDiff" id="<?= $key ?>" value="<?= $value ?>" <?php if(isset($ingredDiff)) {echo 'checked';} ?>/>
+                            <input type="radio" class="form-check-input" name="ingredDiff" id="<?= $key ?>" value="<?= $value ?>" <?php if(isset($ingredDiff)) {
+                                if($ingredDiff == $value) {
+                                    echo 'checked';
+                                    }
+                                 } ?>/>
                             <label for="<?= $key ?>" class="form-check-label"><?= $value ?></label>
                         </div>
                         <?php endforeach ?>
@@ -248,15 +279,16 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                             <li><input type="text" class="form-control steps" name="item[1][step]" value=""/></li>
                             <li><input type="text" class="form-control steps" name="item[2][step]" value=""/></li>
                             <li><input type="text" class="form-control steps" name="item[3][step]" value=""/></li>
-                        <?php endif; ?>
+                        <?php endif ?>
                             <!-- END PHP REPEAT HERE -->
 
                             <?php if(isset($_POST['item'])) :
-                                $stepsArr = array_map("allSteps", $_POST['item']);
+                                $allSteps = allRecipeSteps();
+                                $stepsArr = explode(";", $allSteps);
                                 foreach($stepsArr as $key => $value) :
                             ?>
                             <li><input type="text" class="form-control steps" name="item[<?= $key ?>][step]" value="<?= $value ?>"/></li>
-                        <?php endforeach; ?>
+                        <?php endforeach ?>
                     <?php endif ?>
                         </ol>
                         <p id="moreRows">Add More Rows</p>

@@ -30,11 +30,20 @@ if(isset($_SESSION['user_id'])){
 
  //INGRED DIFF
  $ingred['ingred_diff'] = array (
-     "1" => '1',
-     "2" => '2',
-     "3" => '3',
-     "4" => '4',
-     "5" => '5'
+     "0001" => '1',
+     "0002" => '2',
+     "0003" => '3',
+     "0004" => '4',
+     "0005" => '5'
+ );
+
+  $spicy['spicy_lvl'] = array (
+     "0" => "None, Zero.",
+     "1" => "Barely taste it.",
+     "2" => "Ok, I feel some heat.",
+     "3" => "That's Spicy.",
+     "4" => "I Can't Feel My Tongue Anymore.",
+     "5" => "Is my Face Melting?"
  );
  /* =======================END ARRAYS TO DISPLAY ================== */
 
@@ -46,6 +55,8 @@ if(isset($_POST["addRecipe"])) {
     $errors = array();
     $r = new Recipes();
 
+
+
     $inTitle = $v->checkAssignProperty("recipe-title");
     $inDescr = $v->checkAssignProperty("recipe-description");
     $inPrepTime = $v->checkAssignProperty("prep-time");
@@ -54,7 +65,9 @@ if(isset($_POST["addRecipe"])) {
     $in_dishLvl = $v->checkAssignProperty("dishLevel");
     //ADD INGREDIENTS
     $ingredDiff = $v->checkAssignProperty("ingredDiff");
-    $spiceLevel = $v->checkAssignProperty("spicy");
+    if(isset($_POST['inSpice'])){
+        $spiceLevel = $_POST['inSpice'];
+    }
     $img_src = "";
 
         //CHECK ALL INPUT FIELDS ARE VALID
@@ -169,15 +182,20 @@ if(isset($_POST["addRecipe"])) {
 
     /* =======================GET STEPS================== */
     //RETURNS THE ARRAY OF STEPS - EACH ITEM WILL BE RETURNED INTO STEPSARR, THEN FORMATTED INTO A STRING IN ALL_RECIPE_STEPS
-    function allSteps($e){
-        return $e["step"];
-    }
-
     function allRecipeSteps() {
-        $steps = '';
-        $stepsArr = array_map("allSteps", $_POST['item']);
-        foreach($stepsArr as $key => $value) {
-            $steps .= ($value . ';');
+        $steps = "";
+        $count = 0;
+        foreach($_POST['item'] as $key => $value) {
+            $count++;
+        }
+        foreach($_POST['item'] as $key => $value) {
+            if(($count-1) == $key) {
+                $val = trim($value['step']);
+                $steps .= $val;
+            } else {
+                $val = trim($value['step']);
+                $steps .= ($val . ';');
+            }
         }
         return $steps;
     }
