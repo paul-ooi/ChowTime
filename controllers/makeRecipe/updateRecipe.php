@@ -65,25 +65,75 @@ if(isset($_POST['updateRecipe'])) {
     //PREP/COOK TIME
     $preptime = $prepCookTimes->CT;
     $cooktime = $prepCookTimes->PT;
-}
+
+}//END UPDATE RECIPE
  /* =======================DELETING PHOTOS ================== */
     if(isset($_POST['img_src'])) {
         $img_src = $_POST['img_src'];
-        $count = deleteImgSrc($img_src);
-        echo $count;
-        header("Location: http://localhost/chowtime/pages/updateRecipe.php");
+        $result = deleteImgSrc($img_src);
+        var_dump($result);
+    }
+
+    function moreThanOne($imgArr) {
+        $length = count($imgArr);
+        if($length > 1) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    function isMain($mainImgId, $img_id) {
+        if($mainImgId == $img_id) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     function deleteImgSrc($img_src) {
         require_once '../../models/recipeDB.php';
         require_once '../../models/db.php';
         $r = new RecipeDb();
+        
+        $recipe_idObj = $r->getRecipeIdFromSrc($img_src);
+        $recipe_id = $recipe_idObj->recipe_id;
+
+        $imgIdToDelObj = $r->getImgIdFromSrc($img_src);
+        $imgToDel = $imgIdToDelObj->id;
+
+        $recipeImgs = $r->allRecipeImgs($recipe_id);        
+        $mainImgIdObj = $r->getMainImgId($recipe_id);
+        $mainImgId = $mainImgIdObj->main_img_id;
+
+        $nextRecipeId = $r->getRecipeIdFromSrc($img_src);
+
+        $moreThanOne = moreThanOne($recipeImgs);
+        $isMain = isMain($mainImgId, $imgToDel);
 
         //DETERMINE IF THE IMAGE TO DELETE IS THE MAIN IMAGE
+        //COUNT THE TOTAL IMAGES. IF THERE IS MORE THAN 1, CHECK IF THIS IMAGE IS THE MAIN IMAGE
+        if($moreThanOne) {
+            //IF THERE IS MORE THAN ONE, AND IT IS THE MAIN IMAGE, MAKE THE SECOND IMAGE THE MAIN IMAGE, DELETE THE SELECTED
+            if($isMain) {
+                $nextRecipeSrc = $recipeImgs[1]->img_src;                
+                $nextRecipeIdObj = $r->getRecipeIdFromSrc($nextRecipeSrc); 
+                $nextRecipeId = $nextRecipeIdObj->recipe_id;
 
-
-        $count = $r->deleteImg($img_src);
-        return $count;
+                $updated = $r->updateRecipeMainImgId($nextRecipeId, $recipe_id);
+                $count = $r->deleteImg($img_src);
+                return $count . " image has been deleted";
+            }//END IS MAIN
+            else {
+                $count = $r->deleteImg($img_src);
+                return $count . " image has been deleted";
+            }
+        }//END MORE THAN ONE
+        else {
+            return "Cannot delete the main image. You must have at least one.";
+        }
     }
  /* =======================PROCESS UPDATE ================== */
 

@@ -22,13 +22,11 @@ require_once '../controllers/makeRecipe/updateRecipe.php';
 
 /************************TESTING********************/ 
 
-if(isset($_SESSION['user_id']) && (isset($recipe_id))){
+if(isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 } else {
     header("Location: http://localhost/chowtime/pages/login.php");
 }
-
-var_dump($_SESSION);
 ?>
 
 <header class="container ddwrapper">
@@ -74,11 +72,10 @@ var_dump($_SESSION);
                             <?php endforeach ?>
                         <?php endforeach ?>
                     <?php endif ?>
+                    <small class="instructions form-text text-muted" id="delImgErr"></small>
                 </div>
             </div>
         </div>
-
-
         <!-- UPLOAD PHOTOS OPTION -->
         <!-- PREP TIME -->
             <div class="form-group">

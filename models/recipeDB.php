@@ -287,5 +287,52 @@ class RecipeDb {
         $count = $statement->execute();
         return $count;    
     }
+
+    //GET MAIN RECIPE IMAGE ID BY RECIPE ID
+    public static function getMainImgId($recipe_id) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT main_img_id FROM recipes WHERE id = :id";
+
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $recipe_id);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+    }
+
+    //GET IMAGE ID FROM IMG SRC
+    public static function getImgIdFromSrc($imgSrc) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT id FROM recipe_imgs WHERE img_src = :img_src";
+
+        $statement = $db->prepare($query);
+        $statement->bindValue(":img_src", $imgSrc);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+    }
+
+    public static function getRecipeIdFromSrc($imgSrc) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT recipe_id FROM recipe_imgs WHERE img_src = :img_src";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":img_src", $imgSrc);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+    }
+
+    public static function updateRecipeMainImgId($img_src_id, $recipe_id) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);        
+        $query = "UPDATE recipes SET main_img_id = :img_src_id WHERE id = :recipe_id";
+
+        $statement = $db->prepare($query);
+        $statement->bindValue(":img_src_id", $img_src_id);
+        $statement->bindValue(":recipe_id", $recipe_id);
+        $count = $statement->execute();
+
+        return $count;
+    }
 }
 ?>

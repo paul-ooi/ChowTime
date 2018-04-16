@@ -41,8 +41,9 @@ $(document).ready(function(){
         var img_src = img_tag.getAttribute("src");
         var data = { 'img_src': img_src };
         var ajaxUrl = '/chowtime/controllers/makeRecipe/updateRecipe.php';
-        $.post(ajaxUrl, data, function (data) {
-            console.log(data);
+        $.post(ajaxUrl, data, function (result) {
+            window.location.reload();
+            $("#delImgErr").html(result);
         })
     })
 
