@@ -67,12 +67,12 @@ var_dump($_SESSION);
                     <?php if(isset($recipeImgs)) : ?>
                     <?php foreach($recipeImgs as $imgs) : ?>
                             <?php foreach($imgs as $key => $value) : ?>
-                                <div class="col-sm-2">
-                                    <img src="<?= $value ?>" alt="<?= $title ?>" class="imgSrc thumbnail" /> 
+                                <div class="col-sm-4">
+                                    <img src="<?= $value ?>" alt="<?= $title ?>" class="thumbnail currImgDel" />
+                                    <div class="imgSrc deleteButton">x</div>
                                 </div>
                             <?php endforeach ?>
                         <?php endforeach ?>
-                            <input type="submit" class="photoFile" name="deletePhoto" value="deletePhoto"/>
                     <?php endif ?>
                 </div>
             </div>

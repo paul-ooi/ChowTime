@@ -71,12 +71,16 @@ if(isset($_POST['updateRecipe'])) {
         $img_src = $_POST['img_src'];
         $count = deleteImgSrc($img_src);
         echo $count;
+        header("Location: http://localhost/chowtime/pages/updateRecipe.php");
     }
 
     function deleteImgSrc($img_src) {
         require_once '../../models/recipeDB.php';
         require_once '../../models/db.php';
         $r = new RecipeDb();
+
+        //DETERMINE IF THE IMAGE TO DELETE IS THE MAIN IMAGE
+
 
         $count = $r->deleteImg($img_src);
         return $count;

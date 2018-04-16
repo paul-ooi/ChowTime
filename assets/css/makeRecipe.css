@@ -19,3 +19,18 @@
 #ingred_form_item {
 	display: inline-block;
 }
+
+/* FOR UPDATE RECIPE */
+.deleteButton {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 30px;
+    height: 30px;
+    border: 1px solid red;
+    background-color: red;
+    border-radius: 50%;
+    color: #FFF;
+    text-align: center;
+    display: none;
+}

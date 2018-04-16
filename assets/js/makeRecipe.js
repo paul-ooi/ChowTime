@@ -19,21 +19,35 @@ $(document).ready(function(){
         $(this).css("cursor", "inherit");
     })
 
+    //ON HOVER OF THE IMAGE, SHOW THE SPECIFIC BUTTON
+    $(".currImgDel").hover(function(e) {
+        e.currentTarget.nextElementSibling.style.display = "block";
+        $(".deleteButton").css("cursor", "pointer");
+        $(this).css("cursor", "pointer");
+    }, function(e) {
+        e.currentTarget.nextElementSibling.style.display = "none";
+    });
 
+    $(".deleteButton").hover(function() {
+        $(this).css("display", "block");
+    }, function() {
+        $(this).css("display", "none");
+    })
+
+    //DELETING THE IMAGE FOR UPDATING THE RECIPE
     var imgSrc = $(".imgSrc");
-    $(".imgSrc").click(function () {
-        var img_tag = $(this)[0];
+    $(".imgSrc").click(function (e) {
+        var img_tag = e.currentTarget.previousElementSibling;
         var img_src = img_tag.getAttribute("src");
-        var data = {'img_src': img_src};
+        var data = { 'img_src': img_src };
         var ajaxUrl = '/chowtime/controllers/makeRecipe/updateRecipe.php';
-        $.post(ajaxUrl, data, function(data) {
+        $.post(ajaxUrl, data, function (data) {
             console.log(data);
         })
     })
 
-    
 
-})
+}) //END DOCUMENT READY
 
 /*
 value="<?php if(isset($_POST['step"+stepNum+"'])) {
