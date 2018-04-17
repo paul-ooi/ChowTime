@@ -1,6 +1,4 @@
-// "use strict";
 $(document).ready(pageReady);
-// window.addEventListener('load', pageReady, false);
 var timersArray;//Create the Array to hold objects of timers present on the page
 
 
@@ -20,7 +18,17 @@ function pageReady() {
 	//Setup Timer Objects
 	setupTimerArray();
 
-	console.log();
+	// $(document.forms.timerForm).on("submit", function(event){	var form = this;	
+	// 	ajaxSendForm(event, form);});
+		
+	$("#startTimerBtn").on("click", function(event){
+		var button = this;
+		var form = $($(this).parent()).parent();
+		ajaxSendForm(form, button);
+	});
+
+
+		console.log();
 }
 
 function addListeners(targets, action, callback) {
@@ -192,8 +200,31 @@ function countdown(timerObject) {
 		if (timerObject.remainingTime == 0) {
 			clearInterval(interval);
 		}
-		// let timerO = displayTimer(timerObject.remainingTime);
-		// console.log(timerO);
-		console.log(timerObject.remainingTime);
+
 	}, 1000);
+}//End of Countdown
+
+function ajaxSendForm(form, button) {
+	//save timer then start it
+	var hours = form[0][0].value;
+	var minutes = form[1][0].value;
+	var seconds = form[2][0].value;
+	var name = form[3][0].value;
+
+		console.log(form);
+	$.ajax( "../controllers/timers/timer_file.php", {
+		converters: {"array json": jQuery.parseJSON},
+		data: {'action': button.name,
+				'hours': hours,
+				'minutes': minutes,
+				'seconds': seconds,
+				'name': name,
+		},
+	 	datatype:"json",
+		success: function (response) {
+			timersArrayJSON = response;
+			console.log(timersArrayJSON);
+		}
+	});
+	// $(form).submit();
 }
