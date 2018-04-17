@@ -23,7 +23,7 @@ require_once '../models/credentials.php';
 
 //THE ID HERE NEEDS TO BE POPULATED BY SEARCH IN A GET
 // $recipe_id = $_SESSION[$recipe_id];
-$recipe_id = 1;
+$recipe_id = $_GET['id'];
 //====================================================
 $mainRecipeImg = RecipeDb::mainRecipeImg($recipe_id);
 $allRecipeImgs = RecipeDb::allRecipeImgs($recipe_id);

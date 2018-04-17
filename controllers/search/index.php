@@ -44,7 +44,8 @@ switch($_GET['action']) {
             </div>
         </div>
         <div class="col-lg-4 d-flex flex-wrap justify-content-start px-0   ">
-            <input type="button" name="viewRecipe" class="btn btn-default col-md-5 mx-2" value="View Recipe" />
+            <a href="<?php echo 'pages/recipes.php?&id='. $r->recipe_id ?>" class="btn btn-default col-md-5 mx-2">View Recipe</a>
+            <!-- <input type="button" name="viewRecipe" class="btn btn-default col-md-5 mx-2" value="View Recipe" /> -->
             <input type="button" name="madeIt" class="btn btn-default col-md-5 mx-2" value="I Made it" />
         </div>
 
