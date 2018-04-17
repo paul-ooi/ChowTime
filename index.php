@@ -17,11 +17,11 @@ require_once 'pages/partial/_header.php';
         <section class="mx-auto text-center mb-5" id="search">
             <h1 class="sr-only">Chow Time</h1>
             <h2>Find your Next recipe</h2>
-            <form action="controllers/recipes/_allrecipes.php" method="post" id="searchAll" name="searchAll">
+            <form action="controllers/recipes/_allrecipes.php" method="post" id="searchAll" name="searchAll" class="justify-content-around">
                     <label class="form-control-label sr-only" for="form_search">Search Recipes</label>
-                    <input class="form-control form-control-lg col-sm-12 col-md-8 col-lg-9" type="text" name="form_search" id="form_search" placeholder="Start cooking..."/>
-                    <input class="btn btn-lg col-sm-12 col-md-4 col-lg-3" type="submit" for="searchAll" name="searchRecipesBtn" id="searchRecipesBtn" value="Search Recipes"/>
-                    <div id="searchOptions" class="col-12 text-left">Advanced Search</div>
+                    <input class="form-control form-control-lg col-sm-12 col-md-10" type="text" name="form_search" id="form_search" placeholder="Spaghetti, Soup, Salmon, etc..."/>
+                    <!-- <input class="btn btn-lg col-sm-12 col-md-4 col-lg-3" type="submit" for="searchAll" name="searchRecipesBtn" id="searchRecipesBtn" value="Search Recipes"/> -->
+                    <!-- <div id="searchOptions" class="col-12 text-left">Advanced Search</div> -->
                     <fieldset class="hidden col-12" id="moreOptions">
                         <div class="row d-flex justify-content-between">
                             <div class="form-check col-3">

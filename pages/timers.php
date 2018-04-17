@@ -60,8 +60,8 @@ $userTimers = TimerDB::getAllTimersByUser($db, 1);
                 </div>
             </div>
             <div class="row px-1 justify-content-end">
-                <button type="button" name="startTimer" id="startTimerBtn" class="btn timer-btn col-md-2 mx-3" for="timerForm">Start Timer</button>
-                <button type="submit" name="saveTimer" id="saveTimerBtn" class="btn timer-btn col-md-2 mx-3" for="timerForm">Save Timer for later</button>
+                <!-- <button type="button" name="startTimer" id="startTimerBtn" class="btn timer-btn col-md-2 mx-3" for="timerForm">Start Timer</button> -->
+                <button type="submit" name="saveTimer" id="saveTimerBtn" class="btn timer-btn col-md-2 mx-3" for="timerForm">Save Timer</button>
             </div>
             <div>
                 <label for="timerForm" id="feedbackMsg"><?php echo (empty($feedbackMsg) ? "" : $feedbackMsg) ?></label>
