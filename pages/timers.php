@@ -37,29 +37,31 @@ $userTimers = TimerDB::getAllTimersByUser($db, 1);
     <header class="container ddwrapper">
         <?php require_once 'partial/_mainnav.php' ?>
     </header>
-    <main class="col-12">
+    <main class="col-12 order-2">
         <!-- TIMER FORM -->
-        <h1>Timer</h1>
-        <form action="" method="post" name="timerForm">
-            <div>
-                <label for="hours">Hours: </label>
-                <input type="number" id="hours" name="hours" value="<?php //echo $hours?>"/>
+        <h1>Set New Timer</h1>
+        <form action="" method="post" name="timerForm" class="">
+            <div class="row mb-3  justify-content-end">
+                <div class="col-2">
+                    <label for="hours" class="control-label">Hours</label>
+                    <input min="0" class="col-10 form-control" type="number" id="hours" name="hours" value="<?php //echo $hours?>"/>
+                </div>
+                <div class="col-2">
+                    <label for="minutes" class="control-label">Minutes</label>
+                    <input min="0" class="col-10 form-control" type="number" id="minutes" name="minutes" value="<?php //echo $minutes?>"/>
+                </div>
+                <div class="col-2">
+                    <label for="seconds" class="control-label">Seconds</label>
+                    <input min="0" class="col-10 form-control" type="number" id="seconds" name="seconds" value="<?php //echo $seconds?>"/>
+                </div>
+                <div class="col-4">
+                    <label for="name" class="control-label">Timer Name</label>
+                    <input class="col-12 form-control" type="text" id="name" name="name" value="<?php //echo $name?>" placeholder="Optional"/>
+                </div>
             </div>
-            <div>
-                <label for="minutes">Minutes: </label>
-                <input type="number" id="minutes" name="minutes" value="<?php //echo $minutes?>"/>
-            </div>
-            <div>
-                <label for="seconds">Seconds: </label>
-                <input type="number" id="seconds" name="seconds" value="<?php //echo $seconds?>"/>
-            </div>
-            <div>
-                <label for="name">Timer Name: </label>
-                <input type="text" id="name" name="name" value="<?php //echo $name?>" placeholder="Optional"/>
-            </div>
-            <div>
-                <button type="submit" name="startTimer" class="btn timer-btn" for="timerForm">Start Timer</button>
-                <button type="submit" name="saveTimer" class="btn timer-btn" for="timerForm">Save Timer for later</button>
+            <div class="row px-1 justify-content-end">
+                <button type="button" name="startTimer" id="startTimerBtn" class="btn timer-btn col-md-2 mx-3" for="timerForm">Start Timer</button>
+                <button type="submit" name="saveTimer" id="saveTimerBtn" class="btn timer-btn col-md-2 mx-3" for="timerForm">Save Timer for later</button>
             </div>
             <div>
                 <label for="timerForm" id="feedbackMsg"><?php echo (empty($feedbackMsg) ? "" : $feedbackMsg) ?></label>
@@ -107,7 +109,7 @@ $userTimers = TimerDB::getAllTimersByUser($db, 1);
             </ul>
         </div>
     </main>
-    <aside class="col-12">
+    <aside class="col-12 order-1">
         <!-- add instructions -->
         <h2>Using Timers</h2>
         <p>Sometimes you will be cooking multiple things in the kitchen, and you need help keeping track of all the timed tasks. Save timers so you can use multiple timers at once. Or set your timer values and click start to start a single timer</p>

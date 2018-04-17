@@ -14,6 +14,8 @@ switch ($_GET['action']) {
         $result = TimerDB::delTimer($db, $timerName, $origTime);
         echo $result;
         break;
+    case ("saveTimer"):
+        var_dump($_GET);
 }
 
 
