@@ -25,14 +25,17 @@ foreach($users as $user) {
     $addKey = "add" . $count;
     $imgKey = "img" . $count;
     $userKey = "u" . $count;
+    $titleKey = "t" . $count;
     $add = $user->getAdd();
     $city = $user->getCity();
     $province = $user->getProv();
     $post = $user->getPost();
+    $title = $user->getTitle();
 
     $address = "$add $city $province $post";
     $u[$addKey] = $address;
     $u[$imgKey] = $user->getImg();
+    $u[$titleKey] = $title;
     $array[$userKey] = $u;
 
     $finalArray = array('whats_cooking' => $array);
