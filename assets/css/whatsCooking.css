@@ -22,6 +22,10 @@ main {
     height: 500px;
 }
 
+.mainRecipeTitle {
+    color: rgb(199, 74, 65);
+}
+
 /* FILTER BAR */
 .layout {
     flex-flow: column;

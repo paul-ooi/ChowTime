@@ -79,12 +79,18 @@ function initializeMap() {
         for(var i=1; i <= (Object.keys(obj.whats_cooking).length); i++) {
             var add = "add" + i;
             var user = "u" + i;
-            coords(user, add, obj, userMap);
+            var title = "t" + i;
+            var img = "img" + i;
+
+            var contentString = createContentString(title, user, img, obj);
+            var infowindow = createInfoWindow(contentString);
+            coords(user, add, obj, userMap, title, infowindow);
+
     };
 });//END POST
 
 
-function coords(user, add, obj, userMap) {
+function coords(user, add, obj, userMap, title, infowindow) {
     geoCode = new google.maps.Geocoder();
     geoCode.geocode({
         address: obj.whats_cooking[user][add]
@@ -92,11 +98,32 @@ function coords(user, add, obj, userMap) {
         if(status == "OK") {
             var marker = new google.maps.Marker({
                 map: userMap,
-                position: results[0].geometry.location
+                position: results[0].geometry.location,
+                title: title
+            });
+            marker.addListener('click', function () {
+                infowindow.open(map, marker);
             });
         }
     });
 }//END PLACE MARKER FUNCTION
+
+function createContentString(title, user, img, obj) {
+    //ADD A CONTENT WINDOW
+    var contentString = "<div class='container'><div class='row'><div class='col-xs-2'><img src='" + obj.whats_cooking[user][img] + "' style='width:100px;'/></div><div class='col-xs-10'><p class='mainRecipeTitle'>" + obj.whats_cooking[user][title] + "</p></div></div></div>";
+    return contentString;
+}
+
+function createInfoWindow(contentString) {
+    var infowindow = new google.maps.InfoWindow({
+        content: contentString
+    });
+    return infowindow;
+}
+
+
+
+
 
 //PINTEREST TO SHARE RECIPE
 
