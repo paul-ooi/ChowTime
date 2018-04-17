@@ -30,6 +30,82 @@ if (isset($_POST['details'])){
             </div>
         </header>
         <main>
+
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="createTitle">New Event</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form action="" method="post">
+                            <input type="hidden" name="eUserId" value="<?php echo $userIdInput; ?>" />
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="eName" class="col-sm-2 text-right control-label">Event Name*</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="eName" id="eName" class="form-control" placeholder="What is this event called?" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="eLoc" class="col-sm-2 text-right control-label"><i class="fas fa-map-marker"></i> Location*</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="eLoc" id="eLoc" class="form-control" placeholder="Include place or address." />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="eDate" class="col-sm-2 text-right control-label"><i class="far fa-calendar-alt"></i> Date*</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" name="eDate" id="datepicker" />
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="eStartTime" class="col-sm-2 text-right control-label"><i class="far fa-clock"></i> Start Time*</label>
+                                    <div class="col-sm-10">
+                                        <select class="timeSelect form-control" name="eStartTime">
+                                            <option value="none">Choose a time...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="eEndTime" class="col-sm-2 text-right control-label"><i class="far fa-clock"></i> End Time</label>
+                                    <div class="col-sm-10">
+                                        <select class="timeSelect form-control" name="eEndTime">
+                                            <option value="none">Choose a time...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="eDescription" class="col-sm-2 text-right control-label">Description*</label>
+                                    <div class="col-sm-10">
+                                        <textarea name="eDescription" class="form-control" rows="3" placeholder="A little something about your event."></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="ePrivacy" class="col-sm-2 text-right control-label"><i class="fas fa-unlock"></i> Privacy*</label>
+                                    <div class="col-sm-10">
+                                        <input type="radio" name="ePrivacy" value="1" id="privatePrivacy" /><label for="privatePrivacy"> Private </label>
+                                        <input type="radio" name="ePrivacy" value="0" id="publicPrivacy" /><label for="publicPrivacy"> Public </label>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="eTheme" class="col-sm-2 text-right control-label">Theme</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="eTheme" class="form-control" placeholder="Is there a theme?"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" name="add_event" value="Create" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
             <?php
 
             foreach ($events as $event) { ?>
@@ -56,10 +132,8 @@ if (isset($_POST['details'])){
                                         echo '</form>';
                                     }
                                 } else if($user_id == $admin) { // If user is the admin of the page
-                                    echo '<form action="" method="post" name="editEvent">';
-                                        echo '<input type="hidden" value="' . $event->id . '" />';
-                                        echo '<input type="submit" class="btn btn-default" value="Edit" />';
-                                    echo '</form>';
+                                    echo '<button type="button" class="btn btn-default" data-toggle="modal" data-target=".bd-example-modal-lg">Edit</button>';
+
                                     echo '<form action="" method="post" name="deleteEvent">';
                                         echo '<input type="hidden" value="' . $event->id . '" />';
                                         echo '<input type="submit" class="btn btn-default" value="Delete" />';
@@ -98,6 +172,8 @@ if (isset($_POST['details'])){
                     } // End of foreach
                 } // End of if
                 ?>
+
+
                 <div class="row">
                 <!-- Comment Section (first 10) -->
                 </div>
