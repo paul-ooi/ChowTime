@@ -40,7 +40,7 @@
 
  /* =======================END ARRAYS TO DISPLAY ================== */
 
-/* =======================POPUALTE RECIPE TO UPDATE ================== */
+/* =======================POPULATE RECIPE TO UPDATE ================== */
 if(isset($_POST['updateRecipe'])) {
     $r = new RecipeDb();
 
@@ -126,13 +126,24 @@ if(isset($_POST['updateRecipe'])) {
                 $nextRecipeId = $nextRecipeIdObj->id;
                 //UPDATE THE RECIPE MAIN IMAGE ID
                 $updated = $r->updateRecipeMainImgId($nextRecipeId, $recipe_id);
-                //DELETE THE SELECTED IMG (AKA OLD MAIN IMG)
+                //DELETE THE SELECTED IMG (AKA OLD MAIN IMG) FROM DATABASE
                 $count = $r->deleteImg($img_src);
-                return $count . " image has been deleted";
+                //DELETE THE SELECTED IMG FROM THE DIRECTORY
+                $path = '../' . $img_src;
+                if (file_exists($path)) {
+                    $dir = unlink($path);
+                }
+                return $count . " image has been deleted" . " $dir has been deleted from directory";
             }//END IS MAIN
             else {
+                //DELETE THE IMAGE FROM THE DATABASE
                 $count = $r->deleteImg($img_src);
-                return $count . " image has been deleted";
+                //DELETE THE IMAGE FROM THE DIRECTORY
+                $path = '../' . $img_src;
+                if (file_exists($path)) {
+                    $dir = unlink($path);
+                }
+                return $count . " image has been deleted" . " $dir has been deleted from directory";
             }
         }//END MORE THAN ONE
         else {

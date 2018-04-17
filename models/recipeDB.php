@@ -229,7 +229,7 @@ class RecipeDb {
         $db = Database::getDb();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "SELECT COUNT(img_src) FROM recipe_imgs";
+        $sql = "SELECT @var := MAX(id) FROM recipe_imgs";
         $statement = $db->prepare($sql);
         $statement->execute();
         return $statement->fetch();
@@ -354,6 +354,17 @@ class RecipeDb {
         $count = $statement->execute();
 
         return $count;
+    }
+
+    public static function getRecentPublishedRecipe() {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ERRMODE_EXCEPTION, PDO::ATTR_ERRMODE);
+        $query = "SELECT MAX(pub_date) as pub_date, id FROM recipes";
+
+        $statement = $db->prepare($query);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_OBJ);
+
     }
 }
 ?>
