@@ -62,6 +62,7 @@ class RecipesMade {
         return $count;
     }
 
+    //ADD to recipesMade table with user and recipe ID only
     public function addRecipeMadeByUser($db, $recipeObj) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "INSERT INTO recipes_made (recipe_id, user_id) VALUES (:r_id, :u_id)";
