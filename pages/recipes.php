@@ -20,10 +20,15 @@ require_once '../models/ingredient.php';
 require_once '../models/recipeDB.php';
 require_once '../models/credentials.php';
 
-
 //THE ID HERE NEEDS TO BE POPULATED BY SEARCH IN A GET
 // $recipe_id = $_SESSION[$recipe_id];
-$recipe_id = $_GET['id'];
+
+if(isset($_GET['id'])) {
+    $recipe_id = $_GET['id'];
+} else {
+    $recentRecipe = RecipeDb::getRecentPublishedRecipe();
+    $recipe_id = $recentRecipe->id;
+}
 //====================================================
 $mainRecipeImg = RecipeDb::mainRecipeImg($recipe_id);
 $allRecipeImgs = RecipeDb::allRecipeImgs($recipe_id);
