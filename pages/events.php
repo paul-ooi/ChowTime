@@ -6,7 +6,6 @@ $db = Database::getDb();
 
 // FOR TESTING PURPOSES
 $userIdInput = 1;
-var_dump(debug_backtrace());
 
 // ADDING EVENT
 if (isset($_POST['add_event'])){
