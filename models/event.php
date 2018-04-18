@@ -1,6 +1,6 @@
 <?php
 class Event {
-
+//comment
     // CREATE COMMENT
     public function addEvent($db, $user_id, $event_name, $event_location, $date, $start_time, $end_time, $description, $privacy, $theme){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
