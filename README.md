@@ -42,6 +42,20 @@ Next TO DOs:
 * Complete share recipe function
 * Add a new recipes summary page
 
+### Brad
+* Fixed login functionality, sets user id session
+* Set user info on user profile page
+* Editted header
+* Editted other users profile basic information
+* Created the rough logic and layout for the fridge feature
+
+Next To Do:
+*Finish inegration of other's features into Profile pages/write code to use their features DB on my pages.
+*Complete my list of DB validation changes
+*Finish my fridge functionality
+*Upgrade create creation to handle email validation
+*Upgrade reset password to handle email sending
+
 ---
 
 ## Checkpoint 1

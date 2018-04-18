@@ -168,7 +168,7 @@ require_once 'partial/_mainnav.php';
 	</div>
     <div class="row">
         <div class="form-group">
-            <button type="submit" name="createProfile" for="createP" class="form-control">Submit</button>
+            <button type="submit" name="createProfile" for="createP" class="form-control">Create Profile</button>
         </div>
     </div>
 	</main>
