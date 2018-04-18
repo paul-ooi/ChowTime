@@ -34,6 +34,11 @@ require_once '../controllers/makeRecipe/addRecipe.php';
     <div class="wrapper">
         <form method="post" enctype="multipart/form-data" action="makeRecipe.php">
             <input type="hidden" id="user_id" value="<?= $user_id ?>" />
+            <small class="instructions form-text text-danger">
+                <?php if(isset($_SESSION['recipe_err_mssg']['input_field_error'])) {
+                    echo $_SESSION['recipe_err_mssg']['input_field_error'];
+                }?>
+            </small>
             <div class="form-group">
                 <div class="form-row">
                     <label for="recipe-title" class="col-sm-2 col-form-label"><span class="text-danger">*</span>Title</label>
@@ -147,43 +152,6 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                     </div>
                 </div>
             </fieldset>
-            <!-- <fieldset class="form-group">
-                <div class="form-row">
-                    <legend class="col-form-label col-sm-2"><span class="text-danger">*</span>Spicy Level</legend>
-                    <div class="col-sm-10">
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="spicy" id="l1" value="1" />
-                            <label for="l1" class="form-check-label">None, Zero.</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="spicy" id="l2" value="2" />
-                            <label for="l2" class="form-check-label">Barely taste it.</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="spicy" id="l3" value="3" />
-                            <label for="l3" class="form-check-label">Ok, I feel some heat.</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="spicy" id="l4" value="4" />
-                            <label for="l4" class="form-check-label">That's spicy!</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="spicy" id="l5" value="5" />
-                            <label for="l5" class="form-check-label">I can't feel my tongue anymore.</label>
-                        </div>
-
-                        <div class="form-check">
-                            <input type="radio" class="form-check-input" name="spicy" id="l6" value="6" />
-                            <label for="l6" class="form-check-label">Is my face melting?</label>
-                        </div>
-                    </div>
-                </div>
-            </fieldset> -->
-
     <!-- INGREDIENTS -->
     <?php
 
@@ -299,11 +267,6 @@ require_once '../controllers/makeRecipe/addRecipe.php';
             <input type="submit" id="addRecipe" name="addRecipe" class="btn" value="Add"/>
             <input type="submit" id="deleteRecipe" name="deleteRecipe" class="btn" value="Delete"/>
             <!-- <input type="text" readonly class="form-control-plaintext" name="errMssg" value=""> -->
-            <small class="instructions form-text text-danger">
-            <?php if(isset($_SESSION['recipe_err_mssg']['input_field_error'])) {
-                echo $_SESSION['recipe_err_mssg']['input_field_error'];
-            }?>
-            </small>
         </form>
     </div>
 </main>

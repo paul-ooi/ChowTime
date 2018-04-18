@@ -235,7 +235,11 @@ if(isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </fieldset>
+            <?php if(isset($user_id)) {
+
+            } ?>
             <input type="submit" id="update" name="update" value="Save" class="btn btn-info"/>
+            <input type="delete" id="delete" name="delete" value="Delete Recipe" class="btn btn-info" />
             <small class="instructions form-text text-danger">
             <?php if(isset($_SESSION['recipe_err_mssg']['update_input_error'])) {
                 echo $_SESSION['recipe_err_mssg']['update_input_error'];
@@ -244,3 +248,7 @@ if(isset($_SESSION['user_id'])) {
         </form>
     </div>
 </main>
+
+<?php 
+unset($_SESSION['recipe_err_mssg']);
+?>

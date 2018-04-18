@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 1;
+$_SESSION['user_id'] = 8;
 /*======================*/
 
 $pageTitle = "Recipes";
@@ -38,10 +38,6 @@ $totalTime = RecipeDb::totalRecipeTime($recipe_id);
 $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
 //====================================================
 
-//SHARE RECIPES
-function getAuthCode() {
-
-}
 ?>
 <header class="container ddwrapper">
     <?php require_once 'partial/_mainnav.php' ?>
@@ -50,11 +46,24 @@ function getAuthCode() {
         <!-- IF USER IS THE SAME AS THE ONE WHO CREATED THE RECIPE, THEY CAN ALSO EDIT. -->
         <?php if(isset($_SESSION['user_id'])) :
             $user_id = $_SESSION['user_id'];
-            if($user_id == $recipe_owner_id['user_id']) : ?>
-            <form method="POST" action="/chowtime/pages/updateRecipe.php" class="text-right">
-                <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
-                <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
-            </form>
+            $userRole = RecipeDb::getUserRole($user_id);
+            if($user_id == $recipe_owner_id['user_id'] || $userRole['admin'] == 1) : ?>
+                <div class="row">
+                    <p><?php if(isset($_SESSION['recipe_err_mssg']['delete_error'])) {
+                        echo $_SESSION['recipe_err_mssg']['delete_error'];
+                    } ?></p>
+                    <form method="POST" action="/chowtime/pages/updateRecipe.php" class="text-right form-inline">
+                        <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
+                        <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
+                    </form>
+                <?php endif ?>
+                <?php if($userRole['admin'] == 1) :?>
+                    <form method="POST" action="/chowtime/controllers/makeRecipe/deleteRecipe.php" class="text-right form-inline">
+                        <input type="submit" id="deleteRecipe" name="deleteRecipe" class="btn" value="Delete Recipe"/>
+                        <input type="hidden" name="user_role" value="1" />
+                        <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
+                    </form>
+                </div>
             <?php endif ?>
         <?php endif?>
         <meta property="og:https://www.jesscwong.ca" content="letthebakingbeginblog.com" />
@@ -175,7 +184,25 @@ function getAuthCode() {
                  </div>
              </div>
         </div>
+        <script>
+            window.pAsyncInit = function() {
+                PDK.init({
+                    appId: "4960227825098436719", // Change this
+                    cookie: true
+                });
+            };
+            (function(d, s, id){
+                var js, pjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//assets.pinterest.com/sdk/sdk.js";
+                pjs.parentNode.insertBefore(js, pjs);
+            }(document, 'script', 'pinterest-jssdk'));
+        </script>
     </main>
 <?php include 'partial/_footer.php'; ?>
 </body>
+<?php 
+unset($_SESSION['recipe_err_mssg']);
+?>
 </html>
