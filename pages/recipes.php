@@ -26,7 +26,8 @@ require_once '../models/credentials.php';
 
 if(isset($_GET['id'])) {
     $recipe_id = $_GET['id'];
-} else {
+}
+else {
     $recentRecipe = RecipeDb::getRecentPublishedRecipe();
     $recipe_id = $recentRecipe->id;
 }
@@ -38,7 +39,6 @@ $recommDiff = RecipeDb::recommDiff($recipe_id);
 $totalTime = RecipeDb::totalRecipeTime($recipe_id);
 $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
 //====================================================
-
 ?>
 <header class="container ddwrapper">
     <?php require_once 'partial/_mainnav.php' ?>
@@ -178,12 +178,12 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     </div>
                 </div>
             </div> <!-- End aside right -->
-             <div class="comments-display-container">
+             <!-- <div class="comments-display-container">
                 <?php 
                 include '../controllers/comments/commentbox.php';
                 include '../controllers/comments/listComments.php';
                     ?>
-            </div>           
+            </div>            -->
         </div>
         <script>
             window.pAsyncInit = function() {

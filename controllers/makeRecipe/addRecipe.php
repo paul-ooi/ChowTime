@@ -5,17 +5,8 @@ if(isset($_SESSION['user_id'])){
     header("Location: http://localhost/chowtime/pages/controllers/login.php");
 }
 /* =====================TESTING ZONE==================== */
+                    
 
-
-            // $num = RecipeDB::getImageCount();
-            // $next_num = $num[0] + 1;
-            // var_dump($next_num);
-            // // return false;
-
-            // $last_img_id = RecipeDb::getLastImgId();
-            // $next_img_id = $last_img_id[0] + 1;
-            // var_dump($next_img_id);
-            // return false;
  /* =======================TESTING ZONE================== */
 
  /* =======================ARRAYS TO DISPLAY ================== */
@@ -54,8 +45,8 @@ if(isset($_SESSION['user_id'])){
      "4" => "I Can't Feel My Tongue Anymore.",
      "5" => "Is my Face Melting?"
  );
- /* =======================END ARRAYS TO DISPLAY ================== */
 
+ /* =======================END ARRAYS TO DISPLAY ================== */
 
 // VALIDATE FIELDS AREN'T EMPTY ON SUBMIT
 $v = new Validation();
@@ -63,11 +54,6 @@ if(isset($_POST["addRecipe"])) {
     //TO HANDLE ERRORS
     $errors = array();
     $r = new Recipes();
-
-echo '<pre>';
-var_dump($_POST);
-echo '</pre>';
-return false;
 
     $inTitle = $v->checkAssignProperty("recipe-title");
     $inDescr = $v->checkAssignProperty("recipe-description");
@@ -88,21 +74,28 @@ return false;
                     //DO INSERT IMAGE INTO DATABASE
                     $steps = allRecipeSteps();
 
-                    $last_img_id = RecipeDb::getLastImgId();
-                    $next_img_id = $last_img_id[0] + 1;
-
-                    $r->setRecipeProps(null, $user_id, $next_img_id, $inTitle, $inDescr, $inPrepTime, $inCookTime, $in_dishLvl, $ingredDiff, $overallDiff, $spiceLevel, $steps);
+                    //LEAVE THE MAIN IMG ID AS NULL
+                    $r->setRecipeProps(null, $user_id, null, $inTitle, $inDescr, $inPrepTime, $inCookTime, $in_dishLvl, $ingredDiff, $overallDiff, $spiceLevel, $steps);
 
                     //INSERT INTO RECIPE
                     $recipe_in = RecipeDb::addRecipe($r);
                     echo $recipe_in . " recipe was added. ";
 
-                    //INSERT INTO RECIPE IMAGES
+                    //GET THE MAX ID OF RECIPE WHICH JUST INSERTED INTO RECIPE IMAGES (IMG FILE NAME WAS ALREADY SET)
                     $last_recipe_id = RecipeDb::getLastRecipe();
                     $r->setRecipeId($last_recipe_id[0]);
 
                     $img_in = RecipeDb::insertImage($r);
                     echo $img_in . " image was added.";
+
+                    //UPDATE THE RECIPE MAIN IMAGE BY GETTING THE MAX ID OF RECIPE AND MAX ID OF THE IMG
+                    $last_img_id = RecipeDb::getLastImgId();
+                    $last_recipe_id = RecipeDb::getLastRecipe();
+                    $r->setImgId($last_img_id[0]);
+                    $r->setRecipeId($last_recipe_id[0]);
+
+                    $main_img_updated = RecipeDb::updateMainImage($r);
+                    echo $main_img_updated . " image was updated.";
                 }
             }
         }
@@ -169,8 +162,8 @@ return false;
                 return false;
             }
 
-            //RENAMING FILE, AND ADDING TO DIRECTORY
-            $num = RecipeDB::getImageCount();
+            //RENAMING FILE, AND ADDING TO DIRECTORY WHERE THE NUMBER IS THE NEXT MAX NUMBER OF THE RECIPE_IMGS ID
+            $num = RecipeDB::getLastImgId();
             $next_num = $num[0] + 1;
 
             $tmp = explode(".", $file_name);

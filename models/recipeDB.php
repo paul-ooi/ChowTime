@@ -227,16 +227,6 @@ class RecipeDb {
         return $statement->fetch();
     }
 
-    public static function getImageCount() {
-        $db = Database::getDb();
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $sql = "SELECT @var := MAX(id) FROM recipe_imgs";
-        $statement = $db->prepare($sql);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
     public static function getLastImgId() {
         $db = Database::getDb();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -244,6 +234,20 @@ class RecipeDb {
         $statement = $db->prepare($sql);
         $statement->execute();
         return $statement->fetch();
+    }
+
+    public static function updateMainImage($recipe) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "UPDATE recipes SET main_img_id = :img_id WHERE id = :recipe_id";
+        $statement = $db->prepare($sql);
+
+        $recipe_id = $recipe->getRecipeId();
+        $img_id = $recipe->getImgId();
+
+        $statement->bindValue(":img_id", $img_id);
+        $statement->bindValue(":recipe_id", $recipe_id);
+        return $statement->execute();
     }
 
     public static function insertImage($recipes) {
@@ -361,7 +365,7 @@ class RecipeDb {
     public static function getRecentPublishedRecipe() {
         $db = Database::getDb();
         $db->setAttribute(PDO::ERRMODE_EXCEPTION, PDO::ATTR_ERRMODE);
-        $query = "SELECT MAX(pub_date) as pub_date, id FROM recipes";
+        $query = "SELECT MAX(pub_date) AS pub_date, id FROM recipes ORDER BY(pub_date)";
 
         $statement = $db->prepare($query);
         $statement->execute();

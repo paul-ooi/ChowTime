@@ -28,6 +28,8 @@ require_once '../models/recipeImgsDB.php';
 require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds recipe to DB
 
 /* =====================TESTING ZONE==================== */
+
+
  /* =======================TESTING ZONE================== */
  ?>
 <main>
@@ -140,11 +142,12 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
                     <?php foreach($spicy['spicy_lvl'] as $key => $value) : ?>
                         <div class="form-check">
                             <input type="radio" class="form-check-input" name="inSpice" id="<?= $key ?>" value="<?= $key ?>" 
-                            <?php if(isset($spiceLevel)) {
-                                    if($spiceLevel == $key) {
-                                        echo 'checked';                                    
-                                    }
+                            <?php 
+                            if(isset($spiceLevel)) {
+                                if($spiceLevel == $key) {
+                                    echo 'checked';
                                 }
+                            }                            
                              ?>/>
                             <label for="<?= $key ?>" class="form-check-label"><?= $value ?></label>
                         </div>
@@ -155,8 +158,8 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
     <!-- INGREDIENTS -->
     <?php
 
-    //include the Add Ingredient section  (Paul's Lab 6) -needs some formatting still
-    include '../controllers/ingredients/ingredient_add.php'
+    // //include the Add Ingredient section  (Paul's Lab 6) -needs some formatting still
+    // include '../controllers/ingredients/ingredient_add.php'
 
      ?>
            <!-- <fieldset class="form-group">
