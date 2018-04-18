@@ -55,7 +55,7 @@ class RecipeDb {
         $db = Database::getDb();
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "INSERT INTO recipes VALUES (:id, :user_id, :img_id, :title, :descr, SEC_TO_TIME(:p_time*60), SEC_TO_TIME(:c_time*60), :dish, :ingred, :diff, :spicy, null, :steps)";
+        $query = "INSERT INTO recipes VALUES (:id, :userid, :img_id, :title, :descr, SEC_TO_TIME(:p_time*60), SEC_TO_TIME(:c_time*60), :dish, :ingred, :diff, :spicy, null, :steps)";
 
         $statement = $db->prepare($query);
 
@@ -73,7 +73,7 @@ class RecipeDb {
         $steps = $recipe->getSteps();
 
         $statement->bindValue(':id', $id, PDO::PARAM_INT);
-        $statement->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $statement->bindValue(':userid', $user_id, PDO::PARAM_INT);
         $statement->bindValue(':img_id', $img_id, PDO::PARAM_INT);
         $statement->bindValue(':title', $title, PDO::PARAM_STR);
         $statement->bindValue(':descr', $descr, PDO::PARAM_STR);
@@ -140,12 +140,14 @@ class RecipeDb {
         $count = $statement->execute();
         return $count;
     }
-    //DELETE A RECIPE
+    //DELETE A RECIPE FROM IMG AND RECIPE TABLE AT ONCE
     public static function deleteRecipe($id) {
         $db = Database::getDb();
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "DELETE FROM recipes WHERE id = :id";
+        $query = "DELETE recipes, recipe_imgs 
+        FROM recipes JOIN recipe_imgs 
+        WHERE recipes.id = :id AND recipe_imgs.recipe_id = :id";
         $statement = $db->prepare($query);
         $statement->bindValue(":id", $id, PDO::PARAM_INT);
         $statement->setFetchMode(PDO::FETCH_OBJ);
@@ -364,6 +366,19 @@ class RecipeDb {
         $statement = $db->prepare($query);
         $statement->execute();
         return $statement->fetch(PDO::FETCH_OBJ);
+
+    }
+
+    public static function getUserRole($user_id) {
+        $db = Database::getDb();
+        $db->setAttribute(PDO::ERRMODE_EXCEPTION, PDO::ATTR_ERRMODE);
+        $query = "SELECT admin FROM profiles WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(":id", $user_id);
+        $statement->execute();
+        $int = $statement->fetch();
+
+        return $int;
 
     }
 }

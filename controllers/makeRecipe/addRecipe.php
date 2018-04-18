@@ -6,6 +6,16 @@ if(isset($_SESSION['user_id'])){
 }
 /* =====================TESTING ZONE==================== */
 
+
+            // $num = RecipeDB::getImageCount();
+            // $next_num = $num[0] + 1;
+            // var_dump($next_num);
+            // // return false;
+
+            // $last_img_id = RecipeDb::getLastImgId();
+            // $next_img_id = $last_img_id[0] + 1;
+            // var_dump($next_img_id);
+            // return false;
  /* =======================TESTING ZONE================== */
 
  /* =======================ARRAYS TO DISPLAY ================== */
@@ -26,7 +36,6 @@ if(isset($_SESSION['user_id'])){
      "004" => '4',
      "005" => '5'
  );
-
 
  //INGRED DIFF
  $ingred['ingred_diff'] = array (
@@ -66,18 +75,16 @@ return false;
     $inCookTime = $v->checkAssignProperty("cook-time");
     $overallDiff = $v->checkAssignProperty("overallDiff");
     $in_dishLvl = $v->checkAssignProperty("dishLevel");
+    $spiceLevel = $v->checkAssignProperty("inSpice");
     //ADD INGREDIENTS
     $ingredDiff = $v->checkAssignProperty("ingredDiff");
-    if(isset($_POST['inSpice'])){
-        $spiceLevel = $_POST['inSpice'];
-    }
     $img_src = "";
 
         //CHECK ALL INPUT FIELDS ARE VALID
         if(checkInputFields($inTitle, $inDescr, $inPrepTime, $inCookTime, $overallDiff, $spiceLevel, $in_dishLvl, $errors)) {
             //CHECK FILES ARE VALID AND STEPS ARE ENTERED
-            if(checkFiles($errors, $r)) {
-                if(recipeStepsReturn()) {
+            if(recipeStepsReturn()) {
+                if(checkFiles($errors, $r)) {
                     //DO INSERT IMAGE INTO DATABASE
                     $steps = allRecipeSteps();
 
@@ -88,17 +95,14 @@ return false;
 
                     //INSERT INTO RECIPE
                     $recipe_in = RecipeDb::addRecipe($r);
-                    echo $recipe_in . "recipe was added";
+                    echo $recipe_in . " recipe was added. ";
 
                     //INSERT INTO RECIPE IMAGES
                     $last_recipe_id = RecipeDb::getLastRecipe();
                     $r->setRecipeId($last_recipe_id[0]);
 
                     $img_in = RecipeDb::insertImage($r);
-                    echo $img_in . "image was added";
-
-                    //ADD RECIPE INGREDIENTS TO THE RECIPE_INGREDIENTS TABLE --PAUL OOI
-                    
+                    echo $img_in . " image was added.";
                 }
             }
         }
@@ -111,7 +115,7 @@ return false;
     /* =======================INPUT VALIDATION================== */
     function checkInputFields($inTitle, $inDescr, $inPrepTime, $inCookTime, $spiceLevel, $overallDiff, $in_dishLvl, $errors) {
         if ($inTitle == null || $inDescr == null || $inPrepTime == null || $inCookTime == null || $spiceLevel == null || $overallDiff == null || $in_dishLvl == null) {
-            $errors['input_field_error'] = "Please fill out all fields to add a recipe!";
+            $errors['input_field_error'] = "*Please fill out all fields to add a recipe!";
             createSession($errors);
             return false;
         } else {
@@ -165,6 +169,7 @@ return false;
                 return false;
             }
 
+            //RENAMING FILE, AND ADDING TO DIRECTORY
             $num = RecipeDB::getImageCount();
             $next_num = $num[0] + 1;
 
@@ -208,10 +213,14 @@ return false;
 
     function recipeStepsReturn() {
         if(isset($_POST['item'])) {
-            return true;
-        } else {
-            return false;
+            if(empty($_POST['item'][0]['step'])) {
+                $errors['input_field_error'] = "*Please fill out all fields to add a recipe!";
+                createSession($errors);
+                return false;
+            }
         }
+        unset($_SESSION['recipe_err_mssg']);
+        return true;
     }
     /* =======================END GET STEPS================== */
  ?>

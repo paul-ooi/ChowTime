@@ -343,12 +343,16 @@ if(isset($_POST['update'])) {
 
     //CHECK FILE INFORMATION                    
     if(checkFiles($errors, $r)) {
-    //INSERT INTO DATABASE (RECIPE IMGS) - NOTE RECIPE_IMG_SRC ALREADY SET IN CHECK FILES
-        $r->setRecipeId($recipe_id);
+        //IF THERE IS A FILE CHOSE, ENTER IT INTO THE DATABASE
+        if($_FILES['upfile']['name'] != null) {
+            //INSERT INTO DATABASE (RECIPE IMGS) - NOTE RECIPE_IMG_SRC ALREADY SET IN CHECK FILES
+            $r->setRecipeId($recipe_id);
 
-        $img_in = RecipeDb::insertImage($r);
-        $img_in . "image was added";
+            $img_in = RecipeDb::insertImage($r);
+            $img_in . "image was added";
+        }
     }
+
 
     $_SESSION[$recipe_id] = $recipe_id;
     header("Location: http://localhost/chowtime/pages/recipes.php");

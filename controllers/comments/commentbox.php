@@ -1,8 +1,6 @@
 <?php
-require_once '../../models/db.php';
-require_once '../../models/comment.php';
+require_once '../models/comment.php';
 $c = new Comment;
-$db = Database::getDb();
 
 if (isset($_POST['add'])){
     $recipeId = $_POST['recipeIdInput'];

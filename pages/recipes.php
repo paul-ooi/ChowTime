@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 1;
+$_SESSION['user_id'] = 8;
 /*======================*/
 
 $pageTitle = "Recipes";
@@ -39,10 +39,6 @@ $totalTime = RecipeDb::totalRecipeTime($recipe_id);
 $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
 //====================================================
 
-//SHARE RECIPES
-function getAuthCode() {
-
-}
 ?>
 <header class="container ddwrapper">
     <?php require_once 'partial/_mainnav.php' ?>
@@ -51,11 +47,24 @@ function getAuthCode() {
         <!-- IF USER IS THE SAME AS THE ONE WHO CREATED THE RECIPE, THEY CAN ALSO EDIT. -->
         <?php if(isset($_SESSION['user_id'])) :
             $user_id = $_SESSION['user_id'];
-            if($user_id == $recipe_owner_id['user_id']) : ?>
-            <form method="POST" action="/chowtime/pages/updateRecipe.php" class="text-right">
-                <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
-                <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
-            </form>
+            $userRole = RecipeDb::getUserRole($user_id);
+            if($user_id == $recipe_owner_id['user_id'] || $userRole['admin'] == 1) : ?>
+                <div class="row">
+                    <p><?php if(isset($_SESSION['recipe_err_mssg']['delete_error'])) {
+                        echo $_SESSION['recipe_err_mssg']['delete_error'];
+                    } ?></p>
+                    <form method="POST" action="/chowtime/pages/updateRecipe.php" class="text-right form-inline">
+                        <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
+                        <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
+                    </form>
+                <?php endif ?>
+                <?php if($userRole['admin'] == 1) :?>
+                    <form method="POST" action="/chowtime/controllers/makeRecipe/deleteRecipe.php" class="text-right form-inline">
+                        <input type="submit" id="deleteRecipe" name="deleteRecipe" class="btn" value="Delete Recipe"/>
+                        <input type="hidden" name="user_role" value="1" />
+                        <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
+                    </form>
+                </div>
             <?php endif ?>
         <?php endif?>
         <meta property="og:https://www.jesscwong.ca" content="letthebakingbeginblog.com" />
@@ -169,31 +178,32 @@ function getAuthCode() {
                     </div>
                 </div>
             </div> <!-- End aside right -->
-            <div class="row">
-                <div class="col-md-12 comment-container">
-                    <h2>Comments</h2>
-                    <form action="Recipes.php" method="post" name="commentBox" id="commentBox">
-                        <div class="form-group">
-                            <label for="comments">Leave a comment:</label>
-                            <textarea name="comments" id="comments" class="form-control" rows="5"></textarea>
-                        </div>
-                    <input type="submit" id="addComment" name="addComment" class="btn btn-info"/>
-                    </form>
-                </div>
-             </div>
-             <div class="row">
-                 <div class="comments-display-container">
-                     <div class="user-comment-container">
-                         <img src="#" alt="profile-photo"/>
-                         <span class="username"><strong>Username:</strong></span><span>jwong</span>
-                         <span class="date"><strong>Date:</strong></span><span>March 30, 2018</span>
-                         <p class="user_comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse hendrerit accumsan dignissim. Phasellus lacinia tincidunt ex, in accumsan eros luctus nec. Nulla luctus dignissim augue, non auctor metus tempor ut. Duis eros justo, fringilla sed massa et, ullamcorper vulputate diam. Vivamus posuere, erat sollicitudin egestas pellentesque, diam felis tempus dolor, eu rhoncus neque nulla ut orci. Maecenas blandit tortor non orci volutpat condimentum. Phasellus lorem dui, dignissim a ex vitae, placerat eleifend risus. Ut porttitor eros turpis, sed posuere neque faucibus eu. Quisque aliquet sit amet nunc at condimentum. Fusce ornare magna lobortis enim maximus, ac consectetur sem volutpat. Etiam id pharetra metus, sit amet mattis eros. Pellentesque accumsan nulla id blandit euismod.</p>
-                     </div>
-                     <!-- Repeate user-comment-container for each user comment on this recipe -->
-                 </div>
-             </div>
+             <div class="comments-display-container">
+                <?php 
+                include '../controllers/comments/commentbox.php';
+                include '../controllers/comments/listComments.php';
+                    ?>
+            </div>           
         </div>
+        <script>
+            window.pAsyncInit = function() {
+                PDK.init({
+                    appId: "4960227825098436719", // Change this
+                    cookie: true
+                });
+            };
+            (function(d, s, id){
+                var js, pjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "//assets.pinterest.com/sdk/sdk.js";
+                pjs.parentNode.insertBefore(js, pjs);
+            }(document, 'script', 'pinterest-jssdk'));
+        </script>
     </main>
 <?php include 'partial/_footer.php'; ?>
 </body>
+<?php 
+unset($_SESSION['recipe_err_mssg']);
+?>
 </html>
