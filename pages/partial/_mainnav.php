@@ -7,7 +7,12 @@
             <li><a class="nav-link px-2" href="/chowtime/pages/whatsCooking.php">What&apos;s Cooking</a></li>
             <li><a class="nav-link" href="/chowtime/pages/recipes.php" title="Show me all the recipes">Recipes</a></li>
             <li><a class="nav-link px-2" href="/chowtime/pages/contactus.php">Contact Us</a></li>
-            <li><a class="nav-link px-2 " href="/chowtime/pages/controllers/login.php">Login</a></li>
+            <?php if (!isset($_SESSION['user_id'])) { ?>
+            <li><a class="nav-link px-2 " href="/chowtime/pages/login.php">Login</a></li>
+            <?php } else { ?>
+            <li><a class="nav-link px-2 " href="/chowtime/pages/userProfile.php">My Profile</a></li>
+            <li><a class="nav-link px-2 " href="/chowtime/pages/logout.php">Logout</a></li>
+            <?php } ?>
         </ul>
     </nav>
     <div class="text-center mx-auto" id="title">

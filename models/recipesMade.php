@@ -62,6 +62,17 @@ class RecipesMade {
         return $count;
     }
 
+    //ADD to recipesMade table with user and recipe ID only - Paul Ooi
+    public function addRecipeMadeByUser($db, $recipeObj) {
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO recipes_made (recipe_id, user_id) VALUES (:r_id, :u_id)";
+        $pdostm = $db->prepare($sql);
+        $pdostm->bindValue(":r_id", $recipeObj->getRecipeId(), PDO::PARAM_INT);
+        $pdostm->bindValue(":u_id", $recipeObj->getUserId(), PDO::PARAM_INT);
+        $success = $pdostm->execute();
+        return $success;
+    }
+
     // UPDATE
     public function updateRecipeMade($db, $in_id, $in_rid, $in_uid, $in_pdate) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

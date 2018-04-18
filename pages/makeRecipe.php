@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 3;
+$_SESSION['user_id'] = 5;
 if(isset($_SESSION['user_id'])){
     $user_id = $_SESSION['user_id'];
 } else {
@@ -25,7 +25,7 @@ require_once '../models/recipes.php';
 require_once '../models/recipeDB.php';
 require_once '../models/recipeImgs.php';
 require_once '../models/recipeImgsDB.php';
-require_once '../controllers/makeRecipe/addRecipe.php';
+require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds recipe to DB
 
 /* =====================TESTING ZONE==================== */
  /* =======================TESTING ZONE================== */
@@ -158,13 +158,12 @@ require_once '../controllers/makeRecipe/addRecipe.php';
     //include the Add Ingredient section  (Paul's Lab 6) -needs some formatting still
     include '../controllers/ingredients/ingredient_add.php'
 
-    // include 'controllers/ingredients/_addingredient.php';
      ?>
-            <fieldset class="form-group">
+           <!-- <fieldset class="form-group">
                 <div class="form-row">
                     <legend class="col-form-label col-sm-3 col-md-2"><span class="text-danger">*</span>Ingredients</legend>
                     <div class="col-sm-2">
-                        <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
+                        //THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP
                         <div class="form-group">
                             <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
                             <label for="ingred" class="form-check-label">Ingred</label>
@@ -173,46 +172,10 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                             <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
                             <label for="ingred" class="form-check-label">Ingred</label>
                         </div>
-                        <!-- END FOREACH FROM PHP -->
-                    </div>
-                    <div class="col-sm-2">
-                        <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
-                        <div class="form-group">
-                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        <!-- END FOREACH FROM PHP -->
-                    </div>
-                    <div class="col-sm-2">
-                        <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
-                        <div class="form-group">
-                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        <!-- END FOREACH FROM PHP -->
-                    </div>
-                    <div class="col-sm-2">
-                        <!-- THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP -->
-                        <div class="form-group">
-                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" />
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" />
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        <!-- END FOREACH FROM PHP -->
+                        //END FOREACH FROM PHP
                     </div>
                 </div>
-            </fieldset>
+            </fieldset> -->
             <!-- INGREDIENT RATING -->
             <fieldset class="form-group">
                 <div class="form-row">
@@ -265,7 +228,6 @@ require_once '../controllers/makeRecipe/addRecipe.php';
                 </div>
             </fieldset>
             <input type="submit" id="addRecipe" name="addRecipe" class="btn" value="Add"/>
-            <input type="submit" id="deleteRecipe" name="deleteRecipe" class="btn" value="Delete"/>
             <!-- <input type="text" readonly class="form-control-plaintext" name="errMssg" value=""> -->
         </form>
     </div>

@@ -64,6 +64,11 @@ if(isset($_POST["addRecipe"])) {
     $errors = array();
     $r = new Recipes();
 
+echo '<pre>';
+var_dump($_POST);
+echo '</pre>';
+return false;
+
     $inTitle = $v->checkAssignProperty("recipe-title");
     $inDescr = $v->checkAssignProperty("recipe-description");
     $inPrepTime = $v->checkAssignProperty("prep-time");

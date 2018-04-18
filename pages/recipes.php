@@ -17,6 +17,7 @@ require_once 'partial/_header.php';
 require_once '../models/recipes.php';
 require_once '../models/db.php';
 require_once '../models/ingredient.php';
+require_once '../models/ingredientDB.php';
 require_once '../models/recipeDB.php';
 require_once '../models/credentials.php';
 
@@ -137,10 +138,27 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     <h2>Ingredients</h2>
                     <span>Prep Time:</span>
                     <span><?=$recipe->prep_time?></span>
-                    <div class="ingredient-container">
-                        <span>Quantity</span>
-                        <span>Unit</span>
-                        <span itemprop="ingredients">food item id</span>
+                    <div>
+                        <!-- Use Recipe Id, Call for all ingredients from same recipe -->
+                        <ul class="m-4 pl-2">
+                            <?php 
+                                $db = Database::getDb();
+                                $ingredients = IngredientDB::getRecipeIngredients($db, $recipe->id);
+                                foreach ($ingredients as $key => $i) {
+                            ?>
+                            <li class="row justify-content-start text-left">
+                                 <span class="mx-1"><?php echo ($i->quantity) ? $i->quantity : '' ?></span>
+                                 <span class="mx-1"><?php echo ($i->measurement) ? $i->measurement : '' ?></span>
+                                 <span class="mx-1"><?php echo ($i->prep) ? $i->prep : '' ?></span>   
+                                 <span class="mx-1"><?php echo $i->food_name?></span>
+                                 <?php if ($i->required == 0){
+                                     ?>
+                                     <span class="mx-3">&lpar;Optional&rpar;</span>
+                                     <?php
+                                 } ?>  
+                            </li>
+                            <?php }?>
+                        </ul>
                     </div> <!-- Repeat this ingredient-container block for each ingredient in the list -->
                 </div>
 

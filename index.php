@@ -1,4 +1,5 @@
 <?php
+session_start();
 $pageTitle = "It&apos;s Chow Time Application";
 require_once 'pages/partial/_header.php';
 
