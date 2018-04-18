@@ -7,15 +7,15 @@ if(isset($_SESSION['user_id'])){
 /* =====================TESTING ZONE==================== */
 
 
-            $num = RecipeDB::getImageCount();
-            $next_num = $num[0] + 1;
-            var_dump($next_num);
-            // return false;
+            // $num = RecipeDB::getImageCount();
+            // $next_num = $num[0] + 1;
+            // var_dump($next_num);
+            // // return false;
 
-            $last_img_id = RecipeDb::getLastImgId();
-            $next_img_id = $last_img_id[0] + 1;
-            var_dump($next_img_id);
-            return false;
+            // $last_img_id = RecipeDb::getLastImgId();
+            // $next_img_id = $last_img_id[0] + 1;
+            // var_dump($next_img_id);
+            // return false;
  /* =======================TESTING ZONE================== */
 
  /* =======================ARRAYS TO DISPLAY ================== */
