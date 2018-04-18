@@ -55,7 +55,10 @@ if(isset($_POST["addRecipe"])) {
     $errors = array();
     $r = new Recipes();
 
-
+echo '<pre>';
+var_dump($_POST);
+echo '</pre>';
+return false;
 
     $inTitle = $v->checkAssignProperty("recipe-title");
     $inDescr = $v->checkAssignProperty("recipe-description");
@@ -93,6 +96,9 @@ if(isset($_POST["addRecipe"])) {
 
                     $img_in = RecipeDb::insertImage($r);
                     echo $img_in . "image was added";
+
+                    //ADD RECIPE INGREDIENTS TO THE RECIPE_INGREDIENTS TABLE --PAUL OOI
+                    
                 }
             }
         }

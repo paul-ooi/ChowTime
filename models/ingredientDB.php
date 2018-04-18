@@ -23,7 +23,7 @@ class IngredientDB {
 
     //Get and Return All Ingredient entries in DB
     public static function getFoodNames($db) {
-        $query = "SELECT id, food_name FROM foods";
+        $query = "SELECT id, food_name FROM ingredients ORDER BY food_name ASC";
         $pdostm = $db->prepare($query);
 
         $pdostm->execute();
@@ -39,11 +39,20 @@ class IngredientDB {
     //     return $pdostm->fetchAll(PDO::FETCH_OBJ);
     // }
 
-        public static function getRecipeIngredients($db,$recipe) {
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "SELECT ri.id AS 'rec_id', ing.id AS 'ing_id', quantity, measurement, prep, food_name, required FROM ingredients ing LEFT JOIN recipe_ingredients ri  ON ri.ingredient_id = ing.id LEFT JOIN food_types ft ON ing.food_type = ft.id LEFT JOIN measurements m ON m.id = ri.unit WHERE ri.recipe_id = :recipe_id ORDER BY required DESC;";
+    //Get and Return All Ingredients for a single recipe
+    public static function getRecipeIngredients($db,$recipe) {
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $query = "SELECT ri.id AS 'rec_id', ing.id AS 'ing_id', quantity, measurement, prep, food_name, required FROM ingredients ing LEFT JOIN recipe_ingredients ri  ON ri.ingredient_id = ing.id LEFT JOIN food_types ft ON ing.food_type = ft.id LEFT JOIN measurements m ON m.id = ri.unit WHERE ri.recipe_id = :recipe_id ORDER BY required DESC;";
+    $pdostm = $db->prepare($query);
+    $pdostm->bindValue(':recipe_id',$recipe, PDO::PARAM_INT);
+    $pdostm->execute();
+    return $pdostm->fetchAll(PDO::FETCH_OBJ);
+    }
+
+    public static function getUnitMeasurements($db) {
+        $query = "SELECT * FROM measurements";
         $pdostm = $db->prepare($query);
-        $pdostm->bindValue(':recipe_id',$recipe, PDO::PARAM_INT);
+
         $pdostm->execute();
         return $pdostm->fetchAll(PDO::FETCH_OBJ);
     }
