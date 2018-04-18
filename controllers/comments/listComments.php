@@ -1,9 +1,7 @@
 <?php
-require_once '../../models/db.php';
-require_once '../../models/comment.php';
+require_once '../models/comment.php';
 //require_once '../../models/profile.php';
 $c = new Comment;
-$db = Database::getDb();
 
 
 // FOR TESTING PURPOSES

@@ -178,29 +178,12 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     </div>
                 </div>
             </div> <!-- End aside right -->
-            <div class="row">
-                <div class="col-md-12 comment-container">
-                    <h2>Comments</h2>
-                    <form action="Recipes.php" method="post" name="commentBox" id="commentBox">
-                        <div class="form-group">
-                            <label for="comments">Leave a comment:</label>
-                            <textarea name="comments" id="comments" class="form-control" rows="5"></textarea>
-                        </div>
-                    <input type="submit" id="addComment" name="addComment" class="btn btn-info"/>
-                    </form>
-                </div>
-             </div>
-             <div class="row">
-                 <div class="comments-display-container">
-                     <div class="user-comment-container">
-                         <img src="#" alt="profile-photo"/>
-                         <span class="username"><strong>Username:</strong></span><span>jwong</span>
-                         <span class="date"><strong>Date:</strong></span><span>March 30, 2018</span>
-                         <p class="user_comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse hendrerit accumsan dignissim. Phasellus lacinia tincidunt ex, in accumsan eros luctus nec. Nulla luctus dignissim augue, non auctor metus tempor ut. Duis eros justo, fringilla sed massa et, ullamcorper vulputate diam. Vivamus posuere, erat sollicitudin egestas pellentesque, diam felis tempus dolor, eu rhoncus neque nulla ut orci. Maecenas blandit tortor non orci volutpat condimentum. Phasellus lorem dui, dignissim a ex vitae, placerat eleifend risus. Ut porttitor eros turpis, sed posuere neque faucibus eu. Quisque aliquet sit amet nunc at condimentum. Fusce ornare magna lobortis enim maximus, ac consectetur sem volutpat. Etiam id pharetra metus, sit amet mattis eros. Pellentesque accumsan nulla id blandit euismod.</p>
-                     </div>
-                     <!-- Repeate user-comment-container for each user comment on this recipe -->
-                 </div>
-             </div>
+             <div class="comments-display-container">
+                <?php 
+                include '../controllers/comments/commentbox.php';
+                include '../controllers/comments/listComments.php';
+                    ?>
+            </div>           
         </div>
         <script>
             window.pAsyncInit = function() {
