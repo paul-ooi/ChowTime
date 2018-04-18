@@ -6,7 +6,7 @@ $(document).ready(function() {
 });
 
 function insertEmptyIngredient() {
-	var newIngredient = $('li.d-none').clone();
+	var newIngredient = $('#ingredientsList li:last-child').clone(true);
 	// $('#ingredientsList > li').last().before(newIngredient);
 	$('#ingredientsList').append(newIngredient);
 	$('.d-none').first().removeClass('d-none');
