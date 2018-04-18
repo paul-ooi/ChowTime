@@ -8,8 +8,6 @@ $db = Database::getDb();
 session_start();
 
 // FOR TESTING
-$userIdInput = 1;
-$_SESSION['user_id'] = $userIdInput;
 
 
 // For Attendance
