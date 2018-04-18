@@ -1,22 +1,16 @@
 <?php
+session_start();
 $pageTitle = "Login/Register";
 require_once 'partial/_header.php';
 require_once 'db.php'; //Database Class file
 require_once 'profile.php'; //Profile Logic file
 require_once 'validation.php'; //Validation Library File
 
-function checkLogin($db, $username, $passw)
-{
-	$sql = "SELECT id FROM profiles WHERE username = $username && pass = $passw";
-	$pdostm = $db->prepare($sql);
-        $pdostm->execute();
-        $profile = $pdostm->fetch(PDO::FETCH_OBJ);
-        return $profile;
-}
-
+$loginError = "";
 
 if(isset($_POST['loginButton']))
 {
+	
 	$username = $_POST['userName'];
 	$pass = $_POST['pass'];
 	//echo $pass;
@@ -24,17 +18,26 @@ if(isset($_POST['loginButton']))
 	//echo $hPass;
 	$db = Database::getDb();
 	$p = new Profile();
-	
-	
-	$userID = checkLogin($db, $username, $hPass);
-	var_dump($userID);
-	if($userID)
+	$profiles = $p->getAllProfiles($db);
+	foreach($profiles as $user)
 	{
-		echo "False";
-	}
-	else
-	{
-		echo $userID;
+		if($user->username == $username)
+		{
+			if(password_verify($pass, $user->pass))
+			{
+				$_SESSION['user_id'] = $user->id;
+				header("Location: ../index.php");
+			}
+			else
+			{
+				$loginError = "Invalid username/password";
+			}
+			
+		}
+		else
+		{
+			$loginError = "Invalid username/password";
+		}
 	}
 }
 ?>
@@ -54,7 +57,7 @@ require_once 'partial/_mainnav.php';
 			<div class="form-group col-lg-6">
 				<label name="userName" for="userName">Username</label>
 				<input type="text" name="userName" id="userName" class="form-control"/>
-				<label name="err_userName" for="userName" id="err_userName" ></label>
+				<label name="err_userName" for="userName" id="err_userName"></label>
 			</div>
 			<div class="form-group col-lg-6">
 				<label name="pass" for="pass">Password</label>
@@ -63,8 +66,9 @@ require_once 'partial/_mainnav.php';
 			</div>
 		</div>
 		<div class="form-group">
-				<button type="submit" name="loginButton" for="login" class="form-control">Login</button>
-			</div>
+			<button type="submit" name="loginButton" for="login" class="form-control">Login</button>
+			<?php echo $loginError ?>
+		</div>
 		<div class="row">
 			<div class="form-group col-lg-6">
 				<h2>Not a user?</h2>
