@@ -1,12 +1,11 @@
 <?php
 class Event {
-
     // CREATE COMMENT
     public function addEvent($db, $user_id, $event_name, $event_location, $date, $start_time, $end_time, $description, $privacy, $theme){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $date = date("Y-m-d", strtotime($date));
-        $start_time = date("Y-m-d H:i:s", strtotime($start_time));
-        $end_time = date("Y-m-d H:i:s", strtotime($end_time));
+        $date = date("YmdHisu", strtotime($date));
+        $start_time = date("YmdHisu", strtotime($start_time));
+        $end_time = date("YmdHisu", strtotime($end_time));
 
         echo $date . " " . $start_time . " " . $end_time;
         $sql = 'insert into events (user_id, event_name, event_location, date, start_time, end_time, description, privacy, theme)'
