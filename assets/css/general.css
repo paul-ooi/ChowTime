@@ -17,11 +17,6 @@ html {
 	box-sizing: inherit;
 }
 
-.hidden {
-	position: absolute;
-	left: -10000px;
-}
-
 body {
 	font-family: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
 	padding: 0;
@@ -79,10 +74,19 @@ ul {
 	height: auto;
 	margin: 0.25em;
 }
+
 .wrapper {
 	width: 80%;
 	padding: 25px 0;
 	margin: 0 auto;
+}
+
+.media {
+	margin-bottom: 20px !important;
+}
+
+.media-left a .rounded-circle{
+	margin-right: 10px;
 }
 
 
@@ -96,6 +100,12 @@ ul {
 .form_button {
 	display: inline-block;
 	margin: 0.5em;
+}
+
+textarea {
+outline: none !important;
+box-shadow:none !important;
+border:1px solid #ccc !important;
 }
 
 /* 3) NAVIGATION */

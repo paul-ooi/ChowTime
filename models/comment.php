@@ -15,6 +15,19 @@ class Comment {
         return $count;
     }
 
+    public function addEventComment($db, $event_id, $user_id, $comment){
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        //$name, $email, $program
+        $sql = "INSERT INTO comments (event_id, user_id, comment)
+                              VALUES (:event_id, :user_id, :comment)";
+        $pdostm = $db->prepare($sql);
+        $pdostm->bindValue(':event_id', $event_id, PDO::PARAM_INT);
+        $pdostm->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $pdostm->bindValue(':comment', $comment, PDO::PARAM_STR);
+        $count = $pdostm->execute();
+        return $count;
+    }
+
     // READ ALL
     public function getAllComments($db){
         $sql = 'SELECT * FROM comments';
@@ -64,10 +77,19 @@ class Comment {
     }
 
 
-    public function getRecipeComments($db, $recipe_event_id){
-        $sql = "SELECT * FROM comments WHERE recipe_id = :recipe_event_id";
+    public function getRecipeComments($db, $recipe_id){
+        $sql = "SELECT * FROM comments WHERE recipe_id = :recipe_id";
         $pdostm = $db->prepare($sql);
-        $pdostm->bindValue(':recipe_event_id', $recipe_event_id, PDO::PARAM_INT);
+        $pdostm->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
+        $pdostm->setFetchMode(PDO::FETCH_OBJ);
+        $pdostm->execute();
+        return $pdostm->fetchAll();
+    }
+
+    public function getEventComments($db, $event_id){
+        $sql = "SELECT * FROM comments WHERE event_id = :event_id";
+        $pdostm = $db->prepare($sql);
+        $pdostm->bindValue(':event_id', $event_id, PDO::PARAM_INT);
         $pdostm->setFetchMode(PDO::FETCH_OBJ);
         $pdostm->execute();
         return $pdostm->fetchAll();
