@@ -25,6 +25,8 @@ require_once '../models/recipes.php';
 require_once '../models/recipeDB.php';
 require_once '../models/recipeImgs.php';
 require_once '../models/recipeImgsDB.php';
+require_once '../models/ingredient.php';
+require_once '../models/ingredientDB.php';
 require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds recipe to DB
 
 /* =====================TESTING ZONE==================== */
@@ -32,7 +34,7 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
  ?>
 <main>
     <div class="wrapper">
-        <form method="post" enctype="multipart/form-data" action="makeRecipe.php">
+        <form method="post" enctype="multipart/form-data" action="makeRecipe.php" name="newRecipe">
             <input type="hidden" id="user_id" value="<?= $user_id ?>" />
             <small class="instructions form-text text-danger">
                 <?php if(isset($_SESSION['recipe_err_mssg']['input_field_error'])) {

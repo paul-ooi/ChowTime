@@ -71,6 +71,7 @@ if ($ing->getOptional() == true) {
                      <label class="ingred_form_label ingred_form_label_small" for="required"><span class="text-danger required">*</span>Required Ingredient</label>
                      <label class="error" for="optional" name="errOption"><?php //echo htmlspecialchars($errorRequired); ?></label>
                      <input class="form-check-input form-control" type="checkbox" name="required[]" value="true" checked/>
+                     <input class="form-check-input form-control" type="hidden" name="required[]" value="false"/>
                  </div>
                  <!-- <div class="form-group align-content-end col-2 ingred_form_item">
                      <label class="ingred_form_label ingred_form_label_small sr-only" for="required">Is this Ingredient required to make this Recipe?<span class="required"> * </span></label>

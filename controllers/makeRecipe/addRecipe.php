@@ -7,15 +7,6 @@ if(isset($_SESSION['user_id'])){
 /* =====================TESTING ZONE==================== */
 
 
-            // $num = RecipeDB::getImageCount();
-            // $next_num = $num[0] + 1;
-            // var_dump($next_num);
-            // // return false;
-
-            // $last_img_id = RecipeDb::getLastImgId();
-            // $next_img_id = $last_img_id[0] + 1;
-            // var_dump($next_img_id);
-            // return false;
  /* =======================TESTING ZONE================== */
 
  /* =======================ARRAYS TO DISPLAY ================== */
@@ -64,10 +55,7 @@ if(isset($_POST["addRecipe"])) {
     $errors = array();
     $r = new Recipes();
 
-echo '<pre>';
-var_dump($_POST);
-echo '</pre>';
-return false;
+// return false;
 
     $inTitle = $v->checkAssignProperty("recipe-title");
     $inDescr = $v->checkAssignProperty("recipe-description");
@@ -103,6 +91,13 @@ return false;
 
                     $img_in = RecipeDb::insertImage($r);
                     echo $img_in . " image was added.";
+
+                    //INSERT INGREDIENTS INTO RECIPE_INGREDIENTS TABLE
+                    $ingredients = makeIngredientObjs(getAllIngredients(), $r->getRecipeId()); //build Array of Ingredients
+                    $db = Database::getDb();
+                    echo IngredientDB::addIngredient($db,$ingredients) . "ingredients added";
+
+                   header("Location: ../pages/recipes.php?id=" . $r->getRecipeId());
                 }
             }
         }
@@ -223,4 +218,46 @@ return false;
         return true;
     }
     /* =======================END GET STEPS================== */
+
+
+    //GET INGEDIENTS FIELDS FROM FORM AND PLACE IN AN ASSOCIATED ARRAY
+    function getAllIngredients() {
+        $ingredients = [
+            'food_id' => $_POST['food_id'],
+            'quantity' => $_POST['qty'],
+            'measurement'  => $_POST['measure'],
+            'preparation'  => $_POST['prep'],
+            'required'  => $_POST['required']
+        ];
+        return $ingredients;
+    }
+
+    // CREATE ARRAY OF INGREDIENT OBJECTS TO SEND TO DATABASE ACTION
+    function makeIngredientObjs($ingredientsArray, $recipe_id) {
+        
+        $ingredients = [];
+        for ($i = 0; $i < count($ingredientsArray['food_id']); $i++) {
+            //Check for empty values and assign appropriate values to Object
+            $unit = ($ingredientsArray['measurement'][$i] == "") ? null : ($ingredientsArray['measurement'][$i] == "") ;
+            $prep = ($ingredientsArray['preparation'][$i] == "") ? null : ($ingredientsArray['preparation'][$i]) ;
+            $req = ($ingredientsArray['required'][$i] == "true") ? 1 : 0;
+            
+            $item = new Ingredient(
+                $recipe_id,
+                $ingredientsArray['food_id'][$i],
+                $ingredientsArray['quantity'][$i],
+                $unit,
+                $prep,
+                $req
+            );
+
+            //Add object to array
+            $ingredients[] = $item;
+        }
+        //Reuturn the Array of Ingredient Objects
+        return $ingredients;
+    }
+
+
+
  ?>
