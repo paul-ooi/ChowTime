@@ -3,10 +3,6 @@ require_once '../models/comment.php';
 //require_once '../../models/profile.php';
 $c = new Comment;
 
-
-// FOR TESTING PURPOSES
-$recipe_id = 1;
-
 // Default Form Tag stuff
 $class = '';
 $input_type = 'hidden';

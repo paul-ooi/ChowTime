@@ -1,147 +1,112 @@
 <?php
 require_once '../../models/event.php';
 require_once '../../models/db.php';
-//require_once '../../models/profile.php';
-//$p = new Profile;
+require_once '../../models/profile.php';
+$p = new Profile;
 $e = new Event;
 $db = Database::getDb();
 session_start();
-
-// FOR TESTING
-$_SESSION['user_id'] = 1;
-
-// FOR BUTTON GROUP (Attend/Not Attend/Edit/Delete)
-$user_id = $_SESSION['user_id'];
+$event_id = $_SESSION['event_id'];
 
 if (isset($_POST['details'])){
-    $event_id = $_POST['event_id'];
-    $events = $e->getEvent($db, $event_id);
-    $admin = $events[0]->user_id;
+    $_SESSION['event_id'] = $_POST['event_id'];
+}
 
+// FOR BUTTON GROUP (Attend/Not Attend/Edit/Delete)
+if (isset($_SESSION['user_id'])){
+    $user_id = $_SESSION['user_id'];
+}
 
-    include '../../pages/partial/_header.php';
-    ?>
+// EDIT EVENT
+if (isset($_POST['update_event'])){
+    $id = $_SESSION['event_id'];
+    $event_name = $_POST['eName'];
+    $event_location = $_POST['eLoc'];
+    $date = $_POST['eDate'];
+    $start_time = $_POST['eStartTime'];
+    $end_time = $_POST['eEndTime'];
+    $description = $_POST['eDescription'];
+    $theme =$_POST['eTheme'];
+    $e->updateEvent($db, $id, $event_name, $event_location, $date, $start_time, $end_time, $description, $theme);
+}
 
-    <link rel="stylesheet" href="../../assets/css/events.css">
-    <body>
-        <header>
-            <div class="wrapper">
-                <?php include_once '../../pages/partial/_mainnav.php'; ?>
-            </div>
-        </header>
-        <main>
+// DELETE EVENT
+if (isset($_POST['delete_event'])){
+    $id = $_POST['event_id'];
+    $e->deleteEvent($db, $id);
+    header('Location: allEvents.php');
+}
 
-            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h3 class="modal-title" id="createTitle">New Event</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form action="" method="post">
-                            <input type="hidden" name="eUserId" value="<?php echo $userIdInput; ?>" />
-                            <div class="modal-body">
-                                <div class="form-group row">
-                                    <label for="eName" class="col-sm-2 text-right control-label">Event Name*</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="eName" id="eName" class="form-control" placeholder="What is this event called?" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="eLoc" class="col-sm-2 text-right control-label"><i class="fas fa-map-marker"></i> Location*</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="eLoc" id="eLoc" class="form-control" placeholder="Include place or address." />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="eDate" class="col-sm-2 text-right control-label"><i class="far fa-calendar-alt"></i> Date*</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control" name="eDate" id="datepicker" />
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="eStartTime" class="col-sm-2 text-right control-label"><i class="far fa-clock"></i> Start Time*</label>
-                                    <div class="col-sm-10">
-                                        <select class="timeSelect form-control" name="eStartTime">
-                                            <option value="none">Choose a time...</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="eEndTime" class="col-sm-2 text-right control-label"><i class="far fa-clock"></i> End Time</label>
-                                    <div class="col-sm-10">
-                                        <select class="timeSelect form-control" name="eEndTime">
-                                            <option value="none">Choose a time...</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="eDescription" class="col-sm-2 text-right control-label">Description*</label>
-                                    <div class="col-sm-10">
-                                        <textarea name="eDescription" class="form-control" rows="3" placeholder="A little something about your event."></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="ePrivacy" class="col-sm-2 text-right control-label"><i class="fas fa-unlock"></i> Privacy*</label>
-                                    <div class="col-sm-10">
-                                        <input type="radio" name="ePrivacy" value="1" id="privatePrivacy" /><label for="privatePrivacy"> Private </label>
-                                        <input type="radio" name="ePrivacy" value="0" id="publicPrivacy" /><label for="publicPrivacy"> Public </label>
-                                    </div>
-                                </div>
-                                <div class="form-group row">
-                                    <label for="eTheme" class="col-sm-2 text-right control-label">Theme</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" name="eTheme" class="form-control" placeholder="Is there a theme?"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input type="submit" class="btn btn-primary" name="add_event" value="Create" />
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+// FOR ATTENDANCE
+if (isset($_POST['Attend'])){
+    $e->addAttendance($db, $_SESSION['user_id'], $_SESSION['event_id']);
+}
 
-            <?php
+if (isset($_POST['NotAttend'])){
+    $user_id = $_SESSION['user_id'];
+    $event_id = $_SESSION['event_id'];
+    $e->deleteAttendance($db, $user_id, $event_id);
+}
 
-            foreach ($events as $event) { ?>
+include '../../pages/partial/_header.php';
+?>
+
+<link rel="stylesheet" href="../../assets/js/jqueryui/jquery-ui.css">
+<link rel="stylesheet" href="../../assets/css/events.css">
+</head>
+<body>
+    <header>
+        <div class="wrapper">
+            <?php include_once '../../pages/partial/_mainnav.php'; ?>
+        </div>
+    </header>
+    <main>
+        <?php
+        if (isset($_SESSION['event_id'])){
+            $event_id = $_SESSION['event_id'];
+            $events = $e->getEvent($db, $event_id);
+            $admin = $events[0]->user_id;
+
+            foreach ($events as $event) {
+                $user = $p->getProfileById($db, $event->user_id);
+                ?>
                 <section class="__banner">
                     <div class="wrapper">
                         <h1><?php echo $event->event_name; ?></h1>
-                        <p>Hosted by <?php //echo $p->getUserName($event->user_id); // Display The Hosts Name ?>.</p>
-                        <div class="col-sm text-right">
-                            <div class="btn-group" role="group" aria-label="...">
-                                <?php
+
+                        <p>Hosted by <?php echo $user->fname . ' ' . $user->lname;?>.</p>
+                        <?php
+                        if (isset($_SESSION['user_id'])){
+                        echo '<div class="col-sm text-right">
+                                <div class="btn-group" role="group" aria-label="...">';
+
                                 // Check if user is the owner of this post
                                 if ($user_id != $admin) {
                                     $attending = $e->checkAttendance($db, $user_id, $event->id);
                                     // If they do not own this post and are not attending show the following
                                     if ($attending == null){
                                         echo '<form action="" method="post" name="addMyEvents">';
-                                            echo'<input type="hidden" value="' . $event->id . '" />';
-                                            echo '<input type="submit" class="btn btn-default" value="Attend" />';
+                                            echo'<input type="hidden" value="' . $_SESSION['event_id'] . '" />';
+                                            echo '<button type="submit" class="btn btn-default" name="Attend"><i class="fas fa-calendar-check"></i> Attend</button>';
                                         echo '</form>';
                                     } else { // ELSE if they do not own the post and are attending, show this
                                         echo '<form action="" method="post" name="deleteMyEvents">';
-                                            echo '<input type="hidden" value="' . $event->id . '" />';
-                                            echo '<input type="submit" class="btn btn-default" value="Not Attending" />';
+                                            echo '<input type="hidden" value="' . $_SESSION['event_id'] . '" />';
+                                            echo '<button type="submit" class="btn btn-default" name="NotAttend"><i class="fas fa-calendar-minus"></i> Not Attending</button>';
                                         echo '</form>';
                                     }
-                                } else if($user_id == $admin) { // If user is the admin of the page
-                                    echo '<button type="button" class="btn btn-default" data-toggle="modal" data-target=".bd-example-modal-lg">Edit</button>';
+                                }
+                                if($user_id == $admin) { // If user is the admin of the page
+                                    echo '<button type="button" class="btn btn-default" data-toggle="modal" data-target=".bd-example-modal-lg"><i class="fas fa-edit"></i> Edit</button>';
 
                                     echo '<form action="" method="post" name="deleteEvent">';
-                                        echo '<input type="hidden" value="' . $event->id . '" />';
-                                        echo '<input type="submit" class="btn btn-default" value="Delete" />';
-                                    echo '</form>';
+                                        echo '<input type="hidden" name="event_id" value="' . $event->id . '" />';
+                                        echo '<button type="submit" class="btn btn-default" name="delete_event"><i class="fas fa-calendar-times"></i> Delete</button>';                                    echo '</form>';
                                 }
-                                ?>
-                            </div>
-                        </div>
+
+                            echo '</div>
+                            </div>';
+                        }?>
                         <!-- Buttons: Attend/Not Attending [(for page admins) Edit | Delete] -->
                     </div>
                 </section>
@@ -168,22 +133,94 @@ if (isset($_POST['details'])){
                         <!-- Description -->
                         <p><?php echo $event->description; ?></p>
 
-                        <?php
-                    } // End of foreach
-                } // End of if
-                ?>
+                        <!-- EDIT EVENT FORM -->
+                        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">Edit Event</h3>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form action="" method="post">
+                                        <input type="hidden" name="eId" value="<?php echo $event->id; ?>"/>
+                                        <div class="modal-body">
+                                            <div class="form-group row">
+                                                <label for="eName" class="col-sm-2 text-right control-label">Event Name*</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="eName" id="eName" class="form-control" value="<?php echo $event->event_name; ?>" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="eLoc" class="col-sm-2 text-right control-label"><i class="fas fa-map-marker"></i> Location*</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="eLoc" id="eLoc" class="form-control" value="<?php echo $event->event_location; ?>" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="eDate" class="col-sm-2 text-right control-label"><i class="far fa-calendar-alt"></i> Date*</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" class="form-control" name="eDate" id="datepicker" value="<?php echo date("Y-m-d", strtotime($event->date)); ?>" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="eStartTime" class="col-sm-2 text-right control-label"><i class="far fa-clock"></i> Start Time*</label>
+                                                <div class="col-sm-10">
+                                                    <select class="timeSelect form-control" name="eStartTime">
+                                                        <option value="none">Choose a time...</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="eEndTime" class="col-sm-2 text-right control-label"><i class="far fa-clock"></i> End Time</label>
+                                                <div class="col-sm-10">
+                                                    <select class="timeSelect form-control" name="eEndTime">
+                                                        <option value="none">Choose a time...</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="eDescription" class="col-sm-2 text-right control-label">Description*</label>
+                                                <div class="col-sm-10">
+                                                    <textarea name="eDescription" class="form-control" rows="3"><?php echo $event->description; ?></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="eTheme" class="col-sm-2 text-right control-label">Theme</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="eTheme" class="form-control" value="<?php echo $event->theme; ?>"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <input type="submit" class="btn btn-primary" name="update_event" value="Update" />
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
 
-
-                <div class="row">
-                <!-- Comment Section (first 10) -->
-                </div>
+                        </div>
+                        <a href="allEvents.php">See All Events...</a>
+                    </div>
+                    <?php
+                } // End of foreach ?>
                 <?php
-                include_once '../comments/listComments.php';
-                include_once '../comments/commentbox.php';
+                    include_once '../comments/commentboxEvent.php';
+                }
                 ?>
-            </div>
-        </section>
-    </main>
 
-    <?php include '../../pages/partial/_footer.php'; ?>
+    </main>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../../assets/js/jqueryui/external/jquery/jquery.js"></script>
+    <script src="../../assets/js/jqueryui/jquery-ui.js"></script>
+    <script type="text/javascript" src="../../assets/js/jquery-timepicker/jquery.timepicker.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="../../assets/js/events.js"></script>
+    <section>
+        <div class="wrapper">
+        <?php include '../../pages/partial/_footer.php'; ?>
+    </div>
+    </section>
 </body>
