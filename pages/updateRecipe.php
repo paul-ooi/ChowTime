@@ -20,6 +20,8 @@ require_once '../models/recipes.php';
 require_once '../controllers/makeRecipe/updateRecipe.php';
 /*********************TESTING***********************/
 
+var_dump($recipe_id);
+
 /************************TESTING********************/ 
 if(isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];

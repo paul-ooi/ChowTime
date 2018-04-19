@@ -66,7 +66,7 @@ if(isset($_POST['updateRecipe'])) {
     $preptime = $prepCookTimes->CT;
     $cooktime = $prepCookTimes->PT;
 
-}//END UPDATE RECIPE
+}//END POPULATE RECIPE TO UPDATE
  /* =======================DELETING PHOTOS ================== */
     if(isset($_POST['img_src'])) {
         $img_src = $_POST['img_src'];
@@ -166,6 +166,7 @@ if(isset($_POST['update'])) {
 
     $user_id = $_SESSION['user_id'];
     $recipe_id = $_POST['recipe_id'];
+
     /**********************VALIDATE INPUTS**********************/
     $intitle = $v->checkAssignProperty('inTitle');
     $indesc = $v->checkAssignProperty('inDesc');
@@ -257,7 +258,7 @@ if(isset($_POST['update'])) {
             return false;
         }
 
-        $num = RecipeDB::getImageCount();
+        $num = RecipeDB::getLastImgId();
         $next_num = $num[0] + 1;
 
         $tmp = explode(".", $file_name);
@@ -291,12 +292,15 @@ if(isset($_POST['update'])) {
     /************************UPDATE****************************/
     //IF ALL INFORMATION IS VALID
     if(checkInputFields($intitle, $indesc, $inprepTime, $incookTime, $spiceLvl, $iningredDiff, $inoverallDiff, $indishDiff, checkForEmptySteps(), $indate, $intime, $errors)) {
-        //INSERT INTO DATABASE RECIPES
 
+        //SET THE DATE TIME
         $datetime = $indate . " " . $intime;
+
+        //GET ALL STEPS INTO A STRING
         $steps = getAllSteps();
 
-        $r->setRecipeUpdate($user_id, $intitle, $indesc, $inprepTime, $incookTime, $indishDiff, $iningredDiff, $inoverallDiff, $spiceLvl, $datetime, $steps);
+        //INSERT INTO DATABASE RECIPES
+        $r->setRecipeUpdate($recipe_id, $intitle, $indesc, $inprepTime, $incookTime, $indishDiff, $iningredDiff, $inoverallDiff, $spiceLvl, $datetime, $steps);
         $updates = RecipeDB::updateRecipe($r);
 
         //REPOPULATE THE FORM
@@ -353,9 +357,7 @@ if(isset($_POST['update'])) {
         }
     }
 
-
-    $_SESSION[$recipe_id] = $recipe_id;
-    header("Location: http://localhost/chowtime/pages/recipes.php");
+    header("Location: http://localhost/chowtime/pages/recipes.php?$recipe_id");
 } //END UPDATE
 
 
