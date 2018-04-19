@@ -78,7 +78,7 @@ class Comment {
 
 
     public function getRecipeComments($db, $recipe_id){
-        $sql = "SELECT * FROM comments WHERE recipe_id = :recipe_id";
+        $sql = "SELECT * FROM comments WHERE recipe_id = :recipe_id order by id desc";
         $pdostm = $db->prepare($sql);
         $pdostm->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
         $pdostm->setFetchMode(PDO::FETCH_OBJ);
@@ -87,7 +87,7 @@ class Comment {
     }
 
     public function getEventComments($db, $event_id){
-        $sql = "SELECT * FROM comments WHERE event_id = :event_id";
+        $sql = "SELECT * FROM comments WHERE event_id = :event_id order by id desc";
         $pdostm = $db->prepare($sql);
         $pdostm->bindValue(':event_id', $event_id, PDO::PARAM_INT);
         $pdostm->setFetchMode(PDO::FETCH_OBJ);

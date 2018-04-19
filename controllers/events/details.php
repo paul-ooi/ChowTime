@@ -189,8 +189,17 @@ include '../../pages/partial/_header.php';
                                             <div class="form-group row">
                                                 <label for="eTheme" class="col-sm-2 text-right control-label">Theme</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="eTheme" class="form-control" value="<?php echo $event->theme; ?>"/>
-                                                </div>
+                                                    <select class="form-control" name="eTheme">
+                                                        <option value="none">Is there a theme?</option>
+                                                        <option value="breakfast">Breakfast</option>
+                                                        <option value="lunch">Lunch</option>
+                                                        <option value="dinner">Dinner</option>
+                                                        <option value="dessert">Dessert</option>
+                                                        <option value="holiday">Holiday</option>
+                                                        <option value="birthday">Birthday</option>
+                                                        <option value="gathering">Gathering</option>
+                                                        <option value="other">Other</option>
+                                                    </select>                                                </div>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -218,9 +227,5 @@ include '../../pages/partial/_header.php';
     <script type="text/javascript" src="../../assets/js/jquery-timepicker/jquery.timepicker.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="../../assets/js/events.js"></script>
-    <section>
-        <div class="wrapper">
         <?php include '../../pages/partial/_footer.php'; ?>
-    </div>
-    </section>
 </body>

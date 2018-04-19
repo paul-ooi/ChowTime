@@ -86,14 +86,14 @@ foreach ($comments as $cm) {
     $user = $p->getProfileById($db, $cm->user_id);
     echo '<div class="media">';
     echo '<div class="media-left">';
-        echo '<a href="#">'; // TO BE CHANGED TO DETAILS PAGE (submit)
+        echo '<form action="../../pages/yourProfile.php">';
             echo '<img class="media-object __event_image rounded-circle" src="" alt="" >'; // src="to be added" alt ="' . $user->fname . ' ' . $user->lname . 'profile picture"
-        echo '</a>'; // TO BE CHANGED
+        echo '</form>';
     echo '</div>'; // End of media-left
 
     echo '<div class="media-body">';
 
-    echo '<span><u>' . $user->fname . ' ' . $user->lname . '</u></span>';
+    echo '<button class="comProfile" name="user_id" value="'. $cm->user_id .'"><span><u>' . $user->fname . ' ' . $user->lname . '</u></span></button>';
     // For users who are logged in to edit and delete these comments
     if (isset($_SESSION['user_id'])){
          if ($_SESSION['user_id'] == $cm->user_id){
@@ -104,7 +104,7 @@ foreach ($comments as $cm) {
                 <input type="hidden" name="id" value="' . $cm->id . '" />
                 <input type="' . $input_type . '" class="form-control" name="comment" value="' . $cm->comment . '" rows="3"/>
             </div>
-            <div class="col-md-auto">
+            <div class="col-md-auto col-sm-auto">
                 <button type="submit" class="btn btn-outline-info" name="' . $upd . '">' . $edit . '</button>
                 <button type="submit" class="btn btn-outline-danger" name="delete"><i class="fas fa-trash-alt"></i></button>
             </div>
@@ -117,7 +117,7 @@ foreach ($comments as $cm) {
      } else {
         echo '<div><span>' . $cm->comment . '</span></div>';
      }
-    echo '<div><span><i>' . $cm->date . '</i></span></div></div></div>';
+    echo '<div><span><i>Posted on ' . $cm->date . '</i></span></div></div></div>';
 }
 ?>
 </div>

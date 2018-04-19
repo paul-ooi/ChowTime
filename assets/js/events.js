@@ -1,4 +1,4 @@
-$("#datepicker").datepicker({dateFormat: "yy-mm-dd"});
+$("#datepicker").datepicker({dateFormat: "yy-mm-dd", minDate: 0});
 
 // Time Picker
 function populate(selector) {
