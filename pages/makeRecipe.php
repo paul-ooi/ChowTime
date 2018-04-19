@@ -161,7 +161,7 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
     <?php
 
     // //include the Add Ingredient section  (Paul's Lab 6) -needs some formatting still
-    // include '../controllers/ingredients/ingredient_add.php'
+     include '../controllers/ingredients/ingredient_add.php'
 
      ?>
            <!-- <fieldset class="form-group">
