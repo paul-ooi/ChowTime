@@ -1,16 +1,26 @@
 <?php
-require_once '../../models/db.php';
 require_once '../../models/comment.php';
 require_once '../../models/profile.php';
+require_once '../../models/likesDislikes.php';
 $c = new Comment;
 $p = new Profile;
+$l = new LikesDislikes;
 
+// COMMUNITY RATING SYSTEM
+$like_class = "";
+$dislike_class = "";
+
+$likes = $l->getLikesByEvent($db, $_SESSION['event_id']);
+$dislikes = $l->getDislikesByEvent($db, $_SESSION['event_id']);
+
+// COMMENTS
 // Default Form Tag stuff
 $class = "";
 $input_type = 'hidden';
 $upd = 'update';
 $edit = '<i class="fas fa-edit"></i>';
 
+// Adding a Comment
 if (isset($_POST['add'])){
     $eventId = $_SESSION['event_id'];
     $userId = $_SESSION['user_id'];
@@ -58,8 +68,58 @@ if (isset($_POST['delete'])){
 }
 
 if (isset($_SESSION['user_id'])){
-?>
+    // Checking for Likes/Dislikes
+    $check_e_like = $l->checkUserLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+    $check_e_dislike = $l->checkUserDisLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
 
+    // When User clicks on Like button
+    if (isset($_POST['like'])){
+        $check_e_like = $l->checkUserLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        $check_e_dislike = $l->checkUserDisLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+
+        // if user liked the comment already
+        if ($check_e_like != null) {
+            $l->deleteLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        } else if ($check_e_like == null && $check_e_dislike == null) {
+            $l->addLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        } else if($check_e_like == null && $check_e_dislike != null) {
+            $l->deleteDisikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+            $l->addLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        }
+
+        $likes = $l->getLikesByEvent($db, $_SESSION['event_id']);
+        $dislikes = $l->getDislikesByEvent($db, $_SESSION['event_id']);
+    }
+
+    if (isset($_POST['dislike'])){
+        $check_e_like = $l->checkUserLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        $check_e_dislike = $l->checkUserDisLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+
+        if ($check_e_dislike != null) {
+            $l->deleteDisikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        } else if ($check_e_dislike == null && $check_e_like == null) {
+            $l->addDislikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        } else if ($check_e_dislike == null && $check_e_like != null) {
+            $l->deleteLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+            $l->addDislikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        }
+
+        $likes = $l->getLikesByEvent($db, $_SESSION['event_id']);
+        $dislikes = $l->getDislikesByEvent($db, $_SESSION['event_id']);
+    }
+?>
+<section id="communityRate">
+    <div class="wrapper">
+        <form action="" method="post">
+            <div class="btn-group btn-group-lg" role="group" aria-label="...">
+                <!-- Like -->
+                <button class="btn btn-default" type="submit" name="like"><i class="fas fa-thumbs-up"></i> <?php echo $likes[0]->count; ?></button>
+                <!-- Dislike -->
+                <button class="btn btn-default" type="submit" name="dislike"><i class="fas fa-thumbs-down"></i> <?php echo $dislikes[0]->count; ?></button>
+            </div>
+        </form>
+    </div>
+</section>
 <section id="commentBox">
     <div class="wrapper">
         <h3>Add Comment</h3>
