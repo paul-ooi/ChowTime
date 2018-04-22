@@ -32,6 +32,8 @@ if(isset($_POST['delete'])) {
                     unlink($targetFile);
                 }
             }
+
+            //DELETE ALL RECORDS OF RECIPES_MADE FOR THAT RECIPE
         header("Location: ../../index.php");
         } else {
             $errors['delete_error'] = "There was an error with the deletion of the recipe.";

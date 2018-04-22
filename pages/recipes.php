@@ -31,6 +31,7 @@ else {
     $recentRecipe = RecipeDb::getRecentPublishedRecipe();
     $recipe_id = $recentRecipe->id;
 }
+
 //====================================================
 $mainRecipeImg = RecipeDb::mainRecipeImg($recipe_id);
 $allRecipeImgs = RecipeDb::allRecipeImgs($recipe_id);
@@ -122,6 +123,28 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     </div>
                     <h3 class="text-center" id="recipe_descr"><?= $recipe->description ?></h3>
                     <div class="text-center"><a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"></a></div>
+                    <!-- EMAIL RECIPE TO MYSELF LINK -->
+                    <form method="post" action="../controllers/Recipe/emailRecipe.php" class="text-center">
+                        <input type="hidden" name="recipe_id" value="<?php echo $recipe_id ?>" />
+                        <div class="form-row">
+                            <div class="form-group">
+                                <legend class="col-form-label">To Email:</legend>
+                                <input type="email" name="toEmail" class="form-control"/>        
+                            </div>
+                            <div class="form-group">
+                                <legend class="col-form-label">To Name:</legend>
+                                <input type="text" name="toName" class="form-control"/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <input type="submit" name="emailRecipe" value="Email Recipe" class="btn">
+                            <small class="text-muted">
+                            <?php if(isset($_SESSION['email_mssg'])) {
+                                echo $_SESSION['email_mssg'];
+                            }?>
+                            </small>
+                        </div>
+                    </form>
                 </div>
                 <!-- End title-icon-descr-container -->
             </div>
@@ -198,5 +221,6 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
 </body>
 <?php 
 unset($_SESSION['recipe_err_mssg']);
+unset($_SESSION['email_mssg']);
 ?>
 </html>
