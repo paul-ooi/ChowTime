@@ -1,4 +1,5 @@
 <?php
+    session_start();
     require_once '../../models/recipesMade.php';
     require_once '../../models/db.php';
     $db = Database::getDb();
@@ -22,5 +23,5 @@
     } else {
         header("Location: ../../index.php");
     }
-    
+
 ?>

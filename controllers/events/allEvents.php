@@ -8,19 +8,17 @@ $db = Database::getDb();
 session_start();
 
 // FOR TESTING
+// $userIdInput = 1;
+// $_SESSION['user_id'] = $userIdInput;
 
 
 // For Attendance
 if (isset($_POST['Attend'])){
-    $user_id = $_POST['user_id'];
-    $event_id = $_POST['event_id'];
-    $e->addAttendance($db, $user_id, $event_id);
+    $e->addAttendance($db, $_SESSION['user_id'], $_POST['event_id']);
 }
 
 if (isset($_POST['NotAttend'])){
-    $user_id = $_POST['user_id'];
-    $event_id = $_POST['event_id'];
-    $e->deleteAttendance($db, $user_id, $event_id);
+    $e->deleteAttendance($db, $_SESSION['user_id'], $_POST['event_id']);
 }
 
 include '../../pages/partial/_header.php';
@@ -43,7 +41,7 @@ include '../../pages/partial/_header.php';
         <?php
         if (isset($_SESSION['user_id'])){
             echo '<h2 class="row">My Events</h2>';
-            $events = $e->myEvents($db, $userIdInput);
+            $events = $e->myEvents($db, $_SESSION['user_id']);
             foreach ($events as $event){
                 echo '<div class="media row">';
                     echo '<div class="media-left">';
@@ -55,6 +53,7 @@ include '../../pages/partial/_header.php';
                     echo '<div class="media-body">';
                         echo '<div class="col-sm">';
                             echo '<h4 class="media-heading">' . $event->event_name . '</h4>';
+                            echo '<div>' .  date("l, F j, Y", strtotime($event->date)) . '</div>';
                             echo '<div>' . $event->event_location . ' @ ' . date("g:i A", strtotime($event->start_time)) . '</div>';
                         echo '</div>';
                         echo '<div class="col-sm text-right">';
@@ -77,12 +76,10 @@ include '../../pages/partial/_header.php';
         <?php
         if (isset($_SESSION['user_id'])){
             echo '<h2 class="row">Attending</h2>';
-            $attending = $e->eventsAttending($db, $userIdInput);
-
+            $attending = $e->eventsAttending($db, $_SESSION['user_id']);
             if($attending == null){
                 echo '<p>You are currently not attending any events.</p>';
             }
-
             foreach ($attending as $a){
                 $events = $e->getEvent($db, $a->event_id);
                 foreach ($events as $event){
@@ -96,6 +93,7 @@ include '../../pages/partial/_header.php';
                     echo '<div class="media-body">';
                         echo '<div class="col-sm">';
                             echo '<h4 class="media-heading">' . $event->event_name . '</h4>';
+                            echo '<div>' .  date("l, F j, Y", strtotime($event->date)) . '</div>';
                             echo '<div>' . $event->event_location . ' @ ' . date("g:i A", strtotime($event->start_time)) . '</div>';
                         echo '</div>';
                         echo '<div class="col-sm text-right">';
@@ -106,8 +104,7 @@ include '../../pages/partial/_header.php';
                                 echo '</form>';
                                 echo '<form action="" method="post" name="deleteMyEvents">';
                                     echo '<input type="hidden" name="event_id" value="' . $event->id . '" />';
-                                    echo '<input type="hidden" name="user_id" value="' . $userIdInput . '"/>';
-                                    echo '<input type="submit" class="btn btn-default" name="NotAttend" value="Not Attending" />';
+                                    echo '<button type="submit" class="btn btn-default" name="NotAttend"><i class="fas fa-calendar-minus"></i> Not Attending</button>';
                                 echo '</form>';
                             echo '</div>'; // End of btn-group
                         echo '</div>'; // End of col-sm text-right
@@ -135,6 +132,7 @@ include '../../pages/partial/_header.php';
                     echo '<div class="media-body">';
                         echo '<div class="col-sm">';
                             echo '<h4 class="media-heading">' . $event->event_name . '</h4>';
+                            echo '<div>' .  date("l, F j, Y", strtotime($event->date)) . '</div>';
                             echo '<div>' . $event->event_location . ' @ ' . date("g:i A", strtotime($event->start_time)) . '</div>';
                         echo '</div>';
                         echo '<div class="col-sm text-right">';
@@ -143,20 +141,22 @@ include '../../pages/partial/_header.php';
                                     echo '<input type="hidden" name="event_id" value="' . $event->id . '" />';
                                     echo '<input type="submit" class="btn btn-default" name="details" value="Details"/>';
                                 echo '</form>';
-                            $count = $e->checkAttendance($db, $userIdInput, $event->id);
+                        if (isset($_SESSION['user_id'])){
+                            if ($_SESSION['user_id'] != $event->user_id) {
+                            $count = $e->checkAttendance($db, $_SESSION['user_id'], $event->id);
                             if ($count == null){
                                 echo '<form action="" method="post" name="addMyEvents">';
                                     echo '<input type="hidden" name="event_id" value="' . $event->id . '" />';
-                                    echo '<input type="hidden" name="user_id" value="' . $userIdInput . '"/>';
-                                    echo '<input type="submit" class="btn btn-default" name="Attend" value="Attend" />';
+                                    echo '<button type="submit" class="btn btn-default" name="Attend"><i class="fas fa-calendar-check"></i> Attend</button>';
                                 echo '</form>';
                             } else {
                                 echo '<form action="" method="post" name="deleteMyEvents">';
                                     echo '<input type="hidden" name="event_id" value="' . $event->id . '" />';
-                                    echo '<input type="hidden" name="user_id" value="' . $userIdInput . '"/>';
-                                    echo '<input type="submit" class="btn btn-default" name="NotAttend" value="Not Attending" />';
+                                    echo '<button type="submit" class="btn btn-default" name="NotAttend"><i class="fas fa-calendar-minus"></i> Not Attending</button>';
                                 echo '</form>';
                             }
+                        }
+                        }
                             echo '</div>'; // End of btn-group
                         echo '</div>'; // End of col-sm text-right
                     echo '</div>'; // End of Media-body

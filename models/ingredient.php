@@ -53,10 +53,10 @@ class Ingredient {
 
     public function __construct($r_id = '', $f_id = '' ,$qty = '', $unit = '', $prep = '', $required = true) {
         $this->setRecipeRef($r_id);
-        $this->setFoodId($f_id);
         $this->setQuantity($qty);
         $this->setUnit($unit);
         $this->setPreparation($prep);
+        $this->setFoodId($f_id);
         $this->setOptional($required);
     }
 
