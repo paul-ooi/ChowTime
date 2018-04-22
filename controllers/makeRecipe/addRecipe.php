@@ -38,7 +38,7 @@ if(isset($_SESSION['user_id'])){
  );
 
   $spicy['spicy_lvl'] = array (
-     "0" => "None, Zero.",
+     "zero" => "None, Zero.",
      "1" => "Barely taste it.",
      "2" => "Ok, I feel some heat.",
      "3" => "That's Spicy.",
@@ -66,6 +66,10 @@ if(isset($_POST["addRecipe"])) {
     $ingredDiff = $v->checkAssignProperty("ingredDiff");
     $img_src = "";
 
+    //CHECK IF SPICE LEVEL IS = TO ZERO
+    if($spiceLevel == "zero") {
+        $spiceLevel = "0";
+    }
         //CHECK ALL INPUT FIELDS ARE VALID
         if(checkInputFields($inTitle, $inDescr, $inPrepTime, $inCookTime, $overallDiff, $spiceLevel, $in_dishLvl, $errors)) {
             //CHECK FILES ARE VALID AND STEPS ARE ENTERED

@@ -30,7 +30,7 @@
 
  //SPICY LEVEL
  $spicy['spicy_lvl'] = array (
-     "0" => "None, Zero.",
+     "zero" => "None, Zero.",
      "1" => "Barely taste it.",
      "2" => "Ok, I feel some heat.",
      "3" => "That's Spicy.",
@@ -66,6 +66,9 @@ if(isset($_POST['updateRecipe'])) {
     $preptime = $prepCookTimes->CT;
     $cooktime = $prepCookTimes->PT;
 
+    if($spicelvl == 0) {
+        $spicelvl = "zero";
+    }
 }//END POPULATE RECIPE TO UPDATE
  /* =======================DELETING PHOTOS ================== */
     if(isset($_POST['img_src'])) {
@@ -149,7 +152,7 @@ if(isset($_POST['updateRecipe'])) {
         else {
             return "Cannot delete the main image. You must have at least one.";
         }
-    }
+    }//END DELETE IMG SRC FUNCTION
  /* =======================PROCESS UPDATE ================== */
 
 if(isset($_POST['update'])) {
@@ -177,9 +180,9 @@ if(isset($_POST['update'])) {
     $inoverallDiff = $v->checkAssignProperty('inOverallDiff');
     $indate = $v->checkAssignProperty('inDate');
     $intime = $v->checkAssignProperty('inTime');
-
-    if(isset($_POST['inSpice'])){
-        $spiceLvl = $_POST['inSpice'];
+    $spiceLvl = $v->checkAssignProperty('inSpice');
+    if($spiceLvl == "zero") {
+        $spiceLvl = "0";
     }
     /************************FUNCTIONS****************************/
    function createSession($err) {
@@ -219,7 +222,7 @@ if(isset($_POST['update'])) {
     //FILE VALIDATION
     function checkFiles($errors, $recipe) {
         if(!isset($_FILES)) {
-            unset($_SESSION['recipe_err_mssg']);
+            unset($_SESSION['recipe_err_mssg']['file_error']);
             return true;
         }
         $file_size = $_FILES['upfile']['size']; //in bytes
@@ -245,7 +248,7 @@ if(isset($_POST['update'])) {
                 return false;
                 case 4:
                 $errors['file_error'] = "No file uploaded";
-                unset($_SESSION['recipe_err_mssg']);
+                unset($_SESSION['recipe_err_mssg']['file_error']);
                 return true;
             }
         exit;
@@ -323,6 +326,10 @@ if(isset($_POST['update'])) {
         $preptime = $prepCookTimes->CT;
         $cooktime = $prepCookTimes->PT;
 
+        if($spicelvl == "0") {
+            $spicelvl = "zero";
+        }
+
     } else {
         //REPOPULATE THE FORM
         $allRecipes = $rDb->displayById($recipe_id);
@@ -343,6 +350,10 @@ if(isset($_POST['update'])) {
 
         $preptime = $prepCookTimes->CT;
         $cooktime = $prepCookTimes->PT;
+
+        if($spicelvl == "0") {
+            $spicelvl = "zero";
+        }
     }
 
     //CHECK FILE INFORMATION                    
@@ -357,7 +368,7 @@ if(isset($_POST['update'])) {
         }
     }
 
-    header("Location: http://localhost/chowtime/pages/recipes.php?$recipe_id");
+    header("Location: http://localhost/chowtime/pages/recipes.php?id=$recipe_id");
 } //END UPDATE
 
 

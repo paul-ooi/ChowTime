@@ -57,15 +57,8 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                         <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
                         <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
                     </form>
-                <?php endif ?>
-                <?php if($userRole['admin'] == 1) :?>
-                    <form method="POST" action="/chowtime/controllers/makeRecipe/deleteRecipe.php" class="text-right form-inline">
-                        <input type="submit" id="deleteRecipe" name="deleteRecipe" class="btn" value="Delete Recipe"/>
-                        <input type="hidden" name="user_role" value="1" />
-                        <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
-                    </form>
                 </div>
-            <?php endif ?>
+                <?php endif ?>
         <?php endif?>
         <meta property="og:https://www.jesscwong.ca" content="letthebakingbeginblog.com" />
         <div itemscope itemtype="http://schema.org/Recipe">
