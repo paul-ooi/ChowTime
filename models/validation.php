@@ -165,4 +165,16 @@ function validatePhone($phone) //Brad Campbell
     return $phoneMatch;
 }
 
+function validateDD($dd)
+{
+	if($dd != "")
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 }//End Validation Class
