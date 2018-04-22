@@ -16,6 +16,7 @@ require_once 'partial/_header.php';
 ?>
 <script src="../assets/js/makeRecipe.js"></script>
 <link rel="stylesheet" type="text/css" href="../assets/css/makeRecipe.css" />
+<link rel="stylesheet" type="text/css" href="../assets/css/ingredients.css" />
 </head>
 <?php
 require_once 'partial/_mainnav.php';
@@ -36,7 +37,7 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
  ?>
 <main>
     <div class="wrapper">
-        <form method="post" enctype="multipart/form-data" action="makeRecipe.php" name="newRecipe">
+        <form method="post" enctype="multipart/form-data" action="makeRecipe.php" name="newRecipe" novalidate class="needs-validation">
             <input type="hidden" id="user_id" value="<?= $user_id ?>" />
             <small class="instructions form-text text-danger">
                 <?php if(isset($_SESSION['recipe_err_mssg']['input_field_error'])) {

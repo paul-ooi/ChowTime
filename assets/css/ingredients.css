@@ -1,0 +1,28 @@
+.form-inline .form-control {
+    width: 100%;
+    /* margin: bottom; */
+}
+
+.ingred_form_item.form-group {
+    margin-bottom: 0;
+    line-height: 1em;
+    padding: 0 0.2em;
+}
+
+.ingred-item > label {
+    white-space: nowrap;
+}
+
+@media (max-width: 992px) {
+    .ingred_form_label_small {
+        font-size: 0.8em
+    }
+    .form-check-input.form-control {
+        width: auto;
+        display: inline;
+    }
+    .form-inline .form-control {
+        /* width: auto; */
+        margin-left: 1em;
+    }
+}
