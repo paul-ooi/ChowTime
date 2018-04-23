@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 8;
+// $_SESSION['user_id'] = 8;
 /*======================*/
 
 $pageTitle = "Recipes";

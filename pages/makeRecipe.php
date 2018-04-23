@@ -1,10 +1,10 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 5;
+// $_SESSION['user_id'] = 5;
 if(isset($_SESSION['user_id'])){
     $user_id = $_SESSION['user_id'];
 } else {
-    header("Location: http://localhost/chowtime/pages/controllers/login.php");
+    header("Location: ../controllers/login.php");
 }
 
 if(isset($_SESSION['recipe_err_mssg'])) {

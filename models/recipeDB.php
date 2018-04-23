@@ -266,13 +266,14 @@ class RecipeDb {
         return $insert;
     }
 
-    //SEARCH FUNCTIONS - ADVANCED SEARCHES
-    //DISPLAY ONLY RECIPE NAME
+    //SEARCH FUNCTION
+    //DISPLAY BASED ON RECIPE NAME
     public static function getRecipeDetailsByTitle($title) {
         $db = Database::getDb();
+        $title = strtoupper($title);
 
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "SELECT * FROM recipes r JOIN recipe_imgs ri ON r.id = ri.recipe_id WHERE r.title LIKE '%$title%' GROUP BY ri.recipe_id";
+        $query = "SELECT * FROM recipes r JOIN recipe_imgs ri ON r.id = ri.recipe_id WHERE UPPER(r.title) LIKE '%$title%' GROUP BY ri.recipe_id";
         $statement = $db->prepare($query);
         $statement->bindValue(":title", $title, PDO::PARAM_STR);
         $statement->execute();
