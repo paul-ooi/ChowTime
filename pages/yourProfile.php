@@ -2,12 +2,11 @@
 session_start();
 require_once '../models/db.php'; //Database Class file
 require_once '../models/profile.php'; //Profile Logic file
-require_once '../models/recipesMade.php'; //Profile Logic file
-require_once '../models/recipeDB.php'; //Profile Logic file
+require_once '../models/event.php';
 require_once '../models/validation.php'; //Validation Library File
 $db = Database::getDb();
 $p = new Profile();
-
+$e = new Event();
 
 $userProfile = $p->getProfileById($db, $_SESSION['user_id']);
 
@@ -63,11 +62,15 @@ require_once 'partial/_mainnav.php';
 			}
 			?>
 			</div>
+			<div class="row">
+				<div class="form-group col-lg-6">
+					<a href="../pages/makeRecipe.php">Create new recipe</a>
+				</div>
 			<?php
 			if($amountOfYourRecipes > 4)
 			{
 			?>
-			<div class="row">
+			
 				<div class="form-group col-lg-6 offset-lg-6 text-right">
 					<a href="">See all of your recent recipes</a>
 				</div>				
@@ -77,13 +80,80 @@ require_once 'partial/_mainnav.php';
 			?>
 		</section>
 		<hr/>
+		<?php 
+			$attendingEvents = $e->eventsAttending($db, $_SESSION['user_id']);
+			
+			$howManyAttending = count($attendingEvents);
+		?>
 		<section class="mx-auto text-center text-md-left" id="top-category">
-            <div class="row"> <!--../assets/imgs/eventplaceholder.png-->
+            <div class="row">
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="../controllers/events/allEvents.php"><h3>Upcoming Events</h3><p>Events that you are registered to attend</p>
+                <h3>Upcoming Events</h3>
+				<?php
+					if($howManyAttending == 0)
+					{
+						echo "<a href='../controllers/events/allEvents.php'><p>You aren't currently attending any events, click here to find some upcoming events</p></a>";
+					}
+					else
+					{
+						$count = 0;
+						foreach($attendingEvents as $event)
+						{
+							$attendEventInfo = $e->getEventByStartDate($db, $event->event_id);
+							foreach($attendEventInfo as $atevent)
+							{
+								if($count < 1)
+								{
+									echo '<a href="../controllers/events/details.php?event_id=' . $atevent->id . '">';
+									echo "<h4>" . $atevent->event_name . "</h4>";
+									echo $atevent->event_location . '<br/>';
+									echo date("D, F d, Y", strtotime($atevent->date)) . '<br/>';
+									echo 'at ' . date("g:i A", strtotime($atevent->start_time)) . '<br/>';
+									echo "</a>";
+								}
+								$count++;
+							}
+							
+						}
+						?>
+						<a href="../controllers/events/allEvents.php">View all events</a>
+						<?php
+					}
+				?>
             </div>
+			<?php 
+			$allMyEvents = $e->myEventsByStartDate($db, $_SESSION['user_id']);
+			
+			$howManyEvents = count($attendingEvents);
+			?>
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><h3>Your Events</h3><p>Events that you are hosting</p>
+                <a href="index.php"><h3>Your Events</h3>
+				<?php
+					if($howManyEvents == 0)
+					{
+						echo "<a href='../pages/events.php'><p>You aren't currently hosting any events, click here to create some upcoming events</p></a>";
+					}
+					else
+					{
+						$count = 0;
+						foreach($allMyEvents as $event)
+						{
+							if($count < 1)
+							{
+								echo '<a href="../controllers/events/details.php?event_id=' . $event->id . '">';
+								echo "<h4>" . $event->event_name . "</h4>";
+								echo $event->event_location . '<br/>';
+								echo date("D, F d, Y", strtotime($event->date)) . '<br/>';
+								echo 'at ' . date("g:i A", strtotime($event->start_time)) . '<br/>';
+								echo "</a>";
+							}
+							$count++;							
+						}
+						?>
+						<a href="../controllers/events/allEvents.php">View your events</a>
+						<?php
+					}
+				?>
             </div>
             <div class="gallery-item col-sm-12 col-lg-4 text-center">
                 <a href="index.php"><h3>My Food</h3></a>
