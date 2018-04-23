@@ -54,7 +54,7 @@ class LikesDislikes {
         return $pdostm->fetchAll();
     }
 
-    public function getDislikesByRecipe($db, $event_id){
+    public function getDislikesByRecipe($db, $recipe_id){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = 'select * from recipe_dislikes where recipe_id = :recipe_id';
         $pdostm = $db->prepare($sql);
