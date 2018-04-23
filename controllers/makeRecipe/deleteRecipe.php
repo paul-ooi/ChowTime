@@ -1,4 +1,5 @@
 <?php
+
 if(isset($_POST['delete'])) {
     //IF USER IS AN ADMIN
     if($_POST['user_role'] == 1) {
@@ -14,6 +15,9 @@ if(isset($_POST['delete'])) {
         }
         /*************************************************************/
         
+        //DELETE INGREDIENTS LINKED TO THIS RECIPE
+        require_once '../ingredients/ingredient_delete.php';
+
         //DELETE THE IMAGES AND RECIPES
         $count = RecipeDb::deleteRecipe($recipe_id);
         $images = RecipeDb::getImgSrc($recipe_id);

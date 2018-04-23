@@ -77,10 +77,11 @@ class IngredientDB {
 
         //SINCE USER CAN CHANGE THE NUMBER OF INGREDIENTS PER RECIPE, DELETE OF ALL PRIOR INGREDIENTS THEN INSERT NEW LIST
         //DELETE EXISTING ROWS OF INGREDIENTS ASSIGNED TO THAT RECIPE
-        $sql = "DELETE FROM recipe_ingredients WHERE recipe_id = :recipe";
-        $pdostm = $db->prepare($sql);
-        $pdostm->bindValue(':recipe',$ing[0]->getRecipeRef(), PDO::PARAM_INT);
-        $pdostm->execute();
+        // $sql = "DELETE FROM recipe_ingredients WHERE recipe_id = :recipe";
+        // $pdostm = $db->prepare($sql);
+        // $pdostm->bindValue(':recipe',$ing[0]->getRecipeRef(), PDO::PARAM_INT);
+        // $pdostm->execute();
+        self::deleteIngredient($db, $ing[0]);
 
         //ADD INGREDIENTS ASSIGNED TO THAT RECIPE TO THE RECIPE_INGREDIENTS TABLE
         foreach ($ing as $ingredient) {
@@ -101,8 +102,16 @@ class IngredientDB {
         return $count;
     }
 
-    //Delete Ingredient Item from the Master Ingredient list
-    public static function deleteIngredient($db, $ingredient) {
+     //DELETE INGREDIENTS ASSIGNED TO A RECIPE TO THE RECIPE_INGREDIENTS TABLE
+     public static function deleteIngredient($db, $ing) {
+        $sql = "DELETE FROM recipe_ingredients WHERE recipe_id = :recipe";
+        $pdostm = $db->prepare($sql);
+        $pdostm->bindValue(':recipe',$ing->getRecipeRef(), PDO::PARAM_INT);
+        $pdostm->execute();
+     }
+
+     //DELETE INGREDIENT ITEM FROM THE MASTER INGREDIENT LIST
+    public static function deleteIngredientItem($db, $ingredient) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "DELETE FROM ingredients WHERE id = :ingredient";
         $pdostm = $db->prepare($sql);

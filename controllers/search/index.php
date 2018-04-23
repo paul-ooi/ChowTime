@@ -2,9 +2,9 @@
 session_start();
 // $_SESSION['user_id'] = 68;
 //if someone accesses this page with out actually searching for something it will redirect to the main home page
-// if (!isset($_GET['action'])) {
-//     header("Location: ./index.php");
-// }
+if (!isset($_GET['action'])) {
+    header("Location: index.php");
+}
 
 require_once '../../models/recipeDB.php';//use Jessica's RecipeDB model
 require_once '../../models/db.php';
@@ -21,9 +21,9 @@ switch($_GET['action']) {
         break;
 }
 // echo "<pre>";
-// // print_r($results);
-// var_dump($_SERVER);
-// var_dump($_ENV);
+// print_r($results);
+// // var_dump($_SERVER);
+// // var_dump($_ENV);
 // echo "</pre>";
 
  ?>

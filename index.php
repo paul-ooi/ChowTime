@@ -1,5 +1,7 @@
 <?php
 session_start();
+$_SESSION['user_id'] = 5;
+
 $pageTitle = "It&apos;s Chow Time Application";
 require_once 'pages/partial/_header.php';
 
@@ -23,7 +25,9 @@ require_once 'pages/partial/_header.php';
                     <input class="form-control form-control-lg col-sm-12 col-md-10" type="text" name="form_search" id="form_search" placeholder="Spaghetti, Soup, Salmon, etc..."/>
                     <!-- <input class="btn btn-lg col-sm-12 col-md-4 col-lg-3" type="submit" for="searchAll" name="searchRecipesBtn" id="searchRecipesBtn" value="Search Recipes"/> -->
                     <!-- <div id="searchOptions" class="col-12 text-left">Advanced Search</div> -->
-                    <fieldset class="hidden col-12" id="moreOptions">
+
+                        <!-- Additional search parameters based on Database categories and values. -->
+                    <!-- <fieldset class="hidden col-12" id="moreOptions">
                         <div class="row d-flex justify-content-between">
                             <div class="form-check col-3">
                                 <input class="form-check-input" type="checkbox" id="veggie" name="filters" value="vegetarian"/>
@@ -46,17 +50,13 @@ require_once 'pages/partial/_header.php';
                                 <label for="nut" class="form-check-label">Only nut free Recipes</label>
                             </div>
                         </div>
-
-                        <!-- Additional search parameters based on Database categories and values. -->
-                    </fieldset>
+                    </fieldset> -->
             </form>
-            <!-- <span class="bkg">
-                <img src="assets/imgs/image1.jpg" alt="plate of spaghetti"/>
-            </span> -->
+
         </section>
         <section class="mx-auto mb-3" id="searchResults">
         </section>
-        <section class="mx-auto text-center text-md-left" id="top-category">
+        <!-- <section class="mx-auto text-center text-md-left" id="top-category">
             <h2>Top searched categories</h2>
             <div class="row">
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
@@ -78,7 +78,7 @@ require_once 'pages/partial/_header.php';
                 <a href="index.php"><h3>Category name</h3><img src="assets/imgs/image1.jpg" alt="plate of spaghetti" class="img-fluid rounded"/></a>
             </div>
         </div>
-        </section>
+        </section> -->
     </main>
     <?php require_once 'pages/partial/_footer.php' ?>
 </body>
