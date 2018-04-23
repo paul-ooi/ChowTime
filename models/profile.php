@@ -43,11 +43,37 @@ class Profile
         
         return $pdostm->fetchAll();
 	}
-    public function updateProfile($db, $id, $fname, $lname, $username, $email, $pass, $addr1, $city, $country, $prov, $postalc)
+    public function updateProfile($db, $id, $fname, $lname, $username, $email, $pass, $addr1, $city, $country, $prov, $postalc, $admin)
     {
-        $sql = "UPDATE profiles SET fname = '$fname', lname = '$lname', username = '$username', email = '$email', pass = '$pass', address1 = '$addr1', city = '$city', country = '$country', province = '$prov', postal = '$postalc' WHERE id = $id";
+        $sql = "UPDATE profiles SET fname = '$fname', lname = '$lname', username = '$username', email = '$email', pass = '$pass', address1 = '$addr1', city = '$city', country = '$country', province = '$prov', postal = '$postalc', admin = '$admin' WHERE id = $id";
         $pdostm = $db->prepare($sql);
         $count = $pdostm->execute();
         return $count;
     }
+	public function updateProfileImage($db, $id, $fname, $lname, $username, $email, $pass, $addr1, $city, $country, $prov, $postalc, $admin, $pimage)
+    {
+        $sql = "UPDATE profiles SET fname = '$fname', lname = '$lname', username = '$username', email = '$email', pass = '$pass', address1 = '$addr1', city = '$city', country = '$country', province = '$prov', postal = '$postalc', admin = '$admin', pimage = '$pimage' WHERE id = $id";
+        $pdostm = $db->prepare($sql);
+        $count = $pdostm->execute();
+        return $count;
+    }
+	public function usersRecipeMade($db, $id) {
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT * FROM recipes_made WHERE user_id = :id";
+        $pdostm = $db->prepare($query);
+        $pdostm->bindValue(":id", $id, PDO::PARAM_INT);
+		$pdostm->setFetchMode(PDO::FETCH_OBJ);
+        $pdostm->execute();
+        
+        return $pdostm->fetchAll();
+    }
+	public function recipeById($db, $id)
+	{
+		$sql = "SELECT * FROM recipes r JOIN recipe_imgs ri ON r.id = ri.recipe_id WHERE r.id = $id";
+        $pdostm = $db->prepare($sql);
+        $pdostm->execute();
+        $profile = $pdostm->fetch(PDO::FETCH_OBJ);
+        return $profile;
+	}
+
 }

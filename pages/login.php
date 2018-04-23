@@ -1,10 +1,11 @@
 <?php
 session_start();
+unset($_SESSION['user_id']);
 $pageTitle = "Login/Register";
 require_once 'partial/_header.php';
-require_once 'db.php'; //Database Class file
-require_once 'profile.php'; //Profile Logic file
-require_once 'validation.php'; //Validation Library File
+require_once '../models/db.php'; //Database Class file
+require_once '../models/profile.php'; //Profile Logic file
+require_once '../models/validation.php'; //Validation Library File
 
 $loginError = "";
 
@@ -49,32 +50,36 @@ if(isset($_POST['loginButton']))
 
 <?php
 require_once 'partial/_mainnav.php';
-//require_once 'Whats-cooking.php';
+require_once 'Whats-cooking.php';
 ?>
 <main class="container ddwrapper  mb-5">
 	<form action="login.php" method="post" name="login">
 		<div class="row">
-			<div class="form-group col-lg-6">
-				<label name="userName" for="userName">Username</label>
-				<input type="text" name="userName" id="userName" class="form-control"/>
-				<label name="err_userName" for="userName" id="err_userName"></label>
-			</div>
-			<div class="form-group col-lg-6">
-				<label name="pass" for="pass">Password</label>
-				<input type="password" name="pass" id="pass" class="form-control"/>
-				<label name="err_pass" for="pass" id="err_pass" ></label>
+			<div class="form-group col-lg-6 offset-lg-3">
+				<div class="form-group">
+					<label name="userName" for="userName">Username</label>
+					<input type="text" name="userName" id="userName" class="form-control"/>
+					<label name="err_userName" for="userName" id="err_userName"></label>
+				</div>
+				<div class="form-group">
+					<label name="pass" for="pass">Password</label>
+					<input type="password" name="pass" id="pass" class="form-control"/>
+					<label name="err_pass" for="pass" id="err_pass" ></label>
+				</div>
+				<div class="form-group">
+					<button type="submit" name="loginButton" for="login" class="form-control">Login</button>
+					<?php echo $loginError ?>
+				</div>
+				<div class="row">
+					<div class="form-group col-lg-6">
+						<h3>Not a user?</h3>
+						<a href="createProfile.php">Register your account!</a>
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="form-group">
-			<button type="submit" name="loginButton" for="login" class="form-control">Login</button>
-			<?php echo $loginError ?>
-		</div>
-		<div class="row">
-			<div class="form-group col-lg-6">
-				<h2>Not a user?</h2>
-				<a href="index.php">Register your account</a>
-			</div>
-		</div>
+		
+		
 	</form>
 
 </main>
