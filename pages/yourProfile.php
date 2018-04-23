@@ -35,6 +35,9 @@ require_once 'partial/_mainnav.php';
 					<p><?php echo $userProfile->address1 ?></p>
 				</div>
 				<div>
+					<a href="timers.php"><p>View your timers</p></a>
+				</div>
+				<div>
 					<a href="editProfile.php"><p>Edit Profile</p></a>
 				</div>
             </div>

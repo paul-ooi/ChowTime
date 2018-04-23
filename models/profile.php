@@ -43,20 +43,27 @@ class Profile
         
         return $pdostm->fetchAll();
 	}
-    public function updateProfile($db, $id, $fname, $lname, $username, $email, $pass, $addr1, $city, $country, $prov, $postalc, $admin)
+    public function updateProfile($db, $id, $fname, $lname, $username, $email, $addr1, $city, $country, $prov, $postalc)
     {
-        $sql = "UPDATE profiles SET fname = '$fname', lname = '$lname', username = '$username', email = '$email', pass = '$pass', address1 = '$addr1', city = '$city', country = '$country', province = '$prov', postal = '$postalc', admin = '$admin' WHERE id = $id";
+        $sql = "UPDATE profiles SET fname = '$fname', lname = '$lname', username = '$username', email = '$email', address1 = '$addr1', city = '$city', country = '$country', province = '$prov', postal = '$postalc' WHERE id = $id";
         $pdostm = $db->prepare($sql);
         $count = $pdostm->execute();
         return $count;
     }
-	public function updateProfileImage($db, $id, $fname, $lname, $username, $email, $pass, $addr1, $city, $country, $prov, $postalc, $admin, $pimage)
+	public function updateProfileImage($db, $id, $fname, $lname, $username, $email, $addr1, $city, $country, $prov, $postalc, $pimage)
     {
-        $sql = "UPDATE profiles SET fname = '$fname', lname = '$lname', username = '$username', email = '$email', pass = '$pass', address1 = '$addr1', city = '$city', country = '$country', province = '$prov', postal = '$postalc', admin = '$admin', pimage = '$pimage' WHERE id = $id";
+        $sql = "UPDATE profiles SET fname = '$fname', lname = '$lname', username = '$username', email = '$email', address1 = '$addr1', city = '$city', country = '$country', province = '$prov', postal = '$postalc', pimage = '$pimage' WHERE id = $id";
         $pdostm = $db->prepare($sql);
         $count = $pdostm->execute();
         return $count;
     }
+	public function updatePassword($db, $id, $pass)
+	{
+		$sql = "UPDATE profiles SET pass = '$pass' WHERE id = $id";
+		$pdostm = $db->prepare($sql);
+        $count = $pdostm->execute();
+        return $count;
+	}
 	public function usersRecipeMade($db, $id) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = "SELECT * FROM recipes_made WHERE user_id = :id";

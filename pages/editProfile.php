@@ -1,6 +1,9 @@
 <?php
 session_start();
 $pageTitle = "Edit Profile";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+require '../vendor/autoload.php';
 require_once 'partial/_header.php';
 require_once '../models/db.php'; //Database Class file
 require_once '../models/profile.php'; //Profile Logic file
@@ -85,7 +88,6 @@ else if($userProfile->province == "YT")
 if(isset($_POST['editProfile']))
 {
 	$textRegex = '/^[a-z]+$/i';
-	$passRegex = '/^\w+$/i';
 	$addRegex = '/\w+(\s\w+){2,}/';
 	$cityRegex = '/(\w+\s?){1,}/';
     $fname = $_POST['fname'];
@@ -96,11 +98,6 @@ if(isset($_POST['editProfile']))
 	$usernameTest = Validation::validateAlphaOnly($textRegex, $username);
     $email = $_POST['email'];
 	$emailTest = Validation::email($email);
-    $pass = $_POST['pass'];
-	$opassTTest = Validation::validateAlphaOnly($passRegex, $pass);
-    $cpass = $_POST['cPass'];
-	$cpassTTest = Validation::validateAlphaOnly($passRegex, $cpass);
-	$passTest = Validation::confirmPass($pass,$cpass);
     $addr1 = $_POST['add1'];
 	$addr1Test = Validation::validateAlphaOnly($addRegex, $addr1);
     $city = $_POST['city'];
@@ -152,33 +149,30 @@ if(isset($_POST['editProfile']))
 	{
 		$noImage = 1;
 	}
-    if($fnameTest != 0  && $lnameTest != 0 && $usernameTest != 0 && $postalcTest != 0 && $emailTest != 0 && $cpassTTest != 0 && $cityTest != 0 && $countryTest != 0 && $provTest != 0 && $addr1Test != 0 && $passTest != 0)
+    if($fnameTest != 0  && $lnameTest != 0 && $usernameTest != 0 && $postalcTest != 0 && $emailTest != 0 && $cityTest != 0 && $countryTest != 0 && $provTest != 0 && $addr1Test != 0)
 	{
-		
-		$hashedPass = password_hash($pass, PASSWORD_BCRYPT);
 		if($noImage == 1)
 		{
-			$count = $p->updateProfile($db, $_SESSION['user_id'], $fname, $lname, $username, $email, $hashedPass, $addr1, $city, $country, $prov, $postalc, $admin);
+			$count = $p->updateProfile($db, $_SESSION['user_id'], $fname, $lname, $username, $email, $addr1, $city, $country, $prov, $postalc);
 			if($count)
 			{
 				header('Location: editProfile.php');
 			}
 			else
 			{
-				echo "Account was not created";
+				echo "Account was not updated";
 			}
 		}
 		else
 		{
-			$count = $p->updateProfileImage($db, $_SESSION['user_id'], $fname, $lname, $username, $email, $hashedPass, $addr1, $city, $country, $prov, $postalc, $admin, $target_file);
+			$count = $p->updateProfileImage($db, $_SESSION['user_id'], $fname, $lname, $username, $email,  $addr1, $city, $country, $prov, $postalc, $target_file);
 			if($count)
 			{
-				echo $target_file;
 				header('Location: editProfile.php');
 			}
 			else
 			{
-				echo "Account was not created";
+				echo "Account was not updated";
 			}
 		}
 	}
@@ -188,6 +182,32 @@ if(isset($_POST['editProfile']))
 	}
     
 }
+if(isset($_POST['changePassword']))
+{
+	$passRegex = '/^\w+$/i';
+	$pass = $_POST['pass'];
+	$opassTTest = Validation::validateAlphaOnly($passRegex, $pass);
+    $cpass = $_POST['cPass'];
+	$cpassTTest = Validation::validateAlphaOnly($passRegex, $cpass);
+	$passTest = Validation::confirmPass($pass,$cpass);
+	
+	
+	$hashedPass = password_hash($pass, PASSWORD_BCRYPT);
+	
+	if($cpassTTest != 0  && $passTest != 0)
+	{
+		$count = $p->updatePassword($db, $_SESSION['user_id'], $hashedPass);
+		if($count)
+		{
+			header('Location: editProfile.php');
+		}
+		else
+		{
+			echo "Password was not updated";
+		}
+	}
+}
+
 ?>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
@@ -197,8 +217,12 @@ if(isset($_POST['editProfile']))
 require_once 'partial/_mainnav.php';
 ?>
 <main class="container ddwrapper  mb-5">
+
 <form action="editProfile.php" enctype="multipart/form-data" method="POST">
 	<div class="row">
+		<div class="form-group col-lg-6 offset-lg-3">
+			<h2>Edit Profile Information</h2>
+		</div>
 		<div class="form-group col-lg-6 offset-lg-3">
 			<div class="form-group">
 				<label name="fname" for="fname">First Name</label>
@@ -232,20 +256,6 @@ require_once 'partial/_mainnav.php';
 				<label name="email" for="email">Email</label>
 				<input type="text" name="email" id="email" class="form-control" value="<?php echo $userProfile->email; ?>"/>
 				<label name="err_email" for="email" id="err_email" ></label>
-			</div>
-		</div>
-		<div class="form-group col-lg-6 offset-lg-3">
-			<div class="form-group">
-				<label name="pass" for="pass">Password</label>
-				<input type="password" name="pass" id="pass" class="form-control"/>
-				<label name="err_pass" for="pass" id="err_pass" ></label>
-			</div>
-		</div>
-		<div class="form-group col-lg-6 offset-lg-3">
-			<div class="form-group">
-				<label name="cPass" for="cPass">Confirm Password</label>
-				<input type="password" name="cPass" id="cPass" class="form-control"/>
-				<label name="err_cPass" for="cPass" id="err_cPass" ></label>
 			</div>
 		</div>
 		<div class="form-group col-lg-6 offset-lg-3">
@@ -304,6 +314,32 @@ require_once 'partial/_mainnav.php';
 		<div class="form-group col-lg-6 offset-lg-3">
 			<div class="form-group">
 				<button type="submit" name="editProfile" for="editP" class="form-control">Edit Profile</button>
+			</div>
+		</div>
+	</div>
+</form>
+<form action="editProfile.php" enctype="multipart/form-data" method="POST">
+	<div class="row">
+		<div class="form-group col-lg-6 offset-lg-3">
+			<h2>Change Password</h2>
+		</div>
+		<div class="form-group col-lg-6 offset-lg-3">
+			<div class="form-group">
+				<label name="pass" for="pass">Password</label>
+				<input type="password" name="pass" id="pass" class="form-control"/>
+				<label name="err_pass" for="pass" id="err_pass" ></label>
+			</div>
+		</div>
+		<div class="form-group col-lg-6 offset-lg-3">
+			<div class="form-group">
+				<label name="cPass" for="cPass">Confirm Password</label>
+				<input type="password" name="cPass" id="cPass" class="form-control"/>
+				<label name="err_cPass" for="cPass" id="err_cPass" ></label>
+			</div>
+		</div>
+		<div class="form-group col-lg-6 offset-lg-3">
+			<div class="form-group">
+				<button type="submit" name="changePassword" for="changeP" class="form-control">Change Password</button>
 			</div>
 		</div>
 	</div>

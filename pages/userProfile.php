@@ -47,7 +47,6 @@ require_once 'partial/_mainnav.php';
 			$amountOfYourRecipes = count($yourRecipes);
 			$diff = $amountOfYourRecipes - 4;
 			$count = 0;
-			//var_dump($yourRecipes);
 			foreach($yourRecipes as $recipe)
 			{
 				if($count >= $diff)
@@ -70,7 +69,7 @@ require_once 'partial/_mainnav.php';
 			?>
 			<div class="row">
 				<div class="form-group col-lg-6 offset-lg-6 text-right">
-					<a href="">See all of your recent recipes</a>
+					<a href="">See all of their recent recipes</a>
 				</div>				
 			</div>
 			<?php
@@ -107,7 +106,7 @@ require_once 'partial/_mainnav.php';
 			?>
 			<div class="row">
 				<div class="form-group col-lg-6 offset-lg-6 text-right">
-					<a href="">See all of your recent recipes</a>
+					<a href="">See all of their recent recipes</a>
 				</div>				
 			</div>
 			<?php
