@@ -2,9 +2,9 @@
 $pageTitle = "Edit Profile";
 require_once 'partial/_header.php';
 
-require_once 'db.php'; //Database Class file
-require_once 'profile.php'; //Profile Logic file
-require_once 'validation.php'; //Validation Library File
+require_once '../models/db.php'; //Database Class file
+require_once '../models/profile.php'; //Profile Logic file
+require_once '../models/validation.php'; //Validation Library File
 
 if(isset($_POST['createProfile']))
 {
