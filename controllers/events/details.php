@@ -11,6 +11,9 @@ $event_id = $_SESSION['event_id'];
 if (isset($_POST['details'])){
     $_SESSION['event_id'] = $_POST['event_id'];
 }
+if(isset($_GET['event_id'])) {
+    $_SESSION['event_id'] = $_GET['event_id'];
+}
 
 // FOR BUTTON GROUP (Attend/Not Attend/Edit/Delete)
 if (isset($_SESSION['user_id'])){
