@@ -21,7 +21,7 @@ if(isset($_POST['food_id'])) {
 } else {
     $arrayLength = 1;//If none, populate once
 }
-var_dump($array);
+
 ?>
  <fieldset class="form-group form-inline" name="ingreds">
      <div class="form-row">
