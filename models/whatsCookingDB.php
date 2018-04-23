@@ -45,7 +45,7 @@ class WhatsCooking {
         $db = Database::getDb();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $sql = "SELECT DISTINCT p.address1, p.city, p.country, p.province, p.postal, r.title, ri.img_src, p.id
+        $sql = "SELECT DISTINCT r.id AS recipe_id, p.address1, p.city, p.country, p.province, p.postal, r.title, ri.img_src, p.id
                 FROM recipes r JOIN recipes_made rm
                 ON r.id = rm.recipe_id
                 JOIN recipe_imgs ri
@@ -60,6 +60,7 @@ class WhatsCooking {
         foreach($rows as $row) {
             $wc = new WhatsCookingDB(
                 $row['id']);
+                $wc->setRecipeId($row['recipe_id']);
                 $wc->setAdd($row['address1']);
                 $wc->setCity($row['city']);
                 $wc->setCountry($row['country']);

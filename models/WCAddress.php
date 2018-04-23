@@ -31,11 +31,15 @@ foreach($users as $user) {
     $province = $user->getProv();
     $post = $user->getPost();
     $title = $user->getTitle();
+    $recipe_id = $user->getRecipeId();
 
     $address = "$add $city $province $post";
     $u[$addKey] = $address;
     $u[$imgKey] = $user->getImg();
     $u[$titleKey] = $title;
+    $u['recipe_id'] = $recipe_id;
+
+    //ADD THE ADDRESS, IMAGE, AND TITLE DETAILS TO THE USER 
     $array[$userKey] = $u;
 
     $finalArray = array('whats_cooking' => $array);
@@ -59,6 +63,9 @@ foreach($currUserAdd as $user) {
 }
 
 echo json_encode($finalArray);
+// echo "<pre>";
+// var_dump($users);
+// echo "</pre>";
 
 //https://stackoverflow.com/questions/18377469/php-give-a-name-to-an-array-of-json-objects?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 

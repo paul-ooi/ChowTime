@@ -9,6 +9,7 @@ class WhatsCookingDB {
     private $title;
     private $img_src;
     private $user_id;
+    private $recipe_id;
 
     public function setAdd($add) {
         $this->address = $add;
@@ -42,6 +43,10 @@ class WhatsCookingDB {
         $this->user_id = $user_id;
     }
 
+    public function setRecipeId($recipe_id) {
+        $this->recipe_id = $recipe_id;
+    }
+
 
     public function getAdd() {
         return $this->address;
@@ -73,6 +78,10 @@ class WhatsCookingDB {
 
     public function getId() {
         return $this->user_id;
+    }
+
+    public function getRecipeId() {
+        return $this->recipe_id;
     }
 
     public function __construct($user_id){
