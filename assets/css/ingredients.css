@@ -19,11 +19,10 @@
 
 @media (max-width: 992px) {
     .ingred_form_label_small {
-        font-size: 0.8em
+        font-size: 0.8em;
     }
     .form-check-input.form-control {
         width: auto;
-        display: inline;
     }
     .form-inline .form-control {
         /* width: auto; */
