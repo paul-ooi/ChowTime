@@ -81,8 +81,9 @@ function initializeMap() {
             var user = "u" + i;
             var title = "t" + i;
             var img = "img" + i;
+            var recipe_id = 'recipe_id';
 
-            var contentString = createContentString(title, user, img, obj);
+            var contentString = createContentString(title, user, img, obj, recipe_id);
             var infowindow = createInfoWindow(contentString);
             coords(user, add, obj, userMap, title, infowindow);
 
@@ -108,9 +109,9 @@ function coords(user, add, obj, userMap, title, infowindow) {
     });
 }//END PLACE MARKER FUNCTION
 
-function createContentString(title, user, img, obj) {
+function createContentString(title, user, img, obj, recipe_id) {
     //ADD A CONTENT WINDOW
-    var contentString = "<div class='container'><div class='row'><div class='col-xs-2'><img src='" + obj.whats_cooking[user][img] + "' style='width:100px;'/></div><div class='col-xs-10'><p class='mainRecipeTitle'>" + obj.whats_cooking[user][title] + "</p></div></div></div>";
+    var contentString = "<a href='recipes.php?&id=" + obj.whats_cooking[user][recipe_id] +"'><div class='container'><div class='row'><div class='col-xs-2'><img src='" + obj.whats_cooking[user][img] + "' style='width:100px;'/></div><div class='col-xs-10'><p class='mainRecipeTitle'>" + obj.whats_cooking[user][title] + "</p></div></div></div></a>";
     return contentString;
 }
 
