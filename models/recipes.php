@@ -100,11 +100,6 @@ class Recipes {
         return $this->steps;
     }
 
-    // public function setImgTableProp($recipe_id, $img_src) {
-    //     $this->recipe_id = $recipe_id;
-    //     $this->img_src = $img_src;
-    // }
-
     public function setRecipeId($recipe_id) {
         $this->recipe_id = $recipe_id;
     }

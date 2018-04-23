@@ -383,7 +383,25 @@ class RecipeDb {
         $int = $statement->fetch();
 
         return $int;
+    }
 
+    public static function getImgSrc($recipe_id) {
+        $db = Database::getDb();
+        $r = new Recipes();
+        $db->setAttribute(PDO::ERRMODE_EXCEPTION, PDO::ATTR_ERRMODE);
+        $query = "SELECT img_src FROM recipe_imgs WHERE recipe_id = :recipe_id";
+
+        $statement = $db->prepare($query);
+        $statement->bindValue(":recipe_id", $recipe_id);
+        $statement->execute();
+        $rows = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        foreach($rows as $img) {
+            $r = new Recipes();
+            $r->setImgSrc($img->img_src);
+            $images[] = $r;
+        }
+        return $images;
     }
 }
 ?>

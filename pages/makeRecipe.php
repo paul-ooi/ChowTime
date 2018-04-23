@@ -150,6 +150,10 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
                                 if($spiceLevel == $key) {
                                     echo 'checked';
                                 }
+                                if($spiceLevel == "0") {
+                                    $spiceLevel = "zero";
+                                    echo ($spiceLevel == $key) ? 'checked' : "";
+                                }
                             }                            
                              ?>/>
                             <label for="<?= $key ?>" class="form-check-label"><?= $value ?></label>

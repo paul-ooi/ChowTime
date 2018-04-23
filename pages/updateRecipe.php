@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 1;
+$_SESSION['user_id'] = 8;
 /*======================*/
 
 $pageTitle = "Recipes";
@@ -23,11 +23,10 @@ require_once '../models/ingredientDB.php';
 require_once '../controllers/makeRecipe/updateRecipe.php';
 /*********************TESTING***********************/
 
-// var_dump($recipe_id);
-
 /************************TESTING********************/ 
 if(isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
+    $userRole = RecipeDb::getUserRole($user_id);
 } else {
     header("Location: http://localhost/chowtime/pages/login.php");
 }
@@ -38,8 +37,14 @@ if(isset($_SESSION['user_id'])) {
 </header>
 <main>
     <div class="wrapper">
+        <small class="instructions form-text text-danger">
+            <?php if(isset($_SESSION['recipe_err_mssg']['input_field_error'])) {
+                echo $_SESSION['recipe_err_mssg']['input_field_error'];
+            } ?>
+        </small>
         <form method="post" enctype="multipart/form-data" action="">
-        <input type="hidden" name="recipe_id" value="<?php if(isset($recipe_id)) {echo $recipe_id ;} ?>" />
+        <input type="hidden" name="recipe_id" value="<?php if(isset($recipe_id)) {echo $recipe_id;} ?>" />
+        <input type="hidden" name="user_role" value="<?php if(isset($userRole)) {echo $userRole;} ?>" />
         <!-- RECIPE TITLE -->
             <div class="form-group">
                 <div class="form-row">
@@ -249,16 +254,13 @@ if(isset($_SESSION['user_id'])) {
 
             } ?>
             <input type="submit" id="update" name="update" value="Save" class="btn btn-info"/>
-            <input type="delete" id="delete" name="delete" value="Delete Recipe" class="btn btn-info" />
-            <small class="instructions form-text text-danger">
-            <?php if(isset($_SESSION['recipe_err_mssg']['update_input_error'])) {
-                echo $_SESSION['recipe_err_mssg']['update_input_error'];
-            } ?>
-            </small>
+        </form>
+        <form enctype="multipart/form-data" method="POST" action="../controllers/makeRecipe/deleteRecipe.php">
+            <?php if($userRole['admin'] == 1) : ?>
+                <input type="submit" id="delete" name="delete" value="Delete Recipe" class="btn btn-info" />
+                <input type="hidden" name="recipe_id" value="<?php if(isset($recipe_id)) {echo $recipe_id;} ?>" />
+                <input type="hidden" name="user_role" value="<?php if(isset($userRole)) {echo $userRole[0];} ?>" />
+            <?php endif ?>
         </form>
     </div>
 </main>
-
-<?php 
-unset($_SESSION['recipe_err_mssg']);
-?>
