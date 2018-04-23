@@ -145,7 +145,7 @@ if ($comments == null){
 foreach ($comments as $cm) {
     $user = $p->getProfileById($db, $cm->user_id);
     echo '<div class="media">';
-    echo '<a href="../../pages/yourProfile.php?id=' . $user->id . '">';
+    echo '<a href="../../pages/userProfile.php?id=' . $user->id . '">';
         echo '<div class="media-left rounded-circle" style="height: 75px; width: 75px;background-image: url(../' . $user->pimage .'); background-size: cover; background-position:center;">';
         echo '</div>'; // End of media-left
     echo '</a>';
