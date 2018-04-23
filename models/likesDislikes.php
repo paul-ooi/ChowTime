@@ -46,7 +46,7 @@ class LikesDislikes {
     // READ FOR RECIPES
     public function getLikesByRecipe($db, $recipe_id){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = 'select * from recipe_likes where recipe_id = :recipe_id';
+        $sql = 'SELECT count(*) as count FROM recipe_likes WHERE recipe_id = :recipe_id;';
         $pdostm = $db->prepare($sql);
         $pdostm->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
         $pdostm->setFetchMode(PDO::FETCH_OBJ);
@@ -56,7 +56,7 @@ class LikesDislikes {
 
     public function getDislikesByRecipe($db, $recipe_id){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = 'select * from recipe_dislikes where recipe_id = :recipe_id';
+        $sql = 'SELECT count(*) as count FROM recipe_dislikes WHERE recipe_id = :recipe_id;';
         $pdostm = $db->prepare($sql);
         $pdostm->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
         $pdostm->setFetchMode(PDO::FETCH_OBJ);
