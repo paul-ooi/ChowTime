@@ -3,19 +3,10 @@ $(document).ready(function() {
 	$('form').on('submit',removeCheckbox);
 	$("#addNewBtn").click(insertEmptyIngredient);
 	$(".close").hide();
-// $(".ingred-item").on("click", function (e) {
-// 	removeIngredient(e);
-// })
-	// $.each(ingredientsList, function (key,))
-	// $(ingredientsList).click(function (e) {
-	//  	removeIngredient(e)
-	//  });
-
-
 });
 
 
-
+//ADD NEW INGREDIENT ITEM
 function insertEmptyIngredient() {
 	var newIngredient = $('#ingredientsList li:last-child').clone(true);
 	$('#ingredientsList').append(newIngredient);
@@ -34,6 +25,7 @@ function insertEmptyIngredient() {
 
 }
 
+//FIX WHICH CHECKBOX IS SUBMITTED ON SUBMIT OF INGREDIENTS
 function removeCheckbox() {
 	var checkboxes = $(".form-check-input:checked");
 	for (var i = 0; i < checkboxes.length; i++) {
