@@ -17,10 +17,7 @@ class TimerDB {
         $pdostm->execute();
 
         return $pdostm->fetchAll();
-        // $timerList;
-        // foreach ($userTimers as $key => $t) {
-        //     $timerList .=
-        // }
+
 
     }//end getAllTimersByUser
 

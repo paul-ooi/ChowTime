@@ -32,7 +32,7 @@ class Event {
         $pdostm->execute();
         return $pdostm->fetchAll();
     }
-
+	
     // READ 1 EVENT
     public function getEvent($db, $event_id){
         $sql = 'SELECT * FROM events where id = :event_id';
@@ -43,6 +43,17 @@ class Event {
         return $pdostm->fetchAll();
     }
 
+	//Get all event by event id sorted by start date
+		
+	public function getEventByStartDate($db, $event_id){
+        $sql = 'SELECT * FROM events where id = :event_id order by date, start_time';
+        $pdostm = $db->prepare($sql);
+        $pdostm->bindValue(':event_id', $event_id, PDO::PARAM_INT);
+        $pdostm->setFetchMode(PDO::FETCH_OBJ);
+        $pdostm->execute();
+        return $pdostm->fetchAll();
+    }
+	
     // Get unique dates
     public function getUniqueDatesByMonth($db, $start_date, $end_date){
         $start_date = date("Y-m-d", strtotime($start_date));
@@ -66,6 +77,15 @@ class Event {
     // Events Created By you
     public function myEvents($db, $user_id){
         $sql = 'select * from events where user_id = :user_id order by start_time';
+        $pdostm = $db->prepare($sql);
+        $pdostm->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $pdostm->setFetchMode(PDO::FETCH_OBJ);
+        $pdostm->execute();
+        return $pdostm->fetchAll();
+    }
+	
+	public function myEventsByStartDate($db, $user_id){
+        $sql = 'select * from events where user_id = :user_id order by date, start_time';
         $pdostm = $db->prepare($sql);
         $pdostm->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $pdostm->setFetchMode(PDO::FETCH_OBJ);
