@@ -152,7 +152,7 @@ foreach ($comments as $cm) {
 
     echo '<div class="media-body">';
 
-    echo '<button class="comProfile" name="user_id" value="'. $cm->user_id .'"><span><u>' . $user->fname . ' ' . $user->lname . '</u></span></button>';
+    echo '<a href="../../pages/yourProfile.php?id='. $cm->user_id .'"><u>' . $user->fname . ' ' . $user->lname . '</u></a>';
     // For users who are logged in to edit and delete these comments
     if (isset($_SESSION['user_id'])){
          if ($_SESSION['user_id'] == $cm->user_id){
