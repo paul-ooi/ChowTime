@@ -13,12 +13,7 @@ if(isset($_POST['food_id'])) {
 } else {
     $arrayLength = 1;//If none, populate once
 }
-// echo "<pre>";
-// var_dump($_POST);
-// // var_dump(number_format($array['quantity'][0]));
-// // var_dump($array);
-// // print_r(debug_backtrace());
-// echo "</pre>";
+
 ?>
  <fieldset class="form-group form-inline" name="ingreds">
      <div class="form-row">
@@ -26,6 +21,9 @@ if(isset($_POST['food_id'])) {
      <ul id="ingredientsList" class="col-md-10">
         <?php for ($i = 0; $i < $arrayLength; $i++) : ?>
          <li class="ingred-item row ml-3 ml-md-0">
+            <button type="button" class="close" aria-label="Delete Ingredient">
+                <span aria-hidden="true">&times;</span>
+            </button>
                  <div class="form-group col-sm-12 col-lg-3 ingred_form_item input-group-sm mb-md-3 mb-1">
                      <label class="ingred_form_label ingred_form_label_small" for="food_id"><span class="text-danger required">*</span>Food Item</label>
                      <select class="form-control" name="food_id[]" id="food_id">
