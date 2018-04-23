@@ -6,7 +6,25 @@ class TicketDB {
     public function __construct() {
         //singleton class
     }
+    //GET ALL TICKET CATEGORIES
+    public static function getTicketCatgetories($db) {
+        $sql = "SELECT * FROM ticket_category";
+        $pdostm = $db->prepare($sql);
 
+        $pdostm->setFetchMode(PDO::FETCH_OBJ);
+        $categories = $pdostm->execute();
+
+        return $categories; //array of categories and Id's
+    }
+
+
+    //CREATE TICKET IN TICKET TABLE
+
+    //GET ALL TICKETS FOR SPECIFIED USER
+
+    //GET ALL MESSAGES FOR SPECIFIED TICKET
+
+    //MARK TICKET AS CLOSED
     //Get all Tickets
     public static function getAllTickets($db) {
         $sql = "SELECT * FROM tickets t JOIN ticket_category tc ON t.category_id = tc.id";

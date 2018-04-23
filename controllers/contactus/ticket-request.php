@@ -1,3 +1,9 @@
+<?php
+    require_once "../../models/db.php";
+    require_once "../../models/ticket.php";
+    require_once "../../models/ticketDB.php";
+?>
+
 <main class="col-lg-8">
     <h1>Contact Us</h1>
     <form action="contactus.php" method="post" name="contact">
@@ -24,11 +30,12 @@
                 <option value="other">Other</option>
             </select>
         </div>
-        <div class="form-group">
+        <!-- FUTURE VERSION OF FORM TO INCLUDE SCREENSHOT UPLOAD -->
+        <!-- <div class="form-group">
             <label class="contact_form_label contact_form_label_small" name="cFile" for="cFile">Provide a related screenshot <small>(.JPG, .JPEG, .PNG)</small></label>
             <input type="file" name="cFile" id="cFile" accept=".jpg, .jpeg, .png" class="form-control"/>
             <label name="err_cFile" for="cFile" id="err_cFile" ></label>
-        </div>
+        </div> -->
         <div class="form-group">
             <label name="cMsg" for="cMsg">Describe your request</label>
             <textarea name="cMsg" id="cMsg" maxlength="500" class="form-control"></textarea>
