@@ -1,5 +1,5 @@
 <?php 
-
+session_start();
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -9,8 +9,11 @@ require '../../models/validation.php';
 require '../../models/recipeDB.php';
 require '../../models/recipes.php';
 require '../../models/db.php';
+require '../../models/ingredient.php';
+require '../../models/ingredientDB.php';
 
 $v = new Validation();
+$db = Database::getDb();
 //ON SUBMIT OF EMAIL RECIPE, VALIDATE
 if (isset($_POST['emailRecipe'])) {
     $recipe_id = $v->checkAssignProperty('recipe_id');
@@ -20,6 +23,20 @@ if (isset($_POST['emailRecipe'])) {
     if($recipe_id != null) {
         //GET THE RECIPE DETAILS
         $recipes = RecipeDb::displayById($recipe_id);
+        $ingredients = IngredientDB::getRecipeIngredients($db, $recipe_id);
+
+        foreach($ingredients as $key => $i) {
+            $ingredient .= 
+                "<li>
+                <span>".$i->quantity."</span>
+                <span>".$i->measurement."</span>
+                <span>".$i->prep."</span>
+                <span>".$i->food_name."</span>";
+
+            if($i->required ==0) {
+                $ingredient .= "<span>&lpar;Optional&rpar;</span></li>";
+            }
+        }
 
         $title = $recipes->title;
         $descr = $recipes->description;
@@ -32,7 +49,8 @@ if (isset($_POST['emailRecipe'])) {
         $steps = $recipes->steps;
 
         $arrSteps = explode(";", $steps);
-
+        $allSteps = "";
+        
         foreach($arrSteps as $step) {
             $allSteps .=  "<li>" . $step . "</li>";
         } 
@@ -54,19 +72,21 @@ if (isset($_POST['emailRecipe'])) {
                 <li>Difficulty Level: ".$diffLvl."</li>
                 <li>Spice Level: ".$spiceLvl."</li>
             </ul>
-            <ol>
-                <h3>Steps</h3>
-                ".$allSteps."
-            </ol>
+            <h3>Ingredients</h3>
+                <ul>
+                    ".$ingredient."
+                </ul>
+            <h3>Steps</h3>
+                <ol>
+                    ".$allSteps."
+                </ol>
         </html>";
         $isHTML = true;
 
         try {
-            $result = send_email($email, $name, $fromAddress, $fromName, $subject, $body, $isHTML);
-            if($result) {
-                $_SESSION['email_mssg'] = "Your email has been sent.";
-                header("Location: ../../pages/recipes.php?&id=" . $recipe_id);
-            }
+            send_email($email, $name, $fromAddress, $fromName, $subject, $body, $isHTML);
+            $_SESSION['email_mssg'] = "Your email has been sent.";
+            header("Location: ../../pages/recipes.php?&id=" . $recipe_id);
         }
         catch(Exception $e) {            
             $_SESSION['email_mssg'] = $e->getMessage();

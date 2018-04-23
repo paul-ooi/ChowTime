@@ -50,6 +50,12 @@ h3 {
     border: none;
 }
 
+/* EMAIL SECTION */
+#email_recipe {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
 /* ICONS */
 .icon-img-container {
     width: 2em;
@@ -69,25 +75,7 @@ h3 {
     margin-bottom: 1rem;
 }
 
-/* COMMENTS */
-.comments-display-container {
-    margin-top: 20px;
-}
-
-.user-comment-container {
-    margin-bottom: 1rem;
-}
-
-.user_comment {
-    margin-top: 1rem;
-}
-
-.profile-photo {
-    height: 100px;
-    width: 100px;
-    border: 1px solid black;
-}
-
+/* MEDIA QUERIES */
 
 @media (max-width: 900px) {
     .thumbnail-container {

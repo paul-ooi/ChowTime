@@ -56,7 +56,7 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     } ?></p>
                     <form method="POST" action="/chowtime/pages/updateRecipe.php" class="text-right form-inline">
                         <input type="submit" id="updateRecipe" name="updateRecipe" class="btn" value="Update"/>
-                        <input type="hidden" name="recipe_id" value="<?= $recipe_id ?>"/>
+                        <input type="hidden" name="recipe_id" value="<?php if(isset($recipe_id)) {echo $recipe_id;} ?>"/>
                     </form>
                 </div>
                 <?php endif ?>
@@ -124,25 +124,35 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     <h3 class="text-center" id="recipe_descr"><?= $recipe->description ?></h3>
                     <div class="text-center"><a href="https://www.pinterest.com/pin/create/button/" data-pin-do="buttonBookmark"></a></div>
                     <!-- EMAIL RECIPE TO MYSELF LINK -->
-                    <form method="post" action="../controllers/Recipe/emailRecipe.php" class="text-center">
+                    <form method="post" action="../controllers/Recipe/emailRecipe.php" class="">
+                    <hr />
+                        <h5 id="email_recipe">Email this recipe:</h5>
                         <input type="hidden" name="recipe_id" value="<?php echo $recipe_id ?>" />
-                        <div class="form-row">
-                            <div class="form-group">
-                                <legend class="col-form-label">To Email:</legend>
-                                <input type="email" name="toEmail" class="form-control"/>        
-                            </div>
-                            <div class="form-group">
-                                <legend class="col-form-label">To Name:</legend>
-                                <input type="text" name="toName" class="form-control"/>
+                        <div class="form-row justify-content-center flex-column">
+                            <div class="form-group row">
+                                <legend class="col-form-label col-sm-2">To Email:</legend>
+                                <div class="col-sm-10">
+                                    <input type="email" name="toEmail" class="form-control"/>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <div class="form-row justify-content-center flex-column">
+                            <div class="form-group row">
+                                <legend class="col-form-label col-sm-2">To Name:</legend>
+                                <div class="col-sm-10">
+                                    <input type="text" name="toName" class="form-control"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row justify-content-center">
                             <input type="submit" name="emailRecipe" value="Email Recipe" class="btn">
-                            <small class="text-muted">
-                            <?php if(isset($_SESSION['email_mssg'])) {
-                                echo $_SESSION['email_mssg'];
-                            }?>
-                            </small>
+                            <div>
+                                <small class="text-muted">
+                                <?php if(isset($_SESSION['email_mssg'])) {
+                                    echo $_SESSION['email_mssg'];
+                                }?>
+                                </small>
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -194,12 +204,12 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     </div>
                 </div>
             </div> <!-- End aside right -->
-             <!-- <div class="comments-display-container">
+             <div class="comments-display-container">
                 <?php 
                 include '../controllers/comments/commentbox.php';
                 include '../controllers/comments/listComments.php';
                     ?>
-            </div>            -->
+            </div>           
         </div>
         <script>
             window.pAsyncInit = function() {
