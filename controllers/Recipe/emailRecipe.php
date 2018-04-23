@@ -120,8 +120,8 @@ function send_email($to_address, $to_name, $from_address, $from_name,
     $mail->SMTPSecure = 'tls';                   // Set encryption type
     $mail->Port = 587;                           // Set TCP port
     $mail->SMTPAuth = true;                      // Enable SMTP authentication
-    $mail->Username = 'jessica.pearl.wong@gmail.com'; // Set SMTP username
-    $mail->Password = 'ndubhtmajcwysttl';           // Set SMTP password
+    $mail->Username = 'chowtimeauthentication@gmail.com'; // Set SMTP username
+    $mail->Password = 'chowtimepass';           // Set SMTP password (ndubhtmajcwysttl)
     $mail->SMTPOptions = array(
         'ssl' => array(
             'verify_peer' => false,

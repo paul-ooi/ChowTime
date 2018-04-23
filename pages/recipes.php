@@ -44,6 +44,7 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
 <header class="container ddwrapper">
     <?php require_once 'partial/_mainnav.php' ?>
 </header>
+<div id="background-image">
     <main>
         <!-- IF USER IS THE SAME AS THE ONE WHO CREATED THE RECIPE, THEY CAN ALSO EDIT. -->
         <?php if(isset($_SESSION['user_id'])) :
@@ -61,8 +62,10 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                 </div>
                 <?php endif ?>
         <?php endif?>
-        <meta property="og:https://www.jesscwong.ca" content="letthebakingbeginblog.com" />
         <div itemscope itemtype="http://schema.org/Recipe">
+        
+        
+        <!-- <div class="card" style="width: 100%; background-color: rgba(255, 255, 255, 0.5); margin-top: 2rem;">                     -->
         <h2 itemprop="name"><?= $recipe->title ?></h2>
             <div class="row aside-left">
                 <div class="col-sm-6 main-image-thumbnail-container">
@@ -211,6 +214,9 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     ?>
             </div>           
         </div>
+
+
+        <!-- PINTEREST SECTION -->
         <script>
             window.pAsyncInit = function() {
                 PDK.init({
@@ -227,6 +233,7 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
             }(document, 'script', 'pinterest-jssdk'));
         </script>
     </main>
+<!-- </div> -->
 <?php include 'partial/_footer.php'; ?>
 </body>
 <?php 

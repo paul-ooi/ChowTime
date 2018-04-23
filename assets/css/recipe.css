@@ -9,7 +9,11 @@ COMMENTS
  */
 
  /* USE EVERYWHERE */
-
+#background-image {
+    /* background-image: url("../../images/recipe-bg.jpg"); */
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 /* PAGE LAYOUT */
 main {

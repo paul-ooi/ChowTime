@@ -87,12 +87,10 @@ if(isset($_POST["addRecipe"])) {
                     //UPDATE THE RECIPE MAIN IMAGE BY GETTING THE MAX ID OF RECIPE AND MAX ID OF THE IMG
                     $last_img_id = RecipeDb::getLastImgId();
                     $last_recipe_id = RecipeDb::getLastRecipe();
-                    $r->setImgId($last_img_id[0]);
+                    $r->setImgId($last_img_id[0] + 1);
                     $r->setRecipeId($last_recipe_id[0]);
 
                     $main_img_updated = RecipeDb::updateMainImage($r);
-                    
-          
 
                     //INSERT INGREDIENTS INTO RECIPE_INGREDIENTS TABLE
                     $ingredients = makeIngredientObjs(getAllIngredients(), $r->getRecipeId()); //build Array of Ingredients

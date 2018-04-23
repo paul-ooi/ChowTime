@@ -63,9 +63,6 @@ foreach($currUserAdd as $user) {
 }
 
 echo json_encode($finalArray);
-// echo "<pre>";
-// var_dump($users);
-// echo "</pre>";
 
 //https://stackoverflow.com/questions/18377469/php-give-a-name-to-an-array-of-json-objects?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
 
