@@ -159,12 +159,8 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
                 </div>
             </fieldset>
     <!-- INGREDIENTS -->
-    <?php
-
-    // //include the Add Ingredient section  (Paul's Lab 6) -needs some formatting still
-     include '../controllers/ingredients/ingredient_add.php'
-
-     ?>
+    <?php // //include the Add Ingredient section  (Paul's Modified Lab 6)
+     include '../controllers/ingredients/ingredient_add.php';?>
            <!-- <fieldset class="form-group">
                 <div class="form-row">
                     <legend class="col-form-label col-sm-3 col-md-2"><span class="text-danger">*</span>Ingredients</legend>

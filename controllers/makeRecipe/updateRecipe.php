@@ -289,6 +289,47 @@ if(isset($_POST['update'])) {
             return true;
         }
     }
+
+    //GET INGEDIENTS FIELDS FROM FORM AND PLACE IN AN ASSOCIATED ARRAY -- Paul Ooi
+    function getAllIngredients() {
+        $ingredients = [
+            'food_id' => $_POST['food_id'],
+            'quantity' => $_POST['qty'],
+            'measurement'  => $_POST['measure'],
+            'preparation'  => $_POST['prep'],
+            'required'  => $_POST['required']
+        ];
+        return $ingredients;
+    }
+
+    // CREATE ARRAY OF INGREDIENT OBJECTS TO SEND TO DATABASE ACTION -- Paul Ooi
+    function makeIngredientObjs($ingredientsArray, $recipe_id) {
+        
+        $ingredients = [];
+        for ($i = 0; $i < count($ingredientsArray['food_id']); $i++) {
+            //Check for empty values and assign appropriate values to Object
+            $unit = ($ingredientsArray['measurement'][$i] == "") ? null : ($ingredientsArray['measurement'][$i] == "") ;
+            $prep = ($ingredientsArray['preparation'][$i] == "") ? null : ($ingredientsArray['preparation'][$i]) ;
+            $req = ($ingredientsArray['required'][$i] == "true") ? 1 : 0;
+            
+            $item = new Ingredient(
+                $recipe_id,
+                $ingredientsArray['food_id'][$i],
+                $ingredientsArray['quantity'][$i],
+                $unit,
+                $prep,
+                $req
+            );
+
+            //Add object to array
+            $ingredients[] = $item;
+        }
+        //Reuturn the Array of Ingredient Objects
+        return $ingredients;
+    }
+
+
+
     /************************UPDATE****************************/
     //IF ALL INFORMATION IS VALID
     if(checkInputFields($intitle, $indesc, $inprepTime, $incookTime, $spiceLvl, $iningredDiff, $inoverallDiff, $indishDiff, checkForEmptySteps(), $indate, $intime, $errors)) {
@@ -302,6 +343,13 @@ if(isset($_POST['update'])) {
         //INSERT INTO DATABASE RECIPES
         $r->setRecipeUpdate($recipe_id, $intitle, $indesc, $inprepTime, $incookTime, $indishDiff, $iningredDiff, $inoverallDiff, $spiceLvl, $datetime, $steps);
         $updates = RecipeDB::updateRecipe($r);
+
+        // DELETE OLD INGREIDENTS AND INSERT NEW INGREDIENTS FOR THIS RECIPE INTO DATABASE RECIPES_INGREDIENTS TABLE
+        $ingredients = makeIngredientObjs(getAllIngredients(), $recipe_id); //build Array of Ingredients
+        $db = Database::getDb();
+        IngredientDB::updateIngredient($db,$ingredients);
+
+
 
         //REPOPULATE THE FORM
         $allRecipes = $rDb->displayById($recipe_id);
@@ -357,7 +405,7 @@ if(isset($_POST['update'])) {
         }
     }
 
-    header("Location: http://localhost/chowtime/pages/recipes.php?$recipe_id");
+    header("Location: recipes.php?&id=$recipe_id");
 } //END UPDATE
 
 

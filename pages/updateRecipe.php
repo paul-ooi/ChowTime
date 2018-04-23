@@ -10,6 +10,7 @@ require_once 'partial/_header.php';
 <script src="../assets/js/recipe.js"></script>
 <link rel="stylesheet" href="../assets/css/recipe.css" />
 <link rel="stylesheet" type="text/css" href="../assets/css/makeRecipe.css" />
+<link rel="stylesheet" type="text/css" href="../assets/css/ingredients.css" />
 </head>
 
 <?php
@@ -17,10 +18,12 @@ require_once 'partial/_mainnav.php';
 require_once '../models/recipeDB.php';
 require_once '../models/db.php';
 require_once '../models/recipes.php';
+require_once '../models/ingredient.php';
+require_once '../models/ingredientDB.php';
 require_once '../controllers/makeRecipe/updateRecipe.php';
 /*********************TESTING***********************/
 
-var_dump($recipe_id);
+// var_dump($recipe_id);
 
 /************************TESTING********************/ 
 if(isset($_SESSION['user_id'])) {
@@ -198,26 +201,10 @@ if(isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </fieldset>
-        <!-- PUB DATE -->
-           <div class="form-group">
-                <div class="form-row">
-                    <label for="pubDate" class="col-sm-2 col-form-label"><span class="text-danger">*</span>Published Date</label>
-                    <div class="col-sm-3">
-                        <input type="date" class="form-control" id="pubDate" name="inDate" placeholder="15" value="<?php if(isset($date)) {echo $date;} ?>"/>
-                        <small class="instructions form-text text-muted">Date of publication</small>
-                    </div>
-                </div>
-            </div>
-        <!-- PUB TIME -->
-           <div class="form-group">
-                <div class="form-row">
-                    <label for="pubTime" class="col-sm-2 col-form-label"><span class="text-danger">*</span>Published Time</label>
-                    <div class="col-sm-3">
-                        <input type="time" class="form-control" id="pubTime" name="inTime" placeholder="15" value="<?php if(isset($time)) {echo $time;} ?>"/>
-                        <small class="instructions form-text text-muted">Time of publication</small>
-                    </div>
-                </div>
-            </div>        
+            <!-- INGREDIENTS -->
+        <?php //include the Update Ingredient section  (Paul's Modified Lab 6)
+     include '../controllers/ingredients/ingredient_update.php';?>
+    
         <!-- STEPS -->
             <fieldset class="form-group">
                 <div class="form-row">
@@ -237,6 +224,27 @@ if(isset($_SESSION['user_id'])) {
                     </div>
                 </div>
             </fieldset>
+
+        <!-- PUB DATE -->
+           <div class="form-group">
+                <div class="form-row">
+                    <label for="pubDate" class="col-sm-2 col-form-label"><span class="text-danger">*</span>Published Date</label>
+                    <div class="col-sm-3">
+                        <input type="date" class="form-control" id="pubDate" name="inDate" placeholder="15" value="<?php if(isset($date)) {echo $date;} ?>"/>
+                        <small class="instructions form-text text-muted">Date of publication</small>
+                    </div>
+                </div>
+            </div>
+        <!-- PUB TIME -->
+           <div class="form-group">
+                <div class="form-row">
+                    <label for="pubTime" class="col-sm-2 col-form-label"><span class="text-danger">*</span>Published Time</label>
+                    <div class="col-sm-3">
+                        <input type="time" class="form-control" id="pubTime" name="inTime" placeholder="15" value="<?php if(isset($time)) {echo $time;} ?>"/>
+                        <small class="instructions form-text text-muted">Time of publication</small>
+                    </div>
+                </div>
+            </div>    
             <?php if(isset($user_id)) {
 
             } ?>
