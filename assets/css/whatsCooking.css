@@ -4,7 +4,7 @@
 }
 
 main {
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -13,13 +13,15 @@ main {
 }
 
 /* HEADING */
-#heading {
+.title-blurb-container {
     text-align: center;
 }
 
 /* MAP */
 #map {
     height: 500px;
+    margin: 0 auto;
+    margin-bottom: 2rem;
 }
 
 .mainRecipeTitle {
