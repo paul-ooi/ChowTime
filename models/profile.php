@@ -75,5 +75,14 @@ class Profile
         $profile = $pdostm->fetch(PDO::FETCH_OBJ);
         return $profile;
 	}
-
+	public function userRecipes($db, $id) {
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "SELECT * FROM recipes WHERE user_id = :id";
+        $pdostm = $db->prepare($query);
+        $pdostm->bindValue(":id", $id, PDO::PARAM_INT);
+		$pdostm->setFetchMode(PDO::FETCH_OBJ);
+        $pdostm->execute();
+        
+        return $pdostm->fetchAll();
+    }
 }
