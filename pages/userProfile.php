@@ -28,7 +28,7 @@ require_once 'Whats-cooking.php';
 		<section class="mx-auto text-center text-md-left" id="top-category">
             <div class="row">
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><img src="../assets/imgs/image1.jpg" alt="plate of spaghetti" class="img-fluid rounded"/></a>
+                <img src="../assets/imgs/image1.jpg" alt="plate of spaghetti" class="img-fluid rounded"/>
             </div>
             <div class="gallery-item col-sm-6 col-lg-4 text-left">
 				<div class="sm-1 lg-1 text-left">

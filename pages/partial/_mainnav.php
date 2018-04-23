@@ -10,8 +10,8 @@
             <?php if (!isset($_SESSION['user_id'])) { ?>
             <li><a class="nav-link px-2 " href="/chowtime/pages/login.php">Login</a></li>
             <?php } else { ?>
-            <li><a class="nav-link px-2 " href="/chowtime/pages/userProfile.php">My Profile</a></li>
-            <li><a class="nav-link px-2 " href="/chowtime/pages/logout.php">Logout</a></li>
+            <li><a class="nav-link px-2 " href="/chowtime/pages/yourProfile.php">My Profile</a></li>
+            <li><a class="nav-link px-2 " href="/chowtime/pages/login.php">Logout</a></li>
             <?php } ?>
         </ul>
     </nav>
