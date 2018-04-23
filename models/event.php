@@ -32,7 +32,7 @@ class Event {
         $pdostm->execute();
         return $pdostm->fetchAll();
     }
-	
+
     // READ 1 EVENT
     public function getEvent($db, $event_id){
         $sql = 'SELECT * FROM events where id = :event_id';
@@ -44,7 +44,7 @@ class Event {
     }
 
 	//Get all event by event id sorted by start date
-		
+
 	public function getEventByStartDate($db, $event_id){
         $sql = 'SELECT * FROM events where id = :event_id order by date, start_time';
         $pdostm = $db->prepare($sql);
@@ -53,7 +53,7 @@ class Event {
         $pdostm->execute();
         return $pdostm->fetchAll();
     }
-	
+
     // Get unique dates
     public function getUniqueDatesByMonth($db, $start_date, $end_date){
         $start_date = date("Y-m-d", strtotime($start_date));
@@ -83,9 +83,9 @@ class Event {
         $pdostm->execute();
         return $pdostm->fetchAll();
     }
-	
+
 	public function myEventsByStartDate($db, $user_id){
-        $sql = 'select * from events where user_id = :user_id order by date, start_time';
+        $sql = 'select * from events where user_id = :user_id order by date';
         $pdostm = $db->prepare($sql);
         $pdostm->bindValue(':user_id', $user_id, PDO::PARAM_INT);
         $pdostm->setFetchMode(PDO::FETCH_OBJ);
@@ -158,5 +158,14 @@ class Event {
         $pdostm->bindValue(':id', $id, PDO::PARAM_INT);
         $count = $pdostm->execute();
         return $count;
+    }
+
+    // GET THEME BANNERS
+    public function getBanner($db){
+        $sql = 'SELECT * FROM theme_pics';
+        $pdostm = $db->prepare($sql);
+        $pdostm->setFetchMode(PDO::FETCH_OBJ);
+        $pdostm->execute();
+        return $pdostm->fetchAll();
     }
 }

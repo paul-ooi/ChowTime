@@ -1,4 +1,5 @@
 <?php
+require_once '../../models/db.php';
 require_once '../../models/comment.php';
 require_once '../../models/profile.php';
 require_once '../../models/likesDislikes.php';
@@ -20,7 +21,6 @@ $input_type = 'hidden';
 $upd = 'update';
 $edit = '<i class="fas fa-edit"></i>';
 
-// Adding a Comment
 if (isset($_POST['add'])){
     $eventId = $_SESSION['event_id'];
     $userId = $_SESSION['user_id'];
@@ -145,11 +145,10 @@ if ($comments == null){
 foreach ($comments as $cm) {
     $user = $p->getProfileById($db, $cm->user_id);
     echo '<div class="media">';
-    echo '<div class="media-left">';
-        echo '<form action="../../pages/yourProfile.php">';
-            echo '<img class="media-object __event_image rounded-circle" src="" alt="" >'; // src="to be added" alt ="' . $user->fname . ' ' . $user->lname . 'profile picture"
-        echo '</form>';
-    echo '</div>'; // End of media-left
+    echo '<a href="../../pages/yourProfile.php?id=' . $user->id . '">';
+        echo '<div class="media-left rounded-circle" style="height: 75px; width: 75px;background-image: url(../' . $user->pimage .'); background-size: cover; background-position:center;">';
+        echo '</div>'; // End of media-left
+    echo '</a>';
 
     echo '<div class="media-body">';
 
