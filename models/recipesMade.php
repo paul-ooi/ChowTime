@@ -103,11 +103,14 @@ class RecipesMade {
         return $count;
     }
 
-    //DELETE
-    public function deleteRecipeMade($db, $id) {
+    //DELETE - WHEN DELETING A RECIPE - JESSICAS CODE
+    public function deleteRecipeMade() {
+        $db = Database::getDb();
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "DELETE FROM recipes_made WHERE id = :id";
+        $query = "DELETE FROM recipes_made WHERE recipe_id = :id";
         $statement = $db->prepare($query);
+
+        $id = $this->getRecipeId();
         $statement->bindValue(":id", $id, PDO::PARAM_INT);
         $count = $statement->execute();
         return $count;

@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 8;
 
 if(isset($_SESSION['user_id'])) {
     $id = $_SESSION['user_id'];

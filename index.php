@@ -1,7 +1,5 @@
 <?php
 session_start();
-$_SESSION['user_id'] = 5;
-
 $pageTitle = "It&apos;s Chow Time Application";
 require_once 'pages/partial/_header.php';
 

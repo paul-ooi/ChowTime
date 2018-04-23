@@ -75,7 +75,7 @@ if(isset($_POST["addRecipe"])) {
             //CHECK FILES ARE VALID AND STEPS ARE ENTERED
             if(recipeStepsReturn()) {
                 if(checkFiles($errors, $r)) {
-                    //DO INSERT IMAGE INTO DATABASE
+                    //GET ALL THE STEPS
                     $steps = allRecipeSteps();
 
                     //LEAVE THE MAIN IMG ID AS NULL
@@ -84,12 +84,17 @@ if(isset($_POST["addRecipe"])) {
                     //INSERT INTO RECIPE
                     $recipe_in = RecipeDb::addRecipe($r);
 
+                    //GET THE MAX ID OF RECIPE WHICH JUST INSERTED INTO RECIPE IMAGES (IMG FILE NAME WAS ALREADY SET)
+                    $last_recipe_id = RecipeDb::getLastRecipe();
+                    $r->setRecipeId($last_recipe_id[0]);
+                    $img_in = RecipeDb::insertImage($r);
+
                     //UPDATE THE RECIPE MAIN IMAGE BY GETTING THE MAX ID OF RECIPE AND MAX ID OF THE IMG
                     $last_img_id = RecipeDb::getLastImgId();
                     $last_recipe_id = RecipeDb::getLastRecipe();
-                    $r->setImgId($last_img_id[0] + 1);
+                    $r->setImgId($last_img_id[0]);
                     $r->setRecipeId($last_recipe_id[0]);
-
+                    
                     $main_img_updated = RecipeDb::updateMainImage($r);
 
                     //INSERT INGREDIENTS INTO RECIPE_INGREDIENTS TABLE
