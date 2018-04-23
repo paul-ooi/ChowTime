@@ -39,12 +39,17 @@ if(isset($_POST['food_id'])) {
                          <?php 
                          if (!empty($array)) {
                          foreach ($fList as $key => $f) : ?>
+                         
                              <option value="<?php echo $f->id ?>" 
                                 <?php if (isset($_POST['food_id']) && $f->id == $array['food_id'][$i]) : echo "selected"; endif ?>
                                 <?php if (isset($_POST['updateRecipe']) && $f->id == $array[$i]->ing_id) { echo "selected"; } else { echo ""; }  ?>
                              ><?php echo $f->food_name ?>
                              </option>
-                         <?php endforeach ;}?>
+                         <?php endforeach ;} else { 
+                             foreach ($fList as $key => $f) : ?>
+                             <option value="<?php echo $f->id ?>"><?php echo $f->food_name ?>
+                             </option> 
+                             <?php endforeach ;}?>
 
                      </select>
                      <label class="error" for="food_id" name="errName"><?php //echo htmlspecialchars($errorFoodId); ?></label>
@@ -68,7 +73,11 @@ if(isset($_POST['food_id'])) {
                              <?php if (isset($_POST['measure']) && $m->id == $array['measurement'][$i]) : echo "selected"; endif ?>
                              <?php if (isset($_POST['updateRecipe']) && $m->id == $array[$i]->unit) : echo "selected"; endif ?>
                              ><?php echo $m->measurement ?></option>
-                         <?php endforeach ;} ?>
+                         <?php endforeach ;}  else { 
+                             foreach ($mList as $key => $m) : ?>
+                             <option value="<?php echo $m->id ?>"><?php echo $m->measurement ?>
+                             </option> 
+                             <?php endforeach ;}?>
                      </select>
                      <label class="error" for="measure" name="errMeasure"><?php //echo htmlspecialchars($errorMeasure); ?></label>
                  </div>

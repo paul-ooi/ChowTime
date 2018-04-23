@@ -10,28 +10,21 @@ require_once '../../models/recipeDB.php';//use Jessica's RecipeDB model
 require_once '../../models/db.php';
 $db = Database::getDb();
 
-// var_dump($_GET);
+// USE GET KEY AND VALUE TO SEARCH THE DATABASE
 switch($_GET['action']) {
     case ('searchKey'):
         $searchParam = $_GET['phrase'];
-        // echo "inside searchKey";
         $results = RecipeDb::getRecipeDetailsByTitle($searchParam);
-
-        // var_dump($results);
         break;
 }
-// echo "<pre>";
-// print_r($results);
-// // var_dump($_SERVER);
-// // var_dump($_ENV);
-// echo "</pre>";
 
  ?>
  <h2>Search Results &lpar;<?php echo count($results) ?> Recipes&rpar;</h2>
 <ul>
-    <?php foreach ($results as $key => $r) {?>
+    <?php  foreach ($results as $key => $r) {?>
     <li class="recipe-item row mb-5">
         <div class="row mb-3">
+            
             <figure class="col-4 mb-2 px-0">
                 <img class="recipe-img img-fluid" src="chowtime/<?php echo $r->img_src?>" alt=""/>
             </figure>

@@ -1,14 +1,28 @@
-var ingredientsList;
+var closeButtons;
 $(document).ready(function() {
 	$('form').on('submit',removeCheckbox);
 	$("#addNewBtn").click(insertEmptyIngredient);
-	$(".close").hide();
+	closeButtons = $(".close");
+	if (closeButtons.length > 1) {
+		$(".close").show();
+		
+		for (var closeBtn of closeButtons) {
+			$(closeBtn).on("click", function (e) {
+				e.stopPropagation();
+				removeIngredient(e);
+			})
+		}
+	} else {
+		$(".close").hide();
+	} 
+
+
 });
 
 
 //ADD NEW INGREDIENT ITEM
 function insertEmptyIngredient() {
-	var newIngredient = $('#ingredientsList li:last-child').clone(true);
+	var newIngredient = $('#ingredientsList li:last-child').clone(false);
 	$('#ingredientsList').append(newIngredient);
 	//ADD LISTENER TO EACH INGREDIENT ROW
 	closeButtons = document.querySelectorAll(".close");
