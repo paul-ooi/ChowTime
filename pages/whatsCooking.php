@@ -14,8 +14,11 @@ require_once 'Whats-cooking.php';
     <?php require_once 'partial/_mainnav.php' ?>
 </header>
 <main>
-    <h1 id="heading">What's Cooking?</h1>
-    <div class="filter-icon-container">
+    <div class="title-blurb-container">
+        <h1>What's Cooking?</h1>
+        <p>Take a look around to see what other people are cooking in the neighbourhood! Click on the icon to see.</p>
+    </div>
+    <!-- <div class="filter-icon-container">
         <img src="../assets/icons/horizontal-filter.svg" alt="filter-icon" id="filter-btn"/>
     </div>
     <span class="filter-text">Filter Results</span>
@@ -56,10 +59,11 @@ require_once 'Whats-cooking.php';
                 </div>
                 <input type="submit" id="filter" name="filter" class="btn btn-info"/>
             </form>
-        </div>
+        </div> -->
         <!-- END FILTER BAR CONTAINER -->
+    <!-- <div class="d-flex map-filter-container"> -->
         <div class="col-lg-8" id="map"></div>
-    </div>
+    <!-- </div> -->
     <!-- END ROW -->
 
     <script src="https://maps.googleapis.com/maps/api/js?key=<?= $googleKey ?>&callback=initializeMap"
