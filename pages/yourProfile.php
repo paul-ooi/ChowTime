@@ -39,6 +39,9 @@ require_once 'partial/_mainnav.php';
 					<a href="editProfile.php"><p>Edit Profile</p></a>
 				</div>
             </div>
+			<div class="gallery-item col-sm-6 col-lg-4 text-left">
+				Google Maps inc.
+            </div>
 		</section>
 		<hr/>
         <section class="mx-auto text-center text-md-left" id="top-category">
@@ -77,27 +80,14 @@ require_once 'partial/_mainnav.php';
 		<section class="mx-auto text-center text-md-left" id="top-category">
             <div class="row"> <!--../assets/imgs/eventplaceholder.png-->
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="../controllers/events/allEvents.php"><h3>Events</h3><img src="eventplaceholder.png" alt="Placeholder Image of a Calendar need to talk to Sophia on how to show it." class="img-fluid rounded"/></a>
+                <a href="../controllers/events/allEvents.php"><h3>Upcoming Events</h3><p>Events that you are registered to attend</p>
             </div>
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><h3>Suggested</h3><p>Not sure how I'm going to do the functionality for this. Might get cut</p>
+                <a href="index.php"><h3>Your Events</h3><p>Events that you are hosting</p>
             </div>
             <div class="gallery-item col-sm-12 col-lg-4 text-center">
                 <a href="index.php"><h3>My Food</h3></a>
-				
-					<ul>
-						<a href="index.php"><li>Food Item Added: DD/MM/YYYY</li></a>
-						<a href="index.php"><li>Food Item Added: DD/MM/YYYY</li></a>
-						<a href="index.php"><li>Food Item Added: DD/MM/YYYY</li></a>
-						<a href="index.php"><li>Food Item Added: DD/MM/YYYY</li></a>
-						<a href="index.php"><li>Food Item Added: DD/MM/YYYY</li></a>
-						<a href="index.php"><li>Food Item Added: DD/MM/YYYY</li></a>
-						<a href="index.php"><li>Food Item Added: DD/MM/YYYY</li></a>
-						<a href="index.php"><li>Food Item Added: DD/MM/YYYY</li></a>
-						<p>Coming from my last feature, not fully developed yet</p>
-						
-					</ul>
-					<a href="index.php">Full Fridge List</a>
+				Fridge feature
             </div>
 		</section>
 		<hr/>
