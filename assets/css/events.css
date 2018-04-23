@@ -5,7 +5,7 @@ section {
 
 #suggested {
     height: 250px;
-    background-color: lightgrey;
+    background-color: #dab284;
 }
 
 .__event_date {
@@ -21,7 +21,6 @@ section {
 .__event_image {
     min-width: 65px;
     min-height: 65px;
-    background-color: grey;
 }
 
 .__event_description {
@@ -32,9 +31,22 @@ section {
 .__banner {
     height: 300px;
     background-color: darkgrey;
+    overflow: hidden;
+    padding: 0;
+}
+
+.__banner .wrapper{
+    height: 100%;
+}
+
+.__banner .wrapper ._content h1,.__banner .wrapper ._content p {
+    width: auto;
+    padding: 4px;
+    background-color: #fdebe3;
+    opacity: 0.8
 }
 
 .__suggested_thumb {
     height: 110px;
-    background-color: grey;
+    background-color: #ac6f67;
 }

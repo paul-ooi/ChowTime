@@ -2,12 +2,10 @@
 session_start();
 require_once '../models/db.php'; //Database Class file
 require_once '../models/profile.php'; //Profile Logic file
-require_once '../models/recipesMade.php'; //Profile Logic file
-require_once '../models/recipeDB.php'; //Profile Logic file
+require_once '../models/event.php'; //Profile Logic file
 require_once '../models/validation.php'; //Validation Library File
 $db = Database::getDb();
 $p = new Profile();
-
 if(isset($_GET['id'])) {
     $user_id = $_GET['id'];
 }
@@ -51,12 +49,17 @@ require_once 'partial/_mainnav.php';
 			$count = 0;
 			foreach($yourRecipes as $recipe)
 			{
-				$totalRecipe = $p->recipeById($db, $recipe->id);
-				?>
-				<div class="gallery-item col-sm-6 col-lg-3 text-center">
-					<a href="recipes.php?&id=<?php echo $recipe->id ?>"><h3><?php echo $totalRecipe->title; ?></h3><img src="<?php echo $totalRecipe->img_src; ?>" alt="Image of <?php echo $totalRecipe->title; ?>" class="img-fluid rounded"/></a>
-				</div>
+				if($count >= $diff)
+				{
+					$totalRecipe = $p->recipeById($db, $recipe->id);
+					?>
+					<div class="gallery-item col-sm-6 col-lg-3 text-center">
+						<a href="recipes.php?&id=<?php echo $recipe->id ?>"><h3><?php echo $totalRecipe->title; ?></h3><img src="<?php echo $totalRecipe->img_src; ?>" alt="Image of <?php echo $totalRecipe->title; ?>" class="img-fluid rounded"/></a>
+					</div>
+				
 			<?php	
+				}
+				$count++;
 			}
 			?>
 			</div>
@@ -66,7 +69,7 @@ require_once 'partial/_mainnav.php';
 			?>
 			<div class="row">
 				<div class="form-group col-lg-6 offset-lg-6 text-right">
-					<a href="">See all of your recent recipes</a>
+					<a href="">See all of their recent recipes</a>
 				</div>				
 			</div>
 			<?php
@@ -103,7 +106,7 @@ require_once 'partial/_mainnav.php';
 			?>
 			<div class="row">
 				<div class="form-group col-lg-6 offset-lg-6 text-right">
-					<a href="">See all of your recent recipes</a>
+					<a href="">See all of their recent recipes</a>
 				</div>				
 			</div>
 			<?php

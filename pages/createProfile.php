@@ -62,15 +62,13 @@ if(isset($_POST['createProfile']))
 <link rel="stylesheet" type="text/css" href="../assets/css/whatsCooking.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
-<script src="../assets/js/whatsCooking.js"></script>
 </head>
 
 <?php
 require_once 'partial/_mainnav.php';
-//require_once 'Whats-cooking.php';
 ?>
 	<main class="container ddwrapper  mb-5">
-<form action="createProfilePage.php" method="post" name="createP">
+<form action="createProfile.php" method="post" name="createP">
 	<div class="row">
         <div class="form-group col-lg-6">
             <label name="fname" for="fname">First Name</label>
