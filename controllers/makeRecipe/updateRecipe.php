@@ -311,7 +311,7 @@ if(isset($_POST['update'])) {
         $ingredients = [];
         for ($i = 0; $i < count($ingredientsArray['food_id']); $i++) {
             //Check for empty values and assign appropriate values to Object
-            $unit = ($ingredientsArray['measurement'][$i] == "") ? null : ($ingredientsArray['measurement'][$i] == "") ;
+            $unit = ($ingredientsArray['measurement'][$i] == "") ? null : ($ingredientsArray['measurement'][$i]) ;
             $prep = ($ingredientsArray['preparation'][$i] == "") ? null : ($ingredientsArray['preparation'][$i]) ;
             $req = ($ingredientsArray['required'][$i] == "true") ? 1 : 0;
             
@@ -323,10 +323,11 @@ if(isset($_POST['update'])) {
                 $prep,
                 $req
             );
-
+            
             //Add object to array
             $ingredients[] = $item;
         }
+
         //Reuturn the Array of Ingredient Objects
         return $ingredients;
     }
