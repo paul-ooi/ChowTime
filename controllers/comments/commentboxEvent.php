@@ -75,7 +75,7 @@ if (isset($_SESSION['user_id'])){
     // When User clicks on Like button
     if (isset($_POST['like'])){
         $check_e_like = $l->checkUserLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
-        $check_e_dislike = $l->checkUserDisLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        $check_e_dislike = $l->checkUserDislikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
 
         // if user liked the comment already
         if ($check_e_like != null) {
@@ -83,7 +83,7 @@ if (isset($_SESSION['user_id'])){
         } else if ($check_e_like == null && $check_e_dislike == null) {
             $l->addLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
         } else if($check_e_like == null && $check_e_dislike != null) {
-            $l->deleteDisikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+            $l->deleteDislikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
             $l->addLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
         }
 
@@ -93,7 +93,7 @@ if (isset($_SESSION['user_id'])){
 
     if (isset($_POST['dislike'])){
         $check_e_like = $l->checkUserLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
-        $check_e_dislike = $l->checkUserDisLikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
+        $check_e_dislike = $l->checkUserDislikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
 
         if ($check_e_dislike != null) {
             $l->deleteDisikeEvent($db, $_SESSION['event_id'], $_SESSION['user_id']);
