@@ -6,9 +6,9 @@ require_once '../models/event.php'; //Profile Logic file
 require_once '../models/validation.php'; //Validation Library File
 $db = Database::getDb();
 $p = new Profile();
-
-    $user_id = $_SESSION['user_id'];
-
+if(isset($_GET['id'])) {
+    $user_id = $_GET['id'];
+}
 
 $userProfile = $p->getProfileById($db, $user_id);
 
