@@ -27,6 +27,7 @@ if(isset($_POST['loginButton']))
 			if(password_verify($pass, $user->pass))
 			{
 				$_SESSION['user_id'] = $user->id;
+				$_SESSION['role'] = $user->admin;
 				header("Location: ../index.php");
 			}
 			else
