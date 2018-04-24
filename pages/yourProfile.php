@@ -2,11 +2,13 @@
 session_start();
 require_once '../models/db.php'; //Database Class file
 require_once '../models/profile.php'; //Profile Logic file
+require_once '../models/fridge.php'; //Profile Logic file
 require_once '../models/event.php';
 require_once '../models/validation.php'; //Validation Library File
 $db = Database::getDb();
 $p = new Profile();
 $e = new Event();
+$f = new Fridge();
 
 $userProfile = $p->getProfileById($db, $_SESSION['user_id']);
 
@@ -41,9 +43,6 @@ require_once 'partial/_mainnav.php';
 					<a href="editProfile.php"><p>Edit Profile</p></a>
 				</div>
             </div>
-			<div class="gallery-item col-sm-6 col-lg-4 text-left">
-				Google Maps inc.
-            </div>
 		</section>
 		<hr/>
         <section class="mx-auto text-center text-md-left" id="top-category">
@@ -75,7 +74,7 @@ require_once 'partial/_mainnav.php';
 			?>
 			
 				<div class="form-group col-lg-6 offset-lg-6 text-right">
-					<a href="">See all of your recent recipes</a>
+					<a href="">See all of your recipes</a>
 				</div>				
 			</div>
 			<?php
@@ -127,7 +126,7 @@ require_once 'partial/_mainnav.php';
 			<?php 
 			$allMyEvents = $e->myEventsByStartDate($db, $_SESSION['user_id']);
 			
-			$howManyEvents = count($attendingEvents);
+			$howManyEvents = count($allMyEvents);
 			?>
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
                 <a href="index.php"><h3>Your Events</h3>
@@ -158,9 +157,50 @@ require_once 'partial/_mainnav.php';
 					}
 				?>
             </div>
+			<?php 
+				$allHistoryItems = $f->getAllFridgeHistoryById($db, $_SESSION['user_id']);
+					
+				$howManyHistory = count($allHistoryItems);
+			?>
             <div class="gallery-item col-sm-12 col-lg-4 text-center">
-                <a href="index.php"><h3>My Food</h3></a>
-				Fridge feature
+                <a href="yourFridge.php"><h3>My Food</h3></a>
+				<?php
+				if($howManyHistory == 0)
+				{
+					echo "<a href='../pages/yourFridge.php'><p>You don't currently have any items in your fridge, clear here to add some!</p></a>";
+				}
+				else
+				{
+				?>
+				<table>
+					<tr>
+						<th>Ingredient</th>
+						<th>Date</th>
+						<th>Status</th>
+					</tr>
+				<?php
+					
+					$diff = $howManyEvents - 4;
+					foreach($allHistoryItems as $histitems)
+					{
+						if($count >= $diff)
+						{
+							if($histitems['last_trans'] == 1)
+							{
+								echo "<tr><td>" . $histitems['food_name'] . "</td><td>" . date("D, F d, Y", strtotime($histitems['pubdate'])) . "</td><td style='color:green;'>Added</td></tr>";
+							}
+							else
+							{
+								echo "<tr><td>" . $histitems['food_name'] . "</td><td>" . date("D, F d, Y", strtotime($histitems['pubdate'])) . "</td><td style='color:red;'>Removed</td></tr>";
+							}
+						}
+						$count++;
+					}
+				?>
+				</table>
+				<?php
+				}
+				?>
             </div>
 		</section>
 		<hr/>
