@@ -8,6 +8,11 @@
 	list-style: none;
 }
 
+.hidden {
+	position: absolute;
+	left: -10000px;
+}
+
 .timer {
 	margin: 1em auto;
 }

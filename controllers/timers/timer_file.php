@@ -16,6 +16,10 @@ switch ($_GET['action']) {
         break;
     case ("saveTimer"):
         var_dump($_GET);
+        break;
+    case ("origTimer"):
+        //get the original time to reset the timer
+        break;
 }
 
 

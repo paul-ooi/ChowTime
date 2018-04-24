@@ -1,5 +1,5 @@
 $(document).ready(pageReady);
-var timersArray;//Create the Array to hold objects of timers present on the page
+var timersArray;//Create the Array to hold objects of timers present on the DOM
 
 
 function pageReady() {
@@ -10,6 +10,9 @@ function pageReady() {
 	addListeners($('.stop-time'),"click", stopTimer);
 	addListeners($('.del-time'),"click", removeTimer);
 
+	//Hide Stop buttons on load
+	$('.stop-time').hide();
+
 	//Toggle Saved Timer List
 	$('#timers-tg').click(function(){
 		$('#storedTimers').toggleClass('hidden');
@@ -18,52 +21,69 @@ function pageReady() {
 	//Setup Timer Objects
 	setupTimerArray();
 
-	// $(document.forms.timerForm).on("submit", function(event){	var form = this;	
-	// 	ajaxSendForm(event, form);});
-		
-	$("#startTimerBtn").on("click", function(event){
-		var button = this;
-		var form = $($(this).parent()).parent();
-		ajaxSendForm(form, button);
-	});
-
-
-		console.log();
+	// //Start Timer Button from New Timer - WIP
+	// $("#startTimerBtn").on("click", function(event){
+	// 	var button = this;
+	// 	var form = $($(this).parent()).parent();
+	// 	ajaxSendForm(form, button);
+	// });
 }
 
+// HELPER FUNCTION TO ADD LISTENERS
 function addListeners(targets, action, callback) {
 	for (let target of targets) {
 		target.addEventListener(action, callback, false);
 	}
 }
 
+// START THE TIMER BUTTON PROCEDURE
 function startTimer() {
 	console.log("startTimer");
 	let timerPosition = timers.index(this.parentElement.parentElement);
+	console.log(timersArray[timerPosition]);
+	
 	if (!timersArray[timerPosition].active) {
 		timersArray[timerPosition].active = true;
-		timersArray[timerPosition].countdown();
+		//Check that there's still time left before starting the countdown
+		if (timersArray[timerPosition].remainingTime != 0){ 
+			timersArray[timerPosition].countdown();
+		} else {
+			timersArray[timerPosition].remainingTime = timersArray[timerPosition].setTime
+			timersArray[timerPosition].countdown();
+		}
 	}
-	$(this).toggleClass('hidden');
-	$(this.nextElementSibling).toggleClass('hidden');
+	
+	//HIde the start button upon start
+	$(this).hide();
+	$(this.nextElementSibling).show();
 }//end of startTimer
 
+
+// STOP/PAUSE THE TIMER BUTTON PROCEDURE
 function stopTimer() {
 	console.log("stopTimer");
 	let timerPosition = timers.index(this.parentElement.parentElement);
 	timersArray[timerPosition].pause();
 
-	$(this).toggleClass('hidden');
-	$(this.previousElementSibling).toggleClass('hidden');
+	if (timersArray[timerPosition].remainingTime == 0) {
+		$(this.previousElementSibling).html("Restart");
+		$(this.previousElementSibling).show();
+		$(this).hide();
+	} else {
+		$(this).hide();
+		$(this.previousElementSibling).html("Start");
+		$(this.previousElementSibling).show();
+	}
 
 }//end of stopTimer
 
+
+//CALL FUNCTION VIA AJAX TO REMOVE TIMER FOR THE DATABASE
 function removeTimer() {
 	console.log("removeTimer");
 	var _button = this;
 	let timerPosition = timers.index(_button.parentElement.parentElement);
-	// Must remove from DB as well
-	// INSERT CODE FOR DB REMOVAL OF TIMER
+
 	$.ajax("../controllers/timers/timer_file.php", {
 		data: {'action' : 'delTimer',
 		 		'timerName' : timersArray[timerPosition].name,
@@ -73,16 +93,14 @@ function removeTimer() {
 		success: function(response) {
 			//clear the Interval before removing the Timer.
 			timersArray[timerPosition].pause();
-			console.log(response);
 			// Remove the list item belonging to this timer
-			_button.parentElement.parentElement.remove(); //currently only removes from the DOM
+			_button.parentElement.parentElement.remove(); //removes from the DOM
 			$("#storedTimerFeedback").html(response);
 		}
 	});
-
-
 }//end of removeTimer
 
+//UPDATE THE TIMER DISPLAYED ON THE DOM 
 function displayTimer(remainingTime, position) {
 	//get remaining time in seconds
 	let hours = Math.floor(remainingTime / 3600);
@@ -101,6 +119,7 @@ function displayTimer(remainingTime, position) {
 
 }//end of displayTimer
 
+//HELPER FUNCTION CREATE TIMER OBJECTS FOR THE DOM
 function setTimerValue(hh, mm, ss) {
 	// Get individual values from form
 	// calculate total seconds value
@@ -114,7 +133,7 @@ function setTimerValue(hh, mm, ss) {
 }//end of setTimerValue
 
 
-
+//Timer Constructor
 function Timer (originalTime, position, timerName = "untitled timer") {
 	var _timer = this;
 	var interval;
@@ -130,12 +149,14 @@ function Timer (originalTime, position, timerName = "untitled timer") {
 			}
 			_timer.remainingTime-= 1;//subtract from total
 
+			displayTimer(_timer.remainingTime, _timer.position);
 			//end at zero
 			if (_timer.remainingTime == 0) {
 				_timer.active = false;
 				clearInterval(interval);
+				//find a way to alert the user without interupting the other timers	
+				//alert(timerName.toUpperCase() + " Timer finished");		
 			}
-			displayTimer(_timer.remainingTime, _timer.position);
 		}, 1000);
 	};
 	this.pause = function() {
@@ -146,31 +167,8 @@ function Timer (originalTime, position, timerName = "untitled timer") {
 
 var timers;
 var timersArrayJSON;
+//USE TIMERARRAY TO TRACK TIMERS ON THE DOM
 function setupTimerArray() {
-
-	// var xmlhttp = new XMLHttpRequest();
-	// xmlhttp.onreadystatechange = function() {
-	// 	if (this.readyState == 4 && this.status == 200) {
-	// 		console.log("success");
-	// 		timersArrayJSON = JSON.parse(this.responseText);
-	// 		console.log(timersArray);
-	// 		console.log(timersArrayJSON);
-	// 	}
-	// };
-	// xmlhttp.open("GET", "../controllers/timers/timer_file.php?action=getTimers", true);
-	// xmlhttp.send();
-
-	// $.ajax( "../controllers/timers/timer_file.php", {
-	// 	converters: {"array json": jQuery.parseJSON},
-	// 	data:{'action': 'getTimers'},
-	//  	datatype:"json",
-	// 	success: function (response) {
-	// 		timersArrayJSON = response;
-	// 		console.log(timersArrayJSON);
-	// 	}
-	// });
-
-
 
 	//Get Timers
 	timers = $('.timer');
@@ -188,7 +186,7 @@ function setupTimerArray() {
 	//console.log(timersArray);
 }
 
-// var a = new Timer(5, "my A Timer");
+// FUNCTION TO COUNDOWN THE TIMER
 function countdown(timerObject) {
 	let interval = setInterval(function () {
 		if (timerObject.remainingTime == null) {
@@ -204,6 +202,8 @@ function countdown(timerObject) {
 	}, 1000);
 }//End of Countdown
 
+
+//SAVE AND THEN START TIMER FROM FORM -- WIP
 function ajaxSendForm(form, button) {
 	//save timer then start it
 	var hours = form[0][0].value;
@@ -211,7 +211,6 @@ function ajaxSendForm(form, button) {
 	var seconds = form[2][0].value;
 	var name = form[3][0].value;
 
-		console.log(form);
 	$.ajax( "../controllers/timers/timer_file.php", {
 		converters: {"array json": jQuery.parseJSON},
 		data: {'action': button.name,

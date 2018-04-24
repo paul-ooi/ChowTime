@@ -1,4 +1,6 @@
 <?php
+session_start();
+$user_id = $_SESSION['user_id'];
 $pageTitle = "Timers";//Rename this to be the title in the Tab
 include 'partial/_header.php';//Head with CSS and CDNs, Title o page
 require_once '../models/db.php';//Connects to DB
@@ -19,15 +21,14 @@ if(isset($_POST["saveTimer"]) || isset($_POST["startTimer"]) ) {
     $t = new Timer($hours, $minutes, $seconds, $name);
 
     $timer = (object)[
-        'user' => 1, //Need to get the User id from the Session variable.
+        'user' => $user_id, //Need to get the User id from the Session variable.
         'timer' => $t
     ];
 
     $feedbackMsg = TimerDB::addTimer($db, $timer);
 }
 
-
-$userTimers = TimerDB::getAllTimersByUser($db, 1);
+$userTimers = TimerDB::getAllTimersByUser($db, $user_id);
 
  ?>
 <link href="../assets/css/timers.css" type="text/css" rel="stylesheet"/>
@@ -37,6 +38,11 @@ $userTimers = TimerDB::getAllTimersByUser($db, 1);
     <header class="container ddwrapper">
         <?php require_once 'partial/_mainnav.php' ?>
     </header>
+    <aside class="col-12 order-1">
+        <!-- add instructions -->
+        <h2>Using Timers</h2>
+        <p>Sometimes you will be cooking multiple things in the kitchen, and you need help keeping track of all the timed tasks. Save timers so you can use multiple timers at once.</p>
+    </aside>
     <main class="col-12 order-2">
         <!-- TIMER FORM -->
         <h1>Set New Timer</h1>
@@ -101,7 +107,7 @@ $userTimers = TimerDB::getAllTimersByUser($db, 1);
                     </div>
                     <div class="col-6">
                         <button name="startTimer" class="start-time btn timer-btn col-3">Start</button>
-                        <button name="stopTimer" class="hidden stop-time timer-btn btn col-3">Stop</button>
+                        <button name="stopTimer" class="stop-time timer-btn btn col-3">Stop</button>
                         <button name="deleteTimer" class="del-time btn timer-btn col-3">Remove</button>
                     </div>
                 </li>
@@ -109,11 +115,7 @@ $userTimers = TimerDB::getAllTimersByUser($db, 1);
             </ul>
         </div>
     </main>
-    <aside class="col-12 order-1">
-        <!-- add instructions -->
-        <h2>Using Timers</h2>
-        <p>Sometimes you will be cooking multiple things in the kitchen, and you need help keeping track of all the timed tasks. Save timers so you can use multiple timers at once. Or set your timer values and click start to start a single timer</p>
-    </aside>
+
     <?php require_once 'partial/_footer.php' ?>
 </body>
 </html>

@@ -1,5 +1,5 @@
 <?php
-date_default_timezone_set('America/New_York');
+date_default_timezone_set('America/New_York');//USE THIS IN FUTURE TO ASSIGN END DATES FOR TIMERS 
 
 class TimerDB {
 
@@ -7,7 +7,7 @@ class TimerDB {
         //singleton class
     }
 
-    //Get all Tickets (Database and User details from session)
+    //GET ALL TIMERS FO SPECIFIED USER
     public static function getAllTimersByUser($db, $user) {
         $query = "SELECT * FROM timers WHERE user_id = :user ORDER BY id DESC";
         $pdostm = $db->prepare($query);
@@ -21,6 +21,7 @@ class TimerDB {
 
     }//end getAllTimersByUser
 
+    // GET THE VALUES OF THE TIMERS FROM THE DB
     public static function getTimerValues($time) {
     	//get remaining time in seconds
     	$hours = floor($time / 3600);
@@ -42,12 +43,7 @@ class TimerDB {
     }//end of getTimerValues
 
 
-    function getTimerDetails() {
-        //Retrieve each timer's detail
-        return ; //return the Timer Details
-    } //end getTicketDetails
-
-
+    // ADD TIMER TO THE DB
     public static function addTimer($db, $timer) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "INSERT INTO timers (user_id, t_name,  set_time, remainder) VALUES (:user_id, :timer_name, :set_time, :remainder)";
@@ -61,13 +57,14 @@ class TimerDB {
         $count = $pdostm->execute();
 
         if ($count == 1) {
-            $feedbackMsg = "Saved " . $timer->timer->getName() . " timer to your library.";
+            $feedbackMsg = "Saved " . $timer->timer->getName() . " timer to Your Timers.";
         } else {
             $feedbackMsg = "Error, Timer not saved.";
         }
         return $feedbackMsg;
     }// end of addTimer
 
+    // REMOVE TIMER FROM THE DB
     public static function delTimer($db, $timerName, $origTime) {
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = "DELETE FROM timers WHERE t_name = :timerName and set_time = :origTime ORDER BY id DESC LIMIT 1";
@@ -86,6 +83,11 @@ class TimerDB {
         return $feedbackMsg;
 
     }
+
+    //TO BUILD CROSS PAGE FUNCTIONALITY, SAVE ALL TIMERS BEFORE CHANGE PAGE
+    // public static function pauseTimer(($db, $timerName, $remainTime) {
+
+    // }
 
 
 
