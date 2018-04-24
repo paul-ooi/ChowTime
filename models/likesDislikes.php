@@ -32,7 +32,7 @@ class LikesDislikes {
         return $pdostm->fetchAll();
     }
 
-    public function checkUserDisLikeEvent($db, $event_id, $user_id){
+    public function checkUserDislikeEvent($db, $event_id, $user_id){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = 'select * from event_dislikes where event_id = :event_id and user_id = :user_id';
         $pdostm = $db->prepare($sql);
@@ -46,7 +46,7 @@ class LikesDislikes {
     // READ FOR RECIPES
     public function getLikesByRecipe($db, $recipe_id){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = 'select * from recipe_likes where recipe_id = :recipe_id';
+        $sql = 'SELECT count(*) as count FROM recipe_likes WHERE recipe_id = :recipe_id;';
         $pdostm = $db->prepare($sql);
         $pdostm->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
         $pdostm->setFetchMode(PDO::FETCH_OBJ);
@@ -54,9 +54,9 @@ class LikesDislikes {
         return $pdostm->fetchAll();
     }
 
-    public function getDislikesByRecipe($db, $event_id){
+    public function getDislikesByRecipe($db, $recipe_id){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = 'select * from recipe_dislikes where recipe_id = :recipe_id';
+        $sql = 'SELECT count(*) as count FROM recipe_dislikes WHERE recipe_id = :recipe_id;';
         $pdostm = $db->prepare($sql);
         $pdostm->bindValue(':recipe_id', $recipe_id, PDO::PARAM_INT);
         $pdostm->setFetchMode(PDO::FETCH_OBJ);
@@ -75,7 +75,7 @@ class LikesDislikes {
         return $pdostm->fetchAll();
     }
 
-    public function checkUserDisLikeRecipe($db, $recipe_id, $user_id){
+    public function checkUserDislikeRecipe($db, $recipe_id, $user_id){
         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $sql = 'select * from recipe_dislikes where recipe_id = :recipe_id and user_id = :user_id';
         $pdostm = $db->prepare($sql);
@@ -116,7 +116,7 @@ class LikesDislikes {
         return $count;
     }
 
-    public function deleteDisikeEvent($db, $event_id, $user_id){
+    public function deleteDislikeEvent($db, $event_id, $user_id){
         $sql = 'delete from event_dislikes where event_id = :event_id and user_id = :user_id';
         $pdostm = $db->prepare($sql);
         $pdostm->bindValue(':user_id', $user_id, PDO::PARAM_INT);

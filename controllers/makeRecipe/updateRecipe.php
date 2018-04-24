@@ -353,7 +353,6 @@ if(isset($_POST['update'])) {
         IngredientDB::updateIngredient($db,$ingredients);
 
 
-
         //REPOPULATE THE FORM
         $allRecipes = $rDb->displayById($recipe_id);
         $recipeImgs = $rDb->allRecipeImgs($recipe_id);

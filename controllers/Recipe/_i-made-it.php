@@ -9,7 +9,7 @@
     } 
     else if (isset($_POST['madeIt']) && isset($_SESSION['user_id'])) {
         // CHECK IF USER IS A VALID USER BEFORE PASSING TO FUNCTION (USE/INCLUDE BRAD'S FUNCTION)
-        $rm = new RecipesMade(NULL, $_POST['recipe_id'], $_POST['user_id'], NULL);
+        $rm = new RecipesMade(NULL, $_POST['recipe_id'], $_SESSION['user_id'], NULL);
         $success = $rm->addRecipeMadeByUser($db,$rm);
     }
     else {

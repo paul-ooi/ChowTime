@@ -366,7 +366,7 @@ class RecipeDb {
     public static function getRecentPublishedRecipe() {
         $db = Database::getDb();
         $db->setAttribute(PDO::ERRMODE_EXCEPTION, PDO::ATTR_ERRMODE);
-        $query = "SELECT MAX(pub_date) AS pub_date, id FROM recipes ORDER BY(pub_date)";
+        $query = "SELECT MAX(pub_date) AS pub_date, id FROM recipes GROUP BY pub_date ORDER BY pub_date desc";
 
         $statement = $db->prepare($query);
         $statement->execute();

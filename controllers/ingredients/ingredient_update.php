@@ -21,7 +21,7 @@ if(isset($_POST['food_id'])) {
 } else {
     $arrayLength = 1;//If none, populate once
 }
-var_dump($array);
+
 ?>
  <fieldset class="form-group form-inline" name="ingreds">
      <div class="form-row">
@@ -29,6 +29,9 @@ var_dump($array);
      <ul id="ingredientsList" class="col-md-10">
         <?php for ($i = 0; $i < $arrayLength; $i++) : ?>
          <li class="ingred-item row ml-3 ml-md-0">
+             <button type="button" class="close" aria-label="Delete Ingredient">
+                <span aria-hidden="true">&times;</span>
+            </button>
                  <div class="form-group col-sm-12 col-lg-3 ingred_form_item input-group-sm mb-md-3 mb-1">
                      <label class="ingred_form_label ingred_form_label_small" for="food_id"><span class="text-danger required">*</span>Food Item</label>
                      <select class="form-control" name="food_id[]" id="food_id">
@@ -36,12 +39,17 @@ var_dump($array);
                          <?php 
                          if (!empty($array)) {
                          foreach ($fList as $key => $f) : ?>
+                         
                              <option value="<?php echo $f->id ?>" 
                                 <?php if (isset($_POST['food_id']) && $f->id == $array['food_id'][$i]) : echo "selected"; endif ?>
                                 <?php if (isset($_POST['updateRecipe']) && $f->id == $array[$i]->ing_id) { echo "selected"; } else { echo ""; }  ?>
                              ><?php echo $f->food_name ?>
                              </option>
-                         <?php endforeach ;}?>
+                         <?php endforeach ;} else { 
+                             foreach ($fList as $key => $f) : ?>
+                             <option value="<?php echo $f->id ?>"><?php echo $f->food_name ?>
+                             </option> 
+                             <?php endforeach ;}?>
 
                      </select>
                      <label class="error" for="food_id" name="errName"><?php //echo htmlspecialchars($errorFoodId); ?></label>
@@ -65,7 +73,11 @@ var_dump($array);
                              <?php if (isset($_POST['measure']) && $m->id == $array['measurement'][$i]) : echo "selected"; endif ?>
                              <?php if (isset($_POST['updateRecipe']) && $m->id == $array[$i]->unit) : echo "selected"; endif ?>
                              ><?php echo $m->measurement ?></option>
-                         <?php endforeach ;} ?>
+                         <?php endforeach ;}  else { 
+                             foreach ($mList as $key => $m) : ?>
+                             <option value="<?php echo $m->id ?>"><?php echo $m->measurement ?>
+                             </option> 
+                             <?php endforeach ;}?>
                      </select>
                      <label class="error" for="measure" name="errMeasure"><?php //echo htmlspecialchars($errorMeasure); ?></label>
                  </div>

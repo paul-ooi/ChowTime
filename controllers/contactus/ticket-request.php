@@ -1,7 +1,7 @@
 <?php
-    require_once "../../models/db.php";
-    require_once "../../models/ticket.php";
-    require_once "../../models/ticketDB.php";
+    require_once "../models/db.php";
+    require_once "../models/ticket.php";
+    require_once "../models/ticketDB.php";
 ?>
 
 <main class="col-lg-8">

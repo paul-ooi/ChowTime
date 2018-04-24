@@ -51,6 +51,8 @@ if (isset($_POST['NotAttend'])){
     $e->deleteAttendance($db, $user_id, $event_id);
 }
 
+
+
 include '../../pages/partial/_header.php';
 ?>
 
@@ -70,11 +72,34 @@ include '../../pages/partial/_header.php';
             $events = $e->getEvent($db, $event_id);
             $admin = $events[0]->user_id;
 
+            // GETTING IMAGES FOR BANNERS
+            $banners = $e->getBanner($db);
+            $current = "";
+
             foreach ($events as $event) {
+                if ($event->theme == "breakfast") {
+                    $current = $banners[0];
+                } else if ($event->theme == "lunch") {
+                    $current = $banners[1];
+                } else if ($event->theme == "dinner") {
+                    $current = $banners[2];
+                } else if ($event->theme == "dessert") {
+                    $current = $banners[3];
+                } else if ($event->theme == "holiday") {
+                    $current = $banners[4];
+                } else if ($event->theme == "birthday") {
+                    $current = $banners[5];
+                } else if ($event->theme == "gathering") {
+                    $current = $banners[6];
+                } else {
+                    $current = $banners[7];
+                }
+
                 $user = $p->getProfileById($db, $event->user_id);
                 ?>
-                <section class="__banner">
+                <section class="__banner mx-auto" style="background-image: url('<?php echo '../' . $current->file_location . $current->file_name; ?>'); background-size: cover; background-position:center;">
                     <div class="wrapper">
+                        <div class="_content">
                         <h1><?php echo $event->event_name; ?></h1>
 
                         <p>Hosted by <?php echo $user->fname . ' ' . $user->lname;?>.</p>
@@ -112,6 +137,7 @@ include '../../pages/partial/_header.php';
                         }?>
                         <!-- Buttons: Attend/Not Attending [(for page admins) Edit | Delete] -->
                     </div>
+                </div>
                 </section>
                 <section>
                     <div class="wrapper">
