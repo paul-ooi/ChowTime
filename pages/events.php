@@ -5,8 +5,6 @@ $e = new Event;
 $db = Database::getDb();
 session_start();
 
-// FOR TESTING PURPOSES
-$_SESSION['user_id'] = 1;
 
 // ADDING EVENT
 if (isset($_POST['add_event'])){
