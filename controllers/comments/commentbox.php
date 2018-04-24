@@ -69,7 +69,7 @@ if (isset($_POST['delete'])){
 if (isset($_SESSION['user_id'])){
     // Checking for Likes/Dislikes
     $check_e_like = $l->checkUserLikeRecipe($db, $recipe_id, $_SESSION['user_id']);
-    $check_e_dislike = $l->checkUserDisLikeRecipe($db, $recipe_id, $_SESSION['user_id']);
+    $check_e_dislike = $l->checkUserDislikeRecipe($db, $recipe_id, $_SESSION['user_id']);
 
     // When User clicks on Like button
     if (isset($_POST['like'])){
