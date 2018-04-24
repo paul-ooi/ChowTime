@@ -45,12 +45,10 @@ if(isset($_POST['loginButton']))
 <link rel="stylesheet" type="text/css" href="../assets/css/whatsCooking.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/css/bootstrap-slider.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.0/bootstrap-slider.min.js"></script>
-<script src="../assets/js/whatsCooking.js"></script>
 </head>
 
 <?php
 require_once 'partial/_mainnav.php';
-require_once 'Whats-cooking.php';
 ?>
 <main class="container ddwrapper  mb-5">
 	<form action="login.php" method="post" name="login">

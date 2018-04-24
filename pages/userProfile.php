@@ -67,11 +67,6 @@ require_once 'partial/_mainnav.php';
 			if($amountOfYourRecipes > 4)
 			{
 			?>
-			<div class="row">
-				<div class="form-group col-lg-6 offset-lg-6 text-right">
-					<a href="">See all of their recent recipes</a>
-				</div>				
-			</div>
 			<?php
 			}
 			?>
@@ -104,11 +99,6 @@ require_once 'partial/_mainnav.php';
 			if($amountOfRecipes > 4)
 			{
 			?>
-			<div class="row">
-				<div class="form-group col-lg-6 offset-lg-6 text-right">
-					<a href="">See all of their recent recipes</a>
-				</div>				
-			</div>
 			<?php
 			}
 			?>
