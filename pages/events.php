@@ -134,30 +134,6 @@ include 'partial/_header.php';
         </div>
     </div>
     </div>
-    <section id="suggested">
-        <div class="wrapper">
-            <h2>Suggested</h2>
-            <!-- LINK NEEDS TO BE ADDED -->
-            <div class="row">
-                <article class="col">
-                    <div class="__suggested_thumb"></div>
-                    <div>Event 1</div>
-                </article>
-                <article class="col">
-                    <div class="__suggested_thumb"></div>
-                    <div>Event 2</div>
-                </article>
-                <article class="col">
-                    <div class="__suggested_thumb"></div>
-                    <div>Event 3</div>
-                </article>
-                <article class="col">
-                    <div class="__suggested_thumb"></div>
-                    <div>Event 4</div>
-                </article>
-            </div>
-        </div>
-    </section>
     <main id="events">
         <div class="wrapper">
             <div class="row">
