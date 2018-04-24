@@ -74,7 +74,7 @@ require_once 'partial/_mainnav.php';
 			?>
 			
 				<div class="form-group col-lg-6 offset-lg-6 text-right">
-					<a href="">See all of your recipes</a>
+					<a href="allYourRecipes.php">See all of your recipes</a>
 				</div>				
 			</div>
 			<?php
@@ -129,7 +129,7 @@ require_once 'partial/_mainnav.php';
 			$howManyEvents = count($allMyEvents);
 			?>
             <div class="gallery-item col-sm-6 col-lg-4 text-center">
-                <a href="index.php"><h3>Your Events</h3>
+                <h3>Your Events</h3>
 				<?php
 					if($howManyEvents == 0)
 					{
@@ -233,7 +233,7 @@ require_once 'partial/_mainnav.php';
 			?>
 			<div class="row">
 				<div class="form-group col-lg-6 offset-lg-6 text-right">
-					<a href="">See all of your recent recipes</a>
+					<a href="allMadeRecipes.php">See all of your recent recipes</a>
 				</div>				
 			</div>
 			<?php
