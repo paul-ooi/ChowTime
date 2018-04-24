@@ -54,6 +54,11 @@ h3 {
     border: none;
 }
 
+.main-img-container {
+    max-height: 500px;
+    overflow: hidden;
+}
+
 /* EMAIL SECTION */
 #email_recipe {
     margin-top: 2rem;
