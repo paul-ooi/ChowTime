@@ -133,7 +133,6 @@ if (isset($_SESSION['user_id'])){
     </div>
 </section>
 <section>
-    <div class="wrapper">
 <?php
 }
 $comments = $c->getRecipeComments($db, $recipe_id);
@@ -178,5 +177,4 @@ foreach ($comments as $cm) {
     echo '<div><span><i>Posted on ' . $cm->date . '</i></span></div></div></div>';
 }
 ?>
-</div>
 </section>
