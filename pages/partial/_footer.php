@@ -23,5 +23,6 @@
         </div>
     </section>
     <small class="col-12"><?php echo date('Y') ?> Chow Time Project - by DeeDub Team</small>
+    <small class="col-12">All images from www.Pexels.com</small>
 </div>
 </footer>
