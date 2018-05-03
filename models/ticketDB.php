@@ -8,17 +8,53 @@ class TicketDB {
     }
     //GET ALL TICKET CATEGORIES
     public static function getTicketCatgetories($db) {
-        $sql = "SELECT * FROM ticket_category";
-        $pdostm = $db->prepare($sql);
+        $query = "SELECT * FROM ticket_category";
+        $pdostm = $db->prepare($query);
 
         $pdostm->setFetchMode(PDO::FETCH_OBJ);
-        $categories = $pdostm->execute();
+        $pdostm->execute();
+        $categories = $pdostm->fetchAll();
 
         return $categories; //array of categories and Id's
     }
 
-
     //CREATE TICKET IN TICKET TABLE
+    public static function addTicket($db, $ticket) {
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO tickets (user_id, date_open, category_id) VALUES (:user, :date_open, :category)";
+
+        $pdostm = $db->prepare($sql);
+        $pdostm->bindValue(':user', $ticket->getUserId(), PDO::PARAM_INT);
+        $pdostm->bindValue(':date_open', $ticket->getOpenDate(), PDO::PARAM_STR);
+        $pdostm->bindValue(':category', $ticket->getCategory(), PDO::PARAM_INT);
+
+        if ($pdostm->execute()) {
+            return $db->lastInsertId();
+        } else {
+            return 0;
+        }
+    }
+
+    //ADD TICKET MESSAGE TO TICKET TABLE
+    public static function addMessage ($db, $message) {
+        $count = 0;
+
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO messages (ticket_id, sender_id, date_sent, message) VALUES (:ticket_id, :sender_id, :date_sent, :message)";
+
+        $pdostm = $db->prepare($sql);
+        $pdostm->bindValue(":ticket_id", $message->getId(), PDO::PARAM_INT);
+        $pdostm->bindValue(":sender_id", $message->getUserId(), PDO::PARAM_INT);
+        $pdostm->bindValue(":date_sent", $message->getOpenDate(), PDO::PARAM_STR);
+        $pdostm->bindValue(":message", $message->getMessage(), PDO::PARAM_STR);
+
+        if ($pdostm->execute()) {
+            $count++;
+            return $count;
+        } else {
+            return $count;
+        }
+    }
 
     //GET ALL TICKETS FOR SPECIFIED USER
 

@@ -24,11 +24,11 @@ require_once '../pages/partial/_header.php';
 </header>
 <?php
 // IF USER IS LOGGED IN, PRE-POPULATE THE NAME AND EMAIL
-// if (!isset($_SESSION['user'])) {
+if (isset($_SESSION['user_id'])) {
         include '../controllers/contactus/ticket-request.php';
-    // } else {
-    //     echo "user logged in";
-    // };
+    } else {
+        header("Location: login.php");
+    };
     require_once '../pages/partial/_footer.php'; ?>
 </body>
 </html>
