@@ -2,7 +2,7 @@ window.addEventListener('load', pageReady, false);
 function pageReady() {
 
 	$('#searchRecipesBtn').click(searchAll);
-	// $('#searchAll').submit(searchAll);
+	$('#searchAll').submit(searchAll);
 	$('#form_search').keyup(searchAll);
 
 	//Click to reveal more options for search bar
@@ -12,7 +12,11 @@ function pageReady() {
 }
 
 function searchAll() {
-	// e.preventDefault();
+	//IF THE SEARCH BAR IS EMPTY, DO NOT CALL DB & CLEAR RESULTS
+	if (this.value == undefined || this.value == "") {
+		$('#searchResults').html("");
+		return false;
+	}
 
 	$.ajax('controllers/search/index.php',
 	{
@@ -26,5 +30,5 @@ function searchAll() {
 			// console.log(response);
 		}
 	});
-return false;
+	return false;
 }

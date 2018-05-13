@@ -5,7 +5,7 @@ require_once 'pages/partial/_header.php';
 
  ?>
     <link href="assets/css/index.css" type="text/css" rel="stylesheet" />
-    <link href="assets\css\search.css" type="text/css" rel="stylesheet"/>
+    <link href="assets/css/search.css" type="text/css" rel="stylesheet"/>
     <link href="assets/css/general.css" type="text/css" rel="stylesheet" />
     <script src="assets/js/advanced-search.js" type="text/javascript"></script>
 </head>
@@ -18,9 +18,10 @@ require_once 'pages/partial/_header.php';
         <section class="mx-auto text-center mb-5" id="search">
             <h1 class="sr-only">Chow Time</h1>
             <h2>Find your Next recipe</h2>
-            <form action="controllers/recipes/_allrecipes.php" method="post" id="searchAll" name="searchAll" class="justify-content-around">
+            <form action="index.php" method="post" id="searchAll" name="searchAll" class="justify-content-around">
                     <label class="form-control-label sr-only" for="form_search">Search Recipes</label>
                     <input class="form-control form-control-lg col-sm-12 col-md-10" type="text" name="form_search" id="form_search" placeholder="Spaghetti, Soup, Salmon, etc..."/>
+                    <button type="submit" name="searchRecipe" class="sr-only btn btn-default">Search</button>
                     <!-- <input class="btn btn-lg col-sm-12 col-md-4 col-lg-3" type="submit" for="searchAll" name="searchRecipesBtn" id="searchRecipesBtn" value="Search Recipes"/> -->
                     <!-- <div id="searchOptions" class="col-12 text-left">Advanced Search</div> -->
 
