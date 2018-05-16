@@ -4,7 +4,9 @@ SQL/
 models/apiKeys.php
 .vscode/
 package-lock.json
-
+TODO.txt
+vendor/
+logs/
 
 # OS generated files #
 ######################

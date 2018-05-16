@@ -1,4 +1,5 @@
 <?php
+session_start();
 $pageTitle = "What's Cooking";
 require_once 'partial/_header.php';
 ?>
