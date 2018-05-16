@@ -165,23 +165,6 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
     <!-- INGREDIENTS -->
     <?php // //include the Add Ingredient section  (Paul's Modified Lab 6)
      include '../controllers/ingredients/ingredient_add.php';?>
-           <!-- <fieldset class="form-group">
-                <div class="form-row">
-                    <legend class="col-form-label col-sm-3 col-md-2"><span class="text-danger">*</span>Ingredients</legend>
-                    <div class="col-sm-2">
-                        //THIS FORM GROUP WILL BE REPEATED AND POPULATED WITH PHP
-                        <div class="form-group">
-                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        <div class="form-group">
-                            <input type="checkbox" name="ingred" id="ingred" class="form-check-input" value=""/>
-                            <label for="ingred" class="form-check-label">Ingred</label>
-                        </div>
-                        //END FOREACH FROM PHP
-                    </div>
-                </div>
-            </fieldset> -->
             <!-- INGREDIENT RATING -->
             <fieldset class="form-group">
                 <div class="form-row">
@@ -229,12 +212,10 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
                     <?php endif ?>
                         </ol>
                         <p id="moreRows">Add More Rows</p>
-                        <!-- <input type="button" id="moreRows" name="moreRows" value="Add More Rows"/> -->
                     </div>
                 </div>
             </fieldset>
             <input type="submit" id="addRecipe" name="addRecipe" class="btn" value="Add"/>
-            <!-- <input type="text" readonly class="form-control-plaintext" name="errMssg" value=""> -->
         </form>
     </div>
 </main>
