@@ -19,7 +19,7 @@
             <a href="http://www.twitter.com"><img src="/chowtime/assets/icons/social-twitter.svg" alt="Follow us on Twitter" title="Follow us on Twitter"/></a>
         </div>
         <div class="social" id="instagram">
-            <a href="http://www.instagram.com"><img src="/chowtime/assets/icons/social-insta.svg" alt="Follow us on Instagram" title="Follow us on Instagram"/></a>
+            <a href="http://www.instagram.com/eatingfever"><img src="/chowtime/assets/icons/social-insta.svg" alt="Follow us on Instagram" title="Follow us on Instagram"/></a>
         </div>
     </section>
     <small class="col-12"><?php echo date('Y') ?> Chow Time Project - by DeeDub Team</small>

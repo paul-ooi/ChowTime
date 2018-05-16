@@ -8,7 +8,7 @@ if(isset($_SESSION['user_id'])) {
 }
 
 include 'db.php';
-include 'whatsCookingDb-2.php';
+include 'whatsCookingDB-2.php';
 include 'whatsCookingDB.php';
 
 
