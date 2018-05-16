@@ -1,14 +1,13 @@
 $(document).ready(function(){
 
+    // ADDING A NEW STEP //
     var count = ($(".steps").length) - 1;
     $("#moreRows").click(function(){
         //APPEND ANOTHER INPUT TYPE. FOR EACH NEW ROW
         count ++;
-        var instruction = "<li><input type='text' class='form-control' name='item["+ count +"][step]' value='' /></li>";
+        var instruction = "<div class='row col-xs-12'><li class='col-xs-11 col-sm-11'><input type='text' class='form-control steps col-sm-12' name='item[" + count +"][step]' value='' /></li><button type='button' class='delete_step_button'><span class='delete_step col-xs-1 col-sm-1'>x</span></button></div>";
         $(".list-of-instructions").append(instruction);
     })
-
-    //GIVE THE APPROPRIATE SPICY LEVEL TO HIDDEN VALUE
 
     //STYLING FOR ADDING MORE ROWS TEXT
     $("#moreRows").hover(function(){
@@ -19,6 +18,15 @@ $(document).ready(function(){
         $(this).css("cursor", "inherit");
     })
 
+    //DELETING A ROW ON CLICK OF THE X
+    $(".delete_step_button").css("cursor", "pointer");
+    $(".delete_step_button").click(function(e){
+        //GET THE ROW THAT WAS CLICKED AND REMOVE BOTH X AND ROW
+        e.currentTarget.previousElementSibling.remove();
+        this.remove();
+    })
+
+    // DELETING/EDITING IMAGES //
     //ON HOVER OF THE IMAGE, SHOW THE SPECIFIC BUTTON
     $(".currImgDel").hover(function(e) {
         e.currentTarget.nextElementSibling.style.display = "block";
@@ -49,9 +57,3 @@ $(document).ready(function(){
 
 
 }) //END DOCUMENT READY
-
-/*
-value="<?php if(isset($_POST['step"+stepNum+"'])) {
-    echo $_POST['step"+stepNum+"'];
-}"
-*/

@@ -196,9 +196,9 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
                             <!-- REPEAT PHP HERE -->
                             <?php if(!isset($_POST['item'])) : ?>
                             <li><input type="text" class="form-control steps" name="item[0][step]" value=""/></li>
-                            <li><input type="text" class="form-control steps" name="item[1][step]" value=""/></li>
+                            <!-- <li><input type="text" class="form-control steps" name="item[1][step]" value=""/></li>
                             <li><input type="text" class="form-control steps" name="item[2][step]" value=""/></li>
-                            <li><input type="text" class="form-control steps" name="item[3][step]" value=""/></li>
+                            <li><input type="text" class="form-control steps" name="item[3][step]" value=""/></li> -->
                         <?php endif ?>
                             <!-- END PHP REPEAT HERE -->
 

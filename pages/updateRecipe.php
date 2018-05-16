@@ -216,16 +216,20 @@ if(isset($_SESSION['user_id'])) {
                     <legend class="col-form-label col-sm-2"><span class="text-danger">*</span>Steps</legend>
                     <div class="col-sm-8">
                         <ol class="list-of-instructions">
+                            <div class="row col-xs-12">
                             <?php if(isset($steps)) :
                                 $step = explode(";", $steps);
                                 foreach($step as $key => $value) :
                             ?>
-                            <li><input type="text" class="form-control steps" name="item[<?= $key ?>][step]" value="<?= $value ?>"/></li>
+                                <li class="col-xs-11 col-sm-11">
+                                    <input type="text" class="form-control steps col-sm-12" name="item[<?= $key ?>][step]" value="<?= $value ?>"/>
+                                </li>
+                                <button type="button" class="delete_step_button"><span class="delete_step col-xs-1 col-sm-1">x</span></button>
                         <?php endforeach; ?>
                     <?php endif ?>
+                        </div>
                         </ol>
                         <p id="moreRows">Add More Rows</p>
-                        <!-- <input type="button" id="moreRows" name="moreRows" value="Add More Rows"/> -->
                     </div>
                 </div>
             </fieldset>

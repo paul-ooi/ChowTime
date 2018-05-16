@@ -1,3 +1,5 @@
+/* FOR MAKE RECIPE */
+
 .diff {
     height: 30px;
     width: 30px;
@@ -33,4 +35,15 @@
     color: #FFF;
     text-align: center;
     display: none;
+}
+
+.delete_step_button {
+    border: none;
+    padding: 0px;
+    height: fit-content;
+    background: none;
+}
+
+.delete_step {
+    padding: 0px;
 }
