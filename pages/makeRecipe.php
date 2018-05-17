@@ -195,10 +195,30 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
                         <ol class="list-of-instructions">
                             <!-- REPEAT PHP HERE -->
                             <?php if(!isset($_POST['item'])) : ?>
-                            <li><input type="text" class="form-control steps" name="item[0][step]" value=""/></li>
-                            <!-- <li><input type="text" class="form-control steps" name="item[1][step]" value=""/></li>
-                            <li><input type="text" class="form-control steps" name="item[2][step]" value=""/></li>
-                            <li><input type="text" class="form-control steps" name="item[3][step]" value=""/></li> -->
+                            <div class="row col-xs-12">
+                                <li class="col-xs-11 col-sm-11">
+                                    <input type="text" class="form-control steps col-sm-12" name="item[0][step]" value=""/>
+                                </li>
+                                <button type="button" class="delete_step_button"><span class="delete_step col-xs-1 col-sm-1">x</span></button>
+                            </div>
+                            <div class="row col-xs-12">
+                                <li class="col-xs-11 col-sm-11">
+                                    <input type="text" class="form-control steps col-sm-12" name="item[1][step]" value=""/>
+                                </li>
+                                <button type="button" class="delete_step_button"><span class="delete_step col-xs-1 col-sm-1">x</span></button>
+                            </div>
+                            <div class="row col-xs-12">
+                                <li class="col-xs-11 col-sm-11">
+                                    <input type="text" class="form-control steps col-sm-12" name="item[2][step]" value=""/>
+                                </li>
+                                <button type="button" class="delete_step_button"><span class="delete_step col-xs-1 col-sm-1">x</span></button>
+                            </div>
+                            <div class="row col-xs-12">
+                                <li class="col-xs-11 col-sm-11">
+                                    <input type="text" class="form-control steps col-sm-12" name="item[3][step]" value=""/>
+                                </li>
+                                <button type="button" class="delete_step_button"><span class="delete_step col-xs-1 col-sm-1">x</span></button>
+                            </div>
                         <?php endif ?>
                             <!-- END PHP REPEAT HERE -->
 
@@ -212,6 +232,7 @@ require_once '../controllers/makeRecipe/addRecipe.php'; //This checks and adds r
                     <?php endif ?>
                         </ol>
                         <p id="moreRows">Add More Rows</p>
+                        <p id="update_steps_error_mssg"></p>
                     </div>
                 </div>
             </fieldset>

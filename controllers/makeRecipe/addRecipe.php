@@ -196,16 +196,25 @@ if(isset($_POST["addRecipe"])) {
     function allRecipeSteps() {
         $steps = "";
         $count = 0;
+        $count2 = 0;
         foreach($_POST['item'] as $key => $value) {
+            //COUNT TOTAL NUMBER OF STEPS
             $count++;
         }
         foreach($_POST['item'] as $key => $value) {
-            if(($count-1) == $key) {
-                $val = trim($value['step']);
-                $steps .= $val;
-            } else {
-                $val = trim($value['step']);
-                $steps .= ($val . ';');
+            $count2++;
+            //IF THE VALUE ISN'T NULL, THEN CONTINUE
+            if($value["step"] != "") {
+                //IF WE'RE AT THE LAST STEP, DON'T ADD THE SEPARATOR
+                if($count == $count2) {
+                    $val = trim($value['step']);
+                    $steps .= $val;
+                }
+                //OTHERWISE, ADD THE SEPARATOR 
+                else {
+                    $val = trim($value['step']);
+                    $steps .= ($val . ';');
+                }
             }
         }
         return $steps;
