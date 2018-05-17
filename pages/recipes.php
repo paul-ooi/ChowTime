@@ -144,6 +144,8 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                         </div>
                         <div class="form-row justify-content-center">
                             <input type="submit" name="emailRecipe" value="Email Recipe" class="btn">
+                        </div>
+                        <div class="form-row justify-content-center">
                             <div>
                                 <small class="text-muted">
                                 <?php if(isset($_SESSION['email_mssg'])) {

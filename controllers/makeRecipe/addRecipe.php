@@ -220,6 +220,7 @@ if(isset($_POST["addRecipe"])) {
         return $steps;
     }
 
+
     function recipeStepsReturn() {
         if(isset($_POST['item'])) {
             if(empty($_POST['item'][0]['step'])) {

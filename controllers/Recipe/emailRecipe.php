@@ -90,15 +90,15 @@ if (isset($_POST['emailRecipe'])) {
         }
         catch(Exception $e) {            
             $_SESSION['email_mssg'] = $e->getMessage();
-            header("Location: ../../pages/recipes.php" . $recipe_id);
+            header("Location: ../../pages/recipes.php?&id=" . $recipe_id);
         }
     }
     else {
-        header("Location: ../../pages/recipes.php" . $recipe_id);
+        header("Location: ../../pages/recipes.php?&id=" . $recipe_id);
     }
 }
 else {
-    header("Location: ../../pages/recipes.php" . $recipe_id);
+    header("Location: ../../pages/recipes.php?&id=" . $recipe_id);
 }
 
 function send_email($to_address, $to_name, $from_address, $from_name, 
@@ -116,12 +116,12 @@ function send_email($to_address, $to_name, $from_address, $from_name,
     // **** You must change the following to match your
     // **** SMTP server and account information.    
     $mail->isSMTP();                             // Set mailer to use SMTP
-    $mail->Host = 'smtp.gmail.com';              // Set SMTP server
+    $mail->Host = 'p3plcpnl0734.prod.phx3.secureserver.net';              // Set SMTP server
     $mail->SMTPSecure = 'tls';                   // Set encryption type
-    $mail->Port = 587;                           // Set TCP port
+    $mail->Port = 25;                           // Set TCP port
     $mail->SMTPAuth = true;                      // Enable SMTP authentication
-    $mail->Username = 'chowtimeauthentication@gmail.com'; // Set SMTP username
-    $mail->Password = 'chowtimepass';           // Set SMTP password (ndubhtmajcwysttl)
+    $mail->Username = 'jessica@jesswong.ca'; // Set SMTP username
+    $mail->Password = 'Canada1!';           // Set SMTP password (ndubhtmajcwysttl)
     $mail->SMTPOptions = array(
         'ssl' => array(
             'verify_peer' => false,
