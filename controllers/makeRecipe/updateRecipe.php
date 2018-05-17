@@ -202,37 +202,6 @@ if(isset($_POST['update'])) {
     }
 
     //RETURN ALL STEPS TO ADD TO DATABASE
-    // function getAllSteps() {
-    //     $steps = "";
-    //     $count = 0;
-    //     $count2 = 0;
-    //     foreach($_POST['item'] as $key => $value) {
-    //         //COUNT TOTAL NUMBER OF STEPS
-    //         $count++;
-    //     }
-    //     foreach($_POST['item'] as $key => $value) {
-    //         $count2++;
-    //         //IF THE VALUE ISN'T NULL, THEN CONTINUE
-    //         if($value["step"] != "") {
-    //             //IF WE'RE AT THE LAST STEP, DON'T ADD THE SEPARATOR
-    //             if($count == $count2) {
-    //                 $val = trim($value['step']);
-    //                 $steps .= $val;
-    //             }
-    //             //OTHERWISE, ADD THE SEPARATOR 
-    //             else {
-    //                 $val = trim($value['step']);
-    //                 $steps .= ($val . ';');
-    //             }
-    //         }
-    //     }
-    //     // return $steps;
-    // }
-
-
-
-
-//RETURN ALL STEPS TO ADD TO DATABASE
 function getAllSteps() {
     $steps = "";
     $count = 0;
