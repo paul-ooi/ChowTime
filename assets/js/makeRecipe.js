@@ -3,10 +3,14 @@ $(document).ready(function(){
     // ADDING A NEW STEP //
     var count = ($(".steps").length) - 1;
     $("#moreRows").click(function(){
-        //APPEND ANOTHER INPUT TYPE. FOR EACH NEW ROW
+        //CLEAR ERROR MESSAGE
+        $("#update_steps_error_mssg").html("");
+        //APPEND ANOTHER INPUT TYPE. FOR EACH NEW ROW. Add CSS CURSOR TO EACH X
         count ++;
         var instruction = "<div class='row col-xs-12'><li class='col-xs-11 col-sm-11'><input type='text' class='form-control steps col-sm-12' name='item[" + count +"][step]' value='' /></li><button type='button' class='delete_step_button'><span class='delete_step col-xs-1 col-sm-1'>x</span></button></div>";
+        $(".delete_step_button").css("cursor", "pointer");
         $(".list-of-instructions").append(instruction);
+        document.addEventListener("click", onClickDeleteStep());
     })
 
     //STYLING FOR ADDING MORE ROWS TEXT
@@ -19,12 +23,25 @@ $(document).ready(function(){
     })
 
     //DELETING A ROW ON CLICK OF THE X
-    $(".delete_step_button").css("cursor", "pointer");
-    $(".delete_step_button").click(function(e){
-        //GET THE ROW THAT WAS CLICKED AND REMOVE BOTH X AND ROW
-        e.currentTarget.previousElementSibling.remove();
-        this.remove();
-    })
+    onClickDeleteStep();
+    function onClickDeleteStep() {
+        //CLEAR ERROR MESSAGE
+        $("#update_steps_error_mssg").html("");
+        $(".delete_step_button").css("cursor", "pointer");
+        $(".delete_step_button").click(function (e) {
+            //CHECK THAT IT ISN'T THE LAST STEP
+            if ((e.currentTarget.offsetParent.children["0"].children.length) > 1) {
+                console.log("greater than 1");
+                //GET THE ROW THAT WAS CLICKED AND REMOVE BOTH X AND ROW
+                e.originalEvent.path[2].remove();
+                this.remove();
+            }
+            else {
+                $("#update_steps_error_mssg").html("You can't make a recipe without steps!");
+                $("#update_steps_error_mssg").css("color", "red");
+            }
+        })   
+    }
 
     // DELETING/EDITING IMAGES //
     //ON HOVER OF THE IMAGE, SHOW THE SPECIFIC BUTTON

@@ -204,11 +204,15 @@ if(isset($_POST['update'])) {
     function getAllSteps() {
         $steps = "";
         $count = 0;
+        $count2 = 0;
         foreach($_POST['item'] as $key => $value) {
+            //COUNT TOTAL NUMBER OF STEPS
             $count++;
         }
         foreach($_POST['item'] as $key => $value) {
-            if(($count-1) == $key) {
+            $count2++;
+            //IF WE'RE AT THE LAST STEP, DON'T ADD THE SEPARATOR
+            if($count == $count2) {
                 $val = trim($value['step']);
                 $steps .= $val;
             } else {
@@ -423,13 +427,3 @@ if(isset($_POST['update'])) {
 
 
  ?>
-
- <!--     if(checkForEmptySteps() == null || $title == null || $desc == null || $prepTime == null || $cookTime == null || $dishDiff == null || $ingredDiff == null || $overallDiff == null || $spiceLvl == null || $date == null || $time == null){
-        $errors['update_input_error'] = "Please fill out all fields to update your recipe";
-        createSession($errors);
-        return false;
-    } else {
-        unset($_SESSION['recipe_err_mssg']);
-        //UPDATE SET VALUES THEN UPDATE
-
-    } -->

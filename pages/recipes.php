@@ -60,11 +60,7 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     </form>
                 </div>
                 <?php endif ?>
-        <?php endif?>
-        <div itemscope itemtype="http://schema.org/Recipe">
-        
-        
-        <!-- <div class="card" style="width: 100%; background-color: rgba(255, 255, 255, 0.5); margin-top: 2rem;">                     -->
+        <?php endif?>        
         <h2 itemprop="name"><?= $recipe->title ?></h2>
             <div class="row aside-left">
                 <div class="col-sm-6 main-image-thumbnail-container">
@@ -213,8 +209,6 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                     ?>
             </div>           
         </div>
-
-
         <!-- PINTEREST SECTION -->
         <script>
             window.pAsyncInit = function() {
@@ -232,7 +226,8 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
             }(document, 'script', 'pinterest-jssdk'));
         </script>
     </main>
-<!-- </div> -->
+
+<!-- FOOTER/CLEAR SESSIONS  -->
 <?php include 'partial/_footer.php'; ?>
 </body>
 <?php 
