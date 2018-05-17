@@ -189,6 +189,7 @@ if(isset($_POST['update'])) {
         $_SESSION['recipe_err_mssg'] = $err;
     }
 
+    //CHECK NOT ALL STEPS ARE NULL
     function checkForEmptySteps() {
         $steps = "";
         foreach($_POST['item'] as $key => $value) {
@@ -211,13 +212,18 @@ if(isset($_POST['update'])) {
         }
         foreach($_POST['item'] as $key => $value) {
             $count2++;
-            //IF WE'RE AT THE LAST STEP, DON'T ADD THE SEPARATOR
-            if($count == $count2) {
-                $val = trim($value['step']);
-                $steps .= $val;
-            } else {
-                $val = trim($value['step']);
-                $steps .= ($val . ';');
+            //IF THE VALUE ISN'T NULL, THEN CONTINUE
+            if($value["step"] != "") {
+                //IF WE'RE AT THE LAST STEP, DON'T ADD THE SEPARATOR
+                if($count == $count2) {
+                    $val = trim($value['step']);
+                    $steps .= $val;
+                }
+                //OTHERWISE, ADD THE SEPARATOR 
+                else {
+                    $val = trim($value['step']);
+                    $steps .= ($val . ';');
+                }
             }
         }
         return $steps;
