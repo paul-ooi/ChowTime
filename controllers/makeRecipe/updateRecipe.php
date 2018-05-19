@@ -231,37 +231,6 @@ function getAllSteps() {
     return $steps;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //FILE VALIDATION
     function checkFiles($errors, $recipe) {
         if(!isset($_FILES)) {

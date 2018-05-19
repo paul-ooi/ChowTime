@@ -1,14 +1,3 @@
-<?php
-// $root = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT');
-// $appRoot = filter_input(INPUT_SERVER, 'REQUEST_URI');
-// echo "<pre>";
-// var_dump($_SERVER);
-// echo get_include_path();
-// set_include_path($root. $appRoot);
-// echo 'in header';
-// echo get_include_path();
-// echo "</pre>";
-?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -21,3 +10,4 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="/chowtime/assets/css/general.css" type="text/css" rel="stylesheet"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Lato|Montserrat" rel="stylesheet">
