@@ -40,9 +40,9 @@ $totalTime = RecipeDb::totalRecipeTime($recipe_id);
 $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
 //====================================================
 ?>
-<header class="container ddwrapper">
+<!-- <header class="container ddwrapper">
+</header> -->
     <?php require_once 'partial/_mainnav.php' ?>
-</header>
 <div id="background-image">
     <main>
         <!-- IF USER IS THE SAME AS THE ONE WHO CREATED THE RECIPE, THEY CAN ALSO EDIT. -->

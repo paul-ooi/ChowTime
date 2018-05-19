@@ -11,9 +11,8 @@ require_once 'partial/_header.php';
 <?php
 require_once 'Whats-cooking.php';
 ?>
-<header class="container ddwrapper">
-    <?php require_once 'partial/_mainnav.php' ?>
-</header>
+
+<?php require_once 'partial/_mainnav.php' ?>
 <main>
     <div class="title-blurb-container">
         <h1>What's Cooking?</h1>
