@@ -47,7 +47,6 @@ a:hover {
 }
 .btn:hover, .btn:active {
 	color:  rgb(85, 85, 85);
-	background-color: #ca8a199c;
 }
 
 ul {
@@ -66,10 +65,8 @@ ul {
 	margin: 0.25em;
 }
 
-.wrapper {
-	width: 80%;
-	padding: 25px 0;
-	margin: 0 auto;
+.comment-wrapper {
+	padding-bottom: 1rem;
 }
 
 .media {
@@ -156,59 +153,58 @@ h2 {
 }
 
 /* CHOWTIME HANDWRITTEN SCRIPT */
-	.st0{
-		/* fill:transparent; */
-		fill: transparent;
-		stroke:#000000;
-		stroke-linecap:round;
-		stroke-linejoin:round;
-		stroke-miterlimit:10;
-		stroke-width: 4;
-	}
-	.st1{
-		fill:transparent;stroke:#000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
-		stroke-dasharray: 46;
-		stroke-width: 4;
-		animation: t 2s linear;
-	}
-	.st2{
-		fill:transparent;stroke:#000000;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;
-		stroke-dasharray: 4;
-		stroke-width: 4;
-		animation: i 2s linear;
-	}
-	#ch {
-		stroke-dasharray: 488;
-		animation: ch 2s linear;
-	}
-	#ow {
-		stroke-dasharray: 410;
-		animation: ow 2s linear;
-	}
-
-	#time {
-		stroke-dasharray: 630;
-		animation: time 2s linear;
-	}
-
-@keyframes ch {
-	0% {stroke-dashoffset: 626;}
-	25% {stroke-dashoffset: 0;}
+#chow {
+	stroke-dasharray: 750;
+	animation: chow 5s linear;
 }
-@keyframes ow {
-	0% , 25% {stroke-dashoffset: 410;}
+
+.chowtime {
+	fill:none;
+	stroke-width: 8;
+	stroke:#010101;
+	stroke-miterlimit:10;
+	stroke-linecap: round;
+}
+
+@keyframes chow {
+	0% {stroke-dashoffset: 750;}
 	50% {stroke-dashoffset: 0;}
 }
-@keyframes time {
-	0% , 50% {stroke-dashoffset: 630;}
+
+#topt {
+	stroke-dasharray: 96;
+	animation: topt 5s linear;
+}
+
+#bottomt {
+	stroke-dasharray: 83;
+	animation: bottomt 5s linear;
+}
+
+#ime {
+	stroke-dasharray: 498;
+	animation: ime 5s linear;
+}
+
+#dot {
+	stroke-dasharray: 3;
+	animation: dot 5s linear;
+}
+
+@keyframes topt {
+	0%, 50% {stroke-dashoffset: 96;}
+	55% {stroke-dashoffset: 0;}
+}
+@keyframes bottomt {
+	0%, 55% {stroke-dashoffset: 83;}
+	60% {stroke-dashoffset: 0;}
+}
+@keyframes ime {
+	0%, 60% {stroke-dashoffset: 498;}
 	90% {stroke-dashoffset: 0;}
 }
-@keyframes t {
-	0%, 90% {stroke-dashoffset: 46;}
-	95% {stroke-dashoffset: 0;}
-}
-@keyframes i {
-	0%, 95% {stroke-dashoffset: 4;}
+@keyframes dot {
+	0%, 90% {stroke-dashoffset: 3;}
 	100% {stroke-dashoffset: 0;}
 }
 
@@ -216,13 +212,13 @@ h2 {
 
 footer {
 	background-color: rgba(104, 144, 144, 0.78);
-	padding: 2em;
+	padding: 0.5rem;
 	font-family: 'Montserrat', sans-serif;
 	color: #FFF;
 }
 
 .footer-text {
-	padding: 1rem;
+	padding: 0.5rem;
 }
 
 footer a {
@@ -235,4 +231,9 @@ footer a {
 
 .footer-logo {
 	width: 100%;
+}
+
+/* COMMENT BOX */
+.comment-box {
+	padding-bottom: 1rem;
 }

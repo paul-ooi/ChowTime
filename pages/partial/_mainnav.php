@@ -45,7 +45,4 @@
             <a href="/chowtime/index.php"><img class="mx-auto" id="logo" src="/chowtime/assets/imgs/ct-logo.png" alt="Chow Time logo - Plate with fork and knife arranged like locator marker"/></a>
         </div>
     </div>
-
-
-
 </div>

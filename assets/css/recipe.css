@@ -23,11 +23,17 @@ main {
 
 h3 {
     font-size: 25px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 /* PAGE TITLE */
 #title {
     padding-left: 15px;
+}
+
+.recipe-title {
+    border-bottom: 1px solid black;
+    text-transform: capitalize;
 }
 
 /* IMAGES */
@@ -59,11 +65,10 @@ h3 {
     overflow: hidden;
 }
 
-/* EMAIL SECTION */
-#email_recipe {
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+.carousel-inner {
+    height: 300px;
 }
+
 
 /* ICONS */
 .icon-img-container {
@@ -85,7 +90,6 @@ h3 {
 }
 
 /* MEDIA QUERIES */
-
 @media (max-width: 900px) {
     .thumbnail-container {
         width: 5rem;

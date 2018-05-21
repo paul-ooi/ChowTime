@@ -258,11 +258,11 @@ if(isset($_SESSION['user_id'])) {
             <?php if(isset($user_id)) {
 
             } ?>
-            <input type="submit" id="update" name="update" value="Save" class="btn btn-info"/>
+            <input type="submit" id="update" name="update" value="Save" class="btn"/>
         </form>
         <form enctype="multipart/form-data" method="POST" action="../controllers/makeRecipe/deleteRecipe.php">
             <?php if($userRole['admin'] == 1) : ?>
-                <input type="submit" id="delete" name="delete" value="Delete Recipe" class="btn btn-info" />
+                <input type="submit" id="delete" name="delete" value="Delete Recipe" class="btn" />
                 <input type="hidden" name="recipe_id" value="<?php if(isset($recipe_id)) {echo $recipe_id;} ?>" />
                 <input type="hidden" name="user_role" value="<?php if(isset($userRole)) {echo $userRole[0];} ?>" />
             <?php endif ?>

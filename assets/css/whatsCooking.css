@@ -6,6 +6,11 @@
 main {
     width: 100%;
     margin: 0 auto;
+    font-family: 'Montserrat', 'Helvetica', sans-serif;
+}
+
+p {
+    font-size: 1.3em;
 }
 
 .map-filter-container {
@@ -19,6 +24,7 @@ main {
 
 /* MAP */
 #map {
+    /* height: 500px; */
     height: 500px;
     margin: 0 auto;
     margin-bottom: 2rem;
