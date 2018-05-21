@@ -107,30 +107,27 @@ if (isset($_SESSION['user_id'])){
         $dislikes = $l->getDislikesByRecipe($db, $recipe_id);
     }
 ?>
-<section id="communityRate">
-    <div class="wrapper">
-        <form action="" method="post">
-            <div class="btn-group btn-group-lg" role="group" aria-label="...">
-                <!-- Like -->
-                <button class="btn btn-default" type="submit" name="like"><i class="fas fa-thumbs-up"></i> <?php echo $likes[0]->count; ?></button>
-                <!-- Dislike -->
-                <button class="btn btn-default" type="submit" name="dislike"><i class="fas fa-thumbs-down"></i> <?php echo $dislikes[0]->count; ?></button>
-            </div>
-        </form>
-    </div>
-</section>
+
 <section id="commentBox">
-    <div class="wrapper">
-        <h3>Add Comment</h3>
-        <form action="details.php" method="post">
-            <div>
-                <textarea class="form-control" name="commentInput" rows="4"></textarea>
-            </div>
-            <div>
-                <input type="submit" class="btn btn-default" name="add" value="Post" />
-            </div>
-        </form>
-    </div>
+    <h3>Add Comment</h3>
+    <form action="details.php" method="post">
+        <div class="comment-wrapper">
+            <textarea class="form-control" name="commentInput" rows="4"></textarea>
+        </div>
+        <div class="comment-wrapper">
+            <input type="submit" class="btn btn-default" name="add" value="Post" />
+        </div>
+    </form>
+</section>
+<section id="communityRate">
+    <form action="" method="post">
+        <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <!-- Like -->
+            <button class="btn btn-default" type="submit" name="like"><i class="fas fa-thumbs-up"></i> <?php echo $likes[0]->count; ?></button>
+            <!-- Dislike -->
+            <button class="btn btn-default" type="submit" name="dislike"><i class="fas fa-thumbs-down"></i> <?php echo $dislikes[0]->count; ?></button>
+        </div>
+    </form>
 </section>
 <section>
 <?php

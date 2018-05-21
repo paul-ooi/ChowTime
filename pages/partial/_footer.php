@@ -12,7 +12,7 @@
         </div>
         <div class="col-9">
         <!-- SITE MAP LINKS -->
-    <nav class="col-sm-12 col-lg-12 mb-4">
+    <nav class="col-sm-12 col-lg-12 mb-2">
         <ul class="nav d-flex flex-row-reverse" id=" sitemap ">
             <li><a class="nav-link" href="/chowtime/pages/events.php" title="What events are happening">Events</a></li>
             <li><a class="nav-link" href="/chowtime/pages/recipes.php" title="Show me all the recipes">Recipes</a></li>
