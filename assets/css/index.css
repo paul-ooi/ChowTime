@@ -52,6 +52,8 @@ h2 {
 /* CHOWTIME HANDWRITTEN SCRIPT */
 #chow {
 	stroke-dasharray: 750;
+	-moz-animation: chow 5s linear;
+	-webkit-animation: chow 5s linear;
 	animation: chow 5s linear;
 }
 
@@ -71,21 +73,29 @@ h2 {
 #topt {
 	stroke-dasharray: 96;
 	animation: topt 5s linear;
+	-moz-animation: topt 5s linear;
+	-webkit-animation: topt 5s linear;
 }
 
 #bottomt {
 	stroke-dasharray: 83;
 	animation: bottomt 5s linear;
+	-moz-animation: bottomt 5s linear;
+	-webkit-animation: bottomt 5s linear;
 }
 
 #ime {
 	stroke-dasharray: 498;
 	animation: ime 5s linear;
+	-moz-animation: ime 5s linear;
+	-webkit-animation: ime 5s linear;
 }
 
 #dot {
 	stroke-dasharray: 3;
 	animation: dot 5s linear;
+	-webkit-animation: dot 5s linear;
+	-moz-animation: dot 5s linear;
 }
 
 @keyframes topt {
