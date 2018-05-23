@@ -67,7 +67,7 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
         <!-- CONTAINER LEFT -->
         <div class="container">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-lg-3">
                 <!-- RECIPE NAME AND CAROUSEL CONTAINER -->
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                         <ol class="carousel-indicators">
@@ -144,7 +144,7 @@ $recipe_owner_id = RecipeDb::getRecipeOwner($recipe_id);
                         </div>
                     </div>
                 </div>
-                <div class="col-md-8">
+                <div class="col-lg-8 offset-lg-1">
                     <!-- INGREDIENTS -->
                     <h3 class="recipe-title">Ingredients</h3>
                     <span>Prep Time:</span>

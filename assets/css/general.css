@@ -77,7 +77,6 @@ ul {
 	margin-right: 10px;
 }
 
-
 /* 2) FORMS */
 .error {
 	color: red;
@@ -236,4 +235,15 @@ footer a {
 /* COMMENT BOX */
 .comment-box {
 	padding-bottom: 1rem;
+}
+
+
+/* MEDIA */
+@media (max-width: 767.98px) {
+	#chow {
+		width: 7em;
+	}
+	#time {
+		width: 7em;
+	}
 }

@@ -30,7 +30,7 @@ h2 {
 	align-items: center;
 	position: relative;
 	width: 75%;
-	height: 12em;
+	height: 15em;
 	background-color: rgba(73, 87, 105, 0.8);
 }
 #searchAll {
@@ -48,7 +48,6 @@ h2 {
 #searchResults h2 {
 	color: #000;
 }
-
 
 /* CHOWTIME HANDWRITTEN SCRIPT */
 #chow {
@@ -107,3 +106,12 @@ h2 {
 }
 
 
+/* MEDIA */
+@media (max-width: 767.98px) {
+	#chow {
+		width: 7em;
+	}
+	#time {
+		width: 7em;
+	}
+}
