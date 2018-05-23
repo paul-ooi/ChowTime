@@ -31,7 +31,7 @@ h2 {
 	position: relative;
 	width: 75%;
 	height: 12em;
-	background-color: rgba(73, 87, 105, 1);
+	background-color: rgba(73, 87, 105, 0.8);
 }
 #searchAll {
 	display: flex;

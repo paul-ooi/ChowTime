@@ -25,6 +25,10 @@
                         <a class="nav-item nav-link" href="/chowtime/pages/yourProfile.php">Profile</a>
                         <a class="nav-item nav-link invisible" href="/chowtime/pages/yourProfile.php">Profile</a>
                     </div>
+                    <div class="nav-container">
+                        <a class="nav-item nav-link" href="/chowtime/pages/timers.php">My Timers</a>
+                        <a class="nav-item nav-link invisible" href="/chowtime/pages/timers.php">My Timers</a>
+                    </div>
                 <?php endif ?>
             </div>
         </div>
@@ -34,7 +38,7 @@
             </form>
         <?php } else { ?>
             <form class="form-inline my-2 my-lg-0" action="/chowtime/pages/login.php" method="post">
-                <button class="btn my-2 my-sm-0" type="submit">Lougout</button>
+                <button class="btn my-2 my-sm-0" type="submit">Logout</button>
             </form>
         <?php } ?>
     </nav>
@@ -42,7 +46,7 @@
     <!-- LOGO && SIGNATURE -->
     <div class="text-center mx-auto" id="title">
         <div class="logo-container">
-            <a href="/chowtime/index.php"><img class="mx-auto" id="logo" src="/chowtime/assets/imgs/ct-logo.png" alt="Chow Time logo - Plate with fork and knife arranged like locator marker"/></a>
+            <a href="/chowtime/index.php"><img class="mx-auto" id="logo" src="/chowtime/assets/imgs/chowtime-v2.svg" alt="Chow Time logo - Plate with fork and knife arranged like locator marker"/></a>
         </div>
     </div>
 </div>
